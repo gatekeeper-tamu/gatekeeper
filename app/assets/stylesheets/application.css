@@ -13,3 +13,49 @@
  *= require_tree .
  *= require_self
  */
+
+:root {
+  --white: #ffffff;
+  --lightgrey: #fafafa;
+  --greypurple: #bbaeae;
+  --magenta: #973756;
+  --purple: #69193E;
+  --mauve: #572F41;
+  --sage: #6F8A79;
+}
+
+ body {
+   background-color: var(--white);
+   color: var(--mauve) !important;
+   font-family: 'Libre Franklin', sans-serif;
+ }
+
+ a, a:hover {
+   color: var(--magenta);
+ }
+
+ .center {
+  display:flex;justify-content:center;align-items:center;
+ }
+
+ .main {
+   text-align: center;
+   margin-top: 20vh;
+ }
+
+ .navbar {
+   /* background-color: var(--white) !important; */
+   box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%);
+ }
+
+ #button-login {
+   background-color: var(--purple);
+   width: 200px;
+   height: 50px;
+   font-size: 25px;
+   margin: 40px 0px 20px 0px;
+ }
+
+ #button-login:hover {
+  background-color: var(--magenta) !important;
+}
