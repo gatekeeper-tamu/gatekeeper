@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	def show 
-		puts current_user.email
-		render plain: "Success"
-		# @user = User.find(params[:id])
+		@user = current_user
+		puts @user.email
+		puts @user.username
 	end
 end
