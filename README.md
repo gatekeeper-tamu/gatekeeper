@@ -22,7 +22,7 @@
   <p align="center">
     A Ruby on Rails Subscription Manager Application
     <br />
-    <a href="https://github.com/gatekeeper-tamu/gatekeeper"><strong>Explore the app »</strong></a>
+    <a href="https://gatekeeper-tamu.herokuapp.com"><strong>Explore the app »</strong></a>
     <br />
     <br />
     <a href="https://github.com/gatekeeper-tamu/gatekeeper/issues">Report Bug</a>
