@@ -10,12 +10,4 @@ class ApplicationController < ActionController::Base
 			root_path
 		end
 	end
-
-	# def after_sign_up_path_for(resource)
-	# 	if resource.username
-	# 		user_root(resource.username)
-	# 	else
-	# 		welcome_path
-	# 	end
-	# end
 end
