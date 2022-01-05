@@ -24,12 +24,12 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign Up <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign In <span class="sr-only">(current)</span></a>
-        </li>
+        <% if current_user %>
+          <li class="nav-link"><a class="nav-item"><%= link_to "Sign Out", destroy_user_session_path, method: :delete  %> <span class="sr-only">(current)</span></a></li>
+        <% else %>
+          <li class="nav-link"><a class="nav-item"><%= link_to "Sign Up", new_user_registration_path %> <span class="sr-only">(current)</span></a></li>
+          <li class="nav-link"><a class="nav-item"><%= link_to "Sign In", user_session_path %> <span class="sr-only">(current)</span></a></li>
+        <% end %>
         <li class="nav-item">
           <a class="nav-link" href="#">Newsletter <span class="sr-only">(current)</span></a>
         </li>
