@@ -6,22 +6,22 @@ Feature: Log into account
     Scenario: User signs in successfully
 		Given I am on sign in page
 		When I login with valid user credentials
-  		Then I should see a successful login message
+  		Then I should see the profile page
 
 	Scenario: User does not exist
 		Given I do not exist as a user
 		And I am on sign in page
 		When I login with valid user credentials
-		Then I see an invalid login message
+		Then I should see a "User does not exist" message
 
 	Scenario: User enters wrong email
 		Given I exist as a user
 		And I am on sign in page
 		When I login with a wrong email
-		Then I see an invalid login message
+		Then I should see a "Incorrect email or password" message
 
 	Scenario: User enters wrong password
 		Given I exist as a user
 		And I am on sign in page
 		When I login with a wrong password
-		Then I see an invalid login message
+		Then I should see a "Incorrect email or password" message

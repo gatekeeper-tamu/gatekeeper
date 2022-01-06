@@ -106,19 +106,15 @@ end
 Then /^I am on the sign in page$/ do
 	visit "/users/sign_in"
 end
-Then /^I should see a successful login message$/ do
-	#path = "/users/" + @visitor[:email].split("@").first
-	#visit path
-	pending
+Then /^I should see the profile page$/ do
+	path = "/users/" + @visitor[:email].split("@").first
+	visit path	
 end
-Then /^I see an invalid login message$/ do
-	pending
-end
-Then /^I should see an invalid sign up message$/ do
-	pending
+Then /^I should see a "(.*?)" message$/ do |error_mesage|
+	page.has_content?(error_message)
 end
 Then /^I should see a successful logout message$/ do
-	pending
+	page.has_content?("Successfully logged out. Bye!")
 end
 Then /^I return to the site$/ do
 	visit "/"
