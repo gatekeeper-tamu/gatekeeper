@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
-	Warden::Manager.after_authentication do |user,auth,opts|
-		if !user.username and user.email
-			user.username = user.email.split("@").first
-		end
+	before_action :configure_permitted_parameters, if: :devise_controller?
+
+	protected
+	def configure_permitted_parameters
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :username])
 	end
 
+	public
 	def login
 		authenticate_user!
 	end
