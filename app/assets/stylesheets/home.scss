@@ -1,3 +1,17 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+#button-login {
+  background-color: var(--purple);
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  // margin: 0px;
+  margin: 40px 0px 20px 0px;
+}
+
+#button-login:hover {
+ background-color: var(--magenta) !important;
+}

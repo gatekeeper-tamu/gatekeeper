@@ -1,0 +1,10 @@
+<%= render :layout => 'users/shared/cards' do %>
+  <h2 class="card-title">Account Information</h2>
+  <hr/>
+  <p>User: <%= resource.first_name + " " + resource.last_name%></p>
+  <p>Username: <%= resource.username%></p>
+  <p>Email: <%= resource.email%></p>
+  
+
+<% end %>
+

@@ -1,3 +1,7 @@
-<h1>User Profile</h1>
-<br>
-<%= @user.email %>
+<div class="container">
+
+  <%= render '/users/registrations/show.html.erb' , resource: @user, resource_name: User%>
+
+  <%= render '/users/registrations/edit.html.erb' , resource: @user, resource_name: User, devise_mapping: Devise.mappings[:user]%>
+
+</div>

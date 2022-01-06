@@ -1,6 +1,16 @@
 class User < ApplicationRecord
 	devise :omniauthable, omniauth_providers: %i[google_oauth2]
 
+	class << self
+		attr_accessor :email
+		attr_accessor :username
+		attr_accessor :password
+		attr_accessor :first_name
+		attr_accessor :last_name
+		attr_accessor :image_url
+	end
+
+
 	def self.from_omniauth(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 			puts auth
