@@ -19,7 +19,6 @@ def create_user
 	delete_user 
 	User.create @visitor
 	find_user
-	# @user = FactoryBot.create(:user, **@visitor)
 end
 
 def sign_in 
@@ -51,7 +50,6 @@ end
 
 def find_user
 	@user ||= User.where(:email => @visitor[:email]).first
-	# puts "User: #{@user}"
 end
 
 ##### GIVEN #####
