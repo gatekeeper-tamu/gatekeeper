@@ -1,8 +1,9 @@
-def create_user
+def create_visitor
 	@visitor ||= {
 		:email    => "manny@testerman.com",
 		:first_name => "Manny",
 		:last_name => "Testerman",
+		:username => "mannytesterman",
 		:password => "awesome",
 		:password_confirmation => "awesome"
 	}
@@ -13,12 +14,32 @@ def delete_user
 	@user.destroy unless @user.nil?
 end
 
+def create_user
+	create_visitor
+	delete_user 
+	User.create @visitor
+	find_user
+end
+
 def sign_in 
     fill_in "user_email", :with => @visitor[:email]
     fill_in "user_password", :with => @visitor[:password]
     click_button "Log in"
 	find_user
 end
+
+def sign_up
+	delete_user
+	visit '/users/sign_up'
+	fill_in "user_first_name", :with => @visitor[:first_name]
+	fill_in "user_last_name", :with => @visitor[:first_name]
+	fill_in "user_email", :with => @visitor[:email]
+	fill_in "user_username", :with => @visitor[:email]
+	fill_in "user_password", :with => @visitor[:password]
+	fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+	click_button "Sign up"
+	find_user
+  end
 
 def sign_out
 	visit "/"
@@ -64,7 +85,8 @@ When /^I sign out$/ do
 	sign_out
 end
 When /^I sign up with valid user credentials$/ do
-	create_user 
+	create_visitor
+	sign_up
 end
 When /^I sign up with an invalid email$/ do
 	create_user
@@ -107,10 +129,10 @@ Then /^I am on the sign in page$/ do
 	visit "/users/sign_in"
 end
 Then /^I should see the profile page$/ do
-	path = "/users/" + @visitor[:email].split("@").first
+	path = "/users/" + @user[:email].split("@").first
 	visit path	
 end
-Then /^I should see a "(.*?)" message$/ do |error_mesage|
+Then /^I should see a "(.*?)" message$/ do |error_message|
 	page.has_content?(error_message)
 end
 Then /^I should see a successful logout message$/ do
