@@ -1,8 +1,8 @@
 class CreateSubscriptions < ActiveRecord::Migration[6.1]
   def change
     create_table :subscriptions do |t|
-      t.references :user, null: false, foreign_key: true
-      t.string :name
+      t.references :user, null: false, foreign_key: true, type: :uuid
+      t.string :subscription_name
       t.string :encrypted_username
       t.string :encrypted_username_iv
       t.string :encrypted_password

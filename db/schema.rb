@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2022_01_30_065605) do
   enable_extension "plpgsql"
 
   create_table "subscriptions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name"
+    t.uuid "user_id", null: false
+    t.string "subscription_name"
     t.string "encrypted_username"
     t.string "encrypted_username_iv"
     t.string "encrypted_password"
