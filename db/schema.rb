@@ -10,11 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_230233) do
+ActiveRecord::Schema.define(version: 2022_01_30_065605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "encrypted_username"
+    t.string "encrypted_username_iv"
+    t.string "encrypted_password"
+    t.string "encrypted_password_iv"
+    t.string "url"
+    t.float "cost_per_month"
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "username", default: "", null: false
@@ -38,4 +53,5 @@ ActiveRecord::Schema.define(version: 2022_01_29_230233) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "subscriptions", "users"
 end
