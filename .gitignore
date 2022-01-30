@@ -35,5 +35,6 @@
 yarn-debug.log*
 .yarn-integrity
 
-# env
+# secrets
 .env
+*.txt

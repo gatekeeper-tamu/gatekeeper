@@ -17,7 +17,7 @@
   </thead>
 
   <tbody>
-    <% @subscriptions.each do |subscription| %>
+    <% current_user.subscriptions.each do |subscription| %>
       <tr>
         <td><%= subscription.user %></td>
         <td><%= subscription.subscription_name %></td>

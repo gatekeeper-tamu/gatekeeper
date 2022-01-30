@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-	devise :omniauthable, omniauth_providers: %i[google_oauth2]
-
 	class << self
 		attr_accessor :email
 		attr_accessor :username
@@ -10,7 +8,7 @@ class User < ApplicationRecord
 		attr_accessor :image_url
 	end
 
-
+	devise :omniauthable, omniauth_providers: %i[google_oauth2]
 	def self.from_omniauth(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 			puts auth
@@ -25,10 +23,11 @@ class User < ApplicationRecord
 			# user.skip_confirmation!
 		end
 	end
-
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :validatable,
 			:timeoutable, :omniauthable
+	
+	has_many :subscriptions
 end
