@@ -7,8 +7,8 @@
     <tr>
       <th>User</th>
       <th>Name</th>
-      <th>Encrypted username</th>
-      <th>Encrypted password</th>
+      <th>Username</th>
+      <th>Password</th>
       <th>Url</th>
       <th>Cost per month</th>
       <th>Image</th>
@@ -21,8 +21,8 @@
       <tr>
         <td><%= subscription.user %></td>
         <td><%= subscription.subscription_name %></td>
-        <td><%= subscription.encrypted_username %></td>
-        <td><%= subscription.encrypted_password %></td>
+        <td><%= subscription.username %></td>
+        <td><%= subscription.redacted_password %></td>
         <td><%= subscription.url %></td>
         <td><%= subscription.cost_per_month %></td>
         <td><%= subscription.image %></td>

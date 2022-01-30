@@ -13,6 +13,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions/new
   def new
     @subscription = Subscription.new
+    @subscription.user = current_user
   end
 
   # GET /subscriptions/1/edit

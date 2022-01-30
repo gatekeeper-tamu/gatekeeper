@@ -1,7 +1,14 @@
 class Subscription < ApplicationRecord
+	has_kms_key
+	
   belongs_to :user
-  usernamekey = Base64.encode64(SecureRandom.random_bytes(32))
-  passkey = Base64.encode64(SecureRandom.random_bytes(32))
-  attr_encrypted :username, key: Base64.decode64(usernamekey), insecure_mode: true
-  attr_encrypted :password, key: Base64.decode64(passkey), insecure_mode: true
+
+  # attr_encrypted_options.merge!(encryptor: SubscriptionEncryptor, encrypt_method: :encrypt, decrypt_method: :decrypt)
+  attr_encrypted :username, key: :kms_key
+  attr_encrypted :password, key: :kms_key
+
+  def redacted_password
+    "*" * password.length
+  end
+
 end

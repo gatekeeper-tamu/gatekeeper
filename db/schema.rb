@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_065605) do
+ActiveRecord::Schema.define(version: 2022_01_30_200633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "subscriptions", force: :cascade do |t|
+  create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.string "subscription_name"
     t.string "encrypted_username"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2022_01_30_065605) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "encrypted_kms_key"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
