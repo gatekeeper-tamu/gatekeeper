@@ -62,7 +62,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-TODO
+Gatekeeper is a subscription management service that allows you to store login information for online services. It has
+a number of useful features such as:
+- Encrypted storage of username and password information
+- Sharing of service entries between friends, family, and other groups
+- Scheduleable reminders to cancel, update, renew, and more.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -74,6 +78,8 @@ TODO
 * [Rails](https://rubyonrails.org/)
 * [Devise](https://github.com/heartcombo/devise)
 * [Bootstrap](https://getbootstrap.com)
+* [attr_encrypted](https://github.com/attr-encrypted/attr_encrypted)
+* [kms_encrypted](https://github.com/ankane/kms_encrypted)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
