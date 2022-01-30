@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 	}
 
 	get 'users/:username' => 'users#show', :as => :user_root
+	get 'subscriptions/' => 'subscriptions#index', :as => :subscription_root
 
 	get 'home/index'
 	root 'home#index'
