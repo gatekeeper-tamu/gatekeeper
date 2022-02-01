@@ -1,4 +1,5 @@
 class SubscriptionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_subscription, only: %i[ show edit update destroy ]
 
   # GET /subscriptions or /subscriptions.json
@@ -62,7 +63,14 @@ class SubscriptionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subscription
-      @subscription = Subscription.find(params[:id])
+      begin
+        @subscription = current_user.subscriptions.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        puts "Can't access this page! Invalid login."
+        redirect_to "/404.html"
+      rescue => exception
+        puts "ERROR! -> #{exception}"
+      end
     end
 
     # Only allow a list of trusted parameters through.
