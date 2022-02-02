@@ -1,0 +1,42 @@
+<%= form_with(model: reminder) do |form| %>
+  <% if reminder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reminder.errors.count, "error") %> prohibited this reminder from being saved:</h2>
+
+      <ul>
+        <% reminder.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :subscription_id %>
+    <%= form.text_field :subscription_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reminder_id %>
+    <%= form.text_field :reminder_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time_delta %>
+    <%= form.text_field :time_delta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recurring %>
+    <%= form.text_field :recurring %>
+  </div>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_field :message %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
