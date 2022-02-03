@@ -25,7 +25,7 @@ class RemindersController < ApplicationController
 
     respond_to do |format|
       if @reminder.save
-        ReminderMailer.with(reminder: @reminder).reminder_email.deliver_later
+        ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_later
 
         format.html { redirect_to reminder_url(@reminder), notice: "Reminder was successfully created." }
         format.json { render :show, status: :created, location: @reminder }
