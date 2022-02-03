@@ -1,5 +1,10 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+    function toggleHidden() {
+      document.getElementById("hidden_password").parentElement.classList.toggle("hidden");
+    }
+</script>
 
+<p id="notice"><%= notice %></p>
 <p>
   <strong>Name:</strong>
   <%= @subscription.subscription_name %>
@@ -12,7 +17,10 @@
 
 <p>
   <strong>Password:</strong>
-  <%= @subscription.redacted_password %>
+  <a id="view-password-button" class="button default ok" onclick=toggleHidden()>
+    View
+  </a>
+  <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
 </p>
 
 <p>

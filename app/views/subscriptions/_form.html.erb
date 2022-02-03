@@ -1,4 +1,15 @@
 <%= render :layout => 'users/shared/cards' do %>
+
+  <script type="text/javascript">
+    function toggleHidden() {
+      if (document.getElementById("password").attr('type') === 'password') {
+        document.getElementById("password").attr('type', 'text');
+      } else {
+        document.getElementById("password").attr('type', 'password');
+      }
+    }
+  </script>
+  
   <%= form_with(model: subscription) do |form| %>
     <% if subscription.errors.any? %>
       <div id="error_explanation">
@@ -24,7 +35,14 @@
 
     <div class="field">
       <%= form.label :password %>
-      <%= form.password_field :password %>
+      <% if has_password %>
+        <%= form.password_field :password, id: "password", value: subscription.password%>
+      <% else %>
+        <%= form.password_field :password, id: "password"%>
+      <% end %>
+      <a id="view-password-button" class="button default ok" onclick="toggleHidden()">
+        View
+      </a>
     </div>
 
     <div class="field">
