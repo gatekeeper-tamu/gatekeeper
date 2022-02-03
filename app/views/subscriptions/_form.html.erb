@@ -2,10 +2,10 @@
 
   <script type="text/javascript">
     function toggleHidden() {
-      if (document.getElementById("password").attr('type') === 'password') {
-        document.getElementById("password").attr('type', 'text');
+      if (document.getElementById("password").type === 'password') {
+        document.getElementById("password").type = 'text';
       } else {
-        document.getElementById("password").attr('type', 'password');
+        document.getElementById("password").type = 'password'
       }
     }
   </script>
