@@ -6,5 +6,5 @@ Feature: Sign out of account
     Scenario: User creates account successfully
 	    Given I am logged in
         When I sign out
-  		  Then I should see a successful logout message
+        Then I should see a successful logout message
         Then I return to the site
