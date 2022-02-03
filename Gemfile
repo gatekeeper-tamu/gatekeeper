@@ -67,7 +67,7 @@ gem "devise", "~> 4.8"
 # Password encryption
 gem "attr_encrypted", "~> 3.1.0"
 gem 'kms_encrypted'
-gem 'vault'
+gem 'aws-sdk-kms'
 
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
