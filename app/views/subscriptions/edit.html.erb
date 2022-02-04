@@ -1,6 +1,10 @@
-<h1>Editing Subscription</h1>
+<%= render :layout => 'users/shared/cards' do %>
+
+<h1 class="card-title">Edit Subscription</h1>
+<hr>
 
 <%= render 'form', subscription: @subscription, has_password: true %>
 
-<%= link_to 'Show', @subscription %> |
-<%= link_to 'Back', subscriptions_path %>
+<%= button_to 'Back', @subscription, method: :get, class: "btn btn-dark"  %>
+<%= button_to 'All Subscriptions', subscriptions_path, method: :get, class: "btn btn-dark"  %>
+<% end %>
