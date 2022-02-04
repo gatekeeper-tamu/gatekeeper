@@ -2,6 +2,23 @@
   <h2 class="card-title">Sign Up</h2>
   <hr/>
 
+  <script type="text/javascript">
+    function toggleHidden1() {
+      if (document.getElementById("password").type === 'password') {
+        document.getElementById("password").type = 'text';
+      } else {
+        document.getElementById("password").type = 'password'
+      }
+    }
+    function toggleHidden2() {
+      if (document.getElementById("password2").type === 'password') {
+        document.getElementById("password2").type = 'text';
+      } else {
+        document.getElementById("password2").type = 'password'
+      }
+    }
+  </script>
+
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "users/shared/error_messages", resource: resource %>
 
@@ -30,12 +47,18 @@
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+      <%= f.password_field :password, autocomplete: "new-password", id: 'password' %>
+      <a id="view-password-button" class="button default ok" onclick="toggleHidden1()">
+        View
+      </a>
     </div>
 
     <div class="field">
       <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", id: 'password2' %>
+      <a id="view-password-button" class="button default ok" onclick="toggleHidden2()">
+        View
+      </a>
     </div>
 
     <div class="actions">

@@ -1,0 +1,67 @@
+<%= render :layout => 'users/shared/cards' do %>
+
+  <script type="text/javascript">
+    function toggleHidden() {
+      if (document.getElementById("password").type === 'password') {
+        document.getElementById("password").type = 'text';
+      } else {
+        document.getElementById("password").type = 'password'
+      }
+    }
+  </script>
+  
+  <%= form_with(model: subscription) do |form| %>
+    <% if subscription.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+
+        <ul>
+          <% subscription.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :subscription_name %>
+      <%= form.text_field :subscription_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :username %>
+      <%= form.text_field :username %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password %>
+      <% if has_password %>
+        <%= form.password_field :password, id: "password", value: subscription.password%>
+      <% else %>
+        <%= form.password_field :password, id: "password"%>
+      <% end %>
+      <a id="view-password-button" class="button default ok" onclick="toggleHidden()">
+        View
+      </a>
+    </div>
+
+    <div class="field">
+      <%= form.label :url %>
+      <%= form.text_field :url %>
+    </div>
+
+    <div class="field">
+      <%= form.label :cost_per_month %>
+      <%= form.text_field :cost_per_month %>
+    </div>
+
+    <div class="field">
+      <%= form.label :image %>
+      <%= form.text_field :image %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+<% end %>

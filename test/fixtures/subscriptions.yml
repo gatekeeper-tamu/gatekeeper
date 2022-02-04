@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  name: MyString
+  encrypted_username: MyString
+  encrypted_username_iv: MyString
+  encrypted_password: MyString
+  encrypted_password_iv: MyString
+  url: MyString
+  cost_per_month: 1.5
+  image: MyString
+
+two:
+  user: two
+  name: MyString
+  encrypted_username: MyString
+  encrypted_username_iv: MyString
+  encrypted_password: MyString
+  encrypted_password_iv: MyString
+  url: MyString
+  cost_per_month: 1.5
+  image: MyString

@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    function toggleHidden() {
+      document.getElementById("hidden_password").parentElement.classList.toggle("hidden");
+    }
+</script>
+
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @subscription.subscription_name %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @subscription.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <a id="view-password-button" class="button default ok" onclick=toggleHidden()>
+    View
+  </a>
+  <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @subscription.url %>
+</p>
+
+<p>
+  <strong>Cost per month:</strong>
+  <%= @subscription.cost_per_month %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @subscription.image %>
+</p>
+
+<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+<%= link_to 'Back', subscriptions_path %>

@@ -4,7 +4,8 @@ Feature: Log into account
     So that I can access my profile
 	
     Scenario: User signs in successfully
-		Given I am on sign in page
+		Given I exist as a user
+		And I am on sign in page
 		When I login with valid user credentials
   		Then I should see the profile page
 

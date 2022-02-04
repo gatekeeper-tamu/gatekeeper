@@ -64,5 +64,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.8"
 
+# Password encryption
+gem "attr_encrypted", "~> 3.1.0"
+gem 'kms_encrypted'
+gem 'aws-sdk-kms'
+
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"

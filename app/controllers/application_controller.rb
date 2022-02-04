@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
 
 	def after_sign_in_path_for(resource)
 		stored_location_for(resource) || if resource.is_a?(User) && resource.username
-			user_root_path(resource.username)
+			subscription_root_path # (resource.username)
 		else
+			puts "couldn't find path for #{resource}"
 			root_path
 		end
 	end
