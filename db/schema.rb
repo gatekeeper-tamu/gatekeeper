@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_033137) do
+ActiveRecord::Schema.define(version: 2022_02_04_201708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2022_02_04_033137) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_memberships_on_group_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "shared_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "subscription_id", null: false
+    t.uuid "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_shared_subscriptions_on_group_id"
+    t.index ["subscription_id"], name: "index_shared_subscriptions_on_subscription_id"
   end
 
   create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -71,8 +80,10 @@ ActiveRecord::Schema.define(version: 2022_02_04_033137) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "groups", "users"
-  add_foreign_key "memberships", "groups"
-  add_foreign_key "memberships", "users"
+  add_foreign_key "groups", "users", on_delete: :cascade
+  add_foreign_key "memberships", "groups", on_delete: :cascade
+  add_foreign_key "memberships", "users", on_delete: :cascade
+  add_foreign_key "shared_subscriptions", "groups", on_delete: :cascade
+  add_foreign_key "shared_subscriptions", "subscriptions", on_delete: :cascade
   add_foreign_key "subscriptions", "users"
 end
