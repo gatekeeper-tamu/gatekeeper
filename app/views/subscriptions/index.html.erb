@@ -12,16 +12,16 @@
           <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
 
           </div>
-          <%
-=begin%>
- <img class="card-img-top" src="..." alt=<%= subscription.image %>> 
-<%
-=end%>
           <div class="card-body">
             <h5 class=""><%= subscription.subscription_name %></h5>
-            <p class="card-text">username: <%= subscription.username %></p>
+            <p class="card-text">Username: <%= subscription.username %></p>
         
-            <%= button_to 'view subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
+            <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
+            <%if Rails.env.test? %>
+              <%= link_to 'Destroy', subscription, method: :delete%>
+            <%else%>
+              <%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%end%>
 
           </div>
         </div>
