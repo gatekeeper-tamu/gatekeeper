@@ -1,11 +1,10 @@
-<%= render :layout => 'users/shared/cards' do %>
 
   <script type="text/javascript">
     function toggleHidden() {
-      if (document.getElementById("password").type === 'password') {
-        document.getElementById("password").type = 'text';
+      if (document.getElementById("subscription_password").type === 'password') {
+        document.getElementById("subscription_password").type = 'text';
       } else {
-        document.getElementById("password").type = 'password'
+        document.getElementById("subscription_password").type = 'password'
       }
     }
   </script>
@@ -36,9 +35,9 @@
     <div class="field">
       <%= form.label :password %>
       <% if has_password %>
-        <%= form.password_field :password, id: "password", value: subscription.password%>
+        <%= form.password_field :password, value: subscription.password%>
       <% else %>
-        <%= form.password_field :password, id: "password"%>
+        <%= form.password_field :password %>
       <% end %>
       <a id="view-password-button" class="button default ok" onclick="toggleHidden()">
         View
@@ -61,7 +60,6 @@
     </div>
 
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit class:"btn btn-dark"%>
     </div>
   <% end %>
-<% end %>

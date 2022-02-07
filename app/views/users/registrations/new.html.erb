@@ -4,17 +4,17 @@
 
   <script type="text/javascript">
     function toggleHidden1() {
-      if (document.getElementById("password").type === 'password') {
-        document.getElementById("password").type = 'text';
+      if (document.getElementById("user_password").type === 'password') {
+        document.getElementById("user_password").type = 'text';
       } else {
-        document.getElementById("password").type = 'password'
+        document.getElementById("user_password").type = 'password'
       }
     }
     function toggleHidden2() {
-      if (document.getElementById("password2").type === 'password') {
-        document.getElementById("password2").type = 'text';
+      if (document.getElementById("user_password_confirmation").type === 'password') {
+        document.getElementById("user_password_confirmation").type = 'text';
       } else {
-        document.getElementById("password2").type = 'password'
+        document.getElementById("user_password_confirmation").type = 'password'
       }
     }
   </script>
@@ -47,7 +47,7 @@
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", id: 'password' %>
+      <%= f.password_field :password, autocomplete: "new-password"%>
       <a id="view-password-button" class="button default ok" onclick="toggleHidden1()">
         View
       </a>
@@ -55,7 +55,7 @@
 
     <div class="field">
       <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", id: 'password2' %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password"%>
       <a id="view-password-button" class="button default ok" onclick="toggleHidden2()">
         View
       </a>

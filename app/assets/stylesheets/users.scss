@@ -45,3 +45,10 @@
 #user_remember_me {
   width: fit-content !important;
 }
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 90vw;
+  }
+
+}

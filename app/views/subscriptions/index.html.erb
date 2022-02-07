@@ -1,41 +1,33 @@
+<%= render :layout => 'subscriptions/shared/layout' do %>
 <p id="notice"><%= notice %></p>
 
-<h1>Subscriptions</h1>
+<h1>Your Subscriptions</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Password</th>
-      <th>Url</th>
-      <th>Cost per month</th>
-      <th>Image</th>
-      <th colspan="5"></th>
-    </tr>
-  </thead>
+<hr class="section-break">
+  <% @subscriptions.in_groups_of(3, false).each do |group| %>
+  <div class="row">
+    <% group.each do |subscription| %>
+      <div class="col col-sm-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
 
-  <tbody>
-    <% @subscriptions.each do |subscription| %>
-      <tr>
-        <td><%= subscription.subscription_name %></td>
-        <td><%= subscription.username %></td>
-        <td><%= subscription.redacted_password %></td>
-        <td><%= subscription.url %></td>
-        <td><%= subscription.cost_per_month %></td>
-        <td><%= subscription.image %></td>
-        <td><%= link_to 'Show', subscription %></td>
-        <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
-        <%if Rails.env.test? %>
-          <td><%= link_to 'Destroy', subscription, method: :delete%></td>
-        <%else%>
-          <td><%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <%end%>
-      </tr>
+          </div>
+          <div class="card-body">
+            <h5 class=""><%= subscription.subscription_name %></h5>
+            <p class="card-text">Username: <%= subscription.username %></p>
+        
+            <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
+
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <% end %>
+
 
 <br>
 
-<%= link_to 'New Subscription', new_subscription_path %>
+<%= button_to 'New Subscription', new_subscription_path, method: :get, class: "btn btn-dark" %>
+
+<% end %>

@@ -4,39 +4,34 @@
     }
 </script>
 
-<p id="notice"><%= notice %></p>
-<p>
-  <strong>Name:</strong>
-  <%= @subscription.subscription_name %>
-</p>
+<%= render :layout => 'subscriptions/shared/show' do %>
 
-<p>
-  <strong>Username:</strong>
-  <%= @subscription.username %>
-</p>
+<h1 class="card-title">Subscription Information</h1>
+<hr>
+<p class="subscription-card-title">Name</p>
+<p><%= @subscription.subscription_name %></p>
 
-<p>
-  <strong>Password:</strong>
-  <a id="view-password-button" class="button default ok" onclick=toggleHidden()>
-    View
+<p class="subscription-card-title">Username</p>
+<p><%= @subscription.username %></p>
+
+<p class="subscription-card-title">Password</p>
+<p><a id="view-password-button" class="button default ok" onclick=toggleHidden()>    View
   </a>
   <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
 </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @subscription.url %>
-</p>
+<p class="subscription-card-title">Url</p>
+<p><%= @subscription.url %></p>
 
-<p>
-  <strong>Cost per month:</strong>
-  <%= @subscription.cost_per_month %>
-</p>
+<p class="subscription-card-title">Cost per month</p>
+<p><%= @subscription.cost_per_month %></p>
 
-<p>
-  <strong>Image:</strong>
-  <%= @subscription.image %>
-</p>
+<p class="subscription-card-title">Image</p>
+<p><%= @subscription.image %></p>
 
-<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
-<%= link_to 'Back', subscriptions_path %>
+<%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
+<%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %> 
+<%= button_to 'Back', subscriptions_path, method: :get, class: "btn btn-dark"%>
+
+<p id="notice"><%= notice %></p>
+<% end %>
