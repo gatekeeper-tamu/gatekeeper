@@ -42,7 +42,7 @@ When /^I delete the "(.*)" subscription$/ do |sub_name|
 	# puts "UNDEFINED STEP!!!"
 	# accept_confirm do
 	@subscription = Subscription.where(:subscription_name => sub_name).first
-	page.find("tr", :text => sub_name).click_link "Destroy"
+	click_button "Delete"
 	# page.driver.browser.switch_to.confirm.accept
 end
 

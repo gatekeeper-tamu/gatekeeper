@@ -11,12 +11,14 @@ Feature: Delete Subscription
 		| Google				| anothertest   | RidleyScott	| google.com	| 8.99				|
 		
     Scenario: User deletes a subscription successfully
-		Given I am on the subscriptions "index" page
-		When I delete the "Netflix" subscription
+	    Given I am on the homepage
+		When I view the "Netflix" subscription
+		And I click the "Delete" button
   		Then the "Netflix" subscription should not exist
 	
     Scenario: User tries to view a deleted subscription
-		Given I am on the subscriptions "index" page
-		When I delete the "Netflix" subscription
+	    Given I am on the homepage
+		When I view the "Netflix" subscription
+		And I click the "Delete" button
 		And I view the "Netflix" subscription
   		Then I should see the resource not found page

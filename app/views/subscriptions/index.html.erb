@@ -17,11 +17,6 @@
             <p class="card-text">Username: <%= subscription.username %></p>
         
             <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
-            <%if Rails.env.test? %>
-              <%= link_to 'Destroy', subscription, method: :delete%>
-            <%else%>
-              <%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <%end%>
 
           </div>
         </div>
