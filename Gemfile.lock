@@ -170,6 +170,8 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     ffi (1.15.4)
+    font-awesome-rails (4.7.0.8)
+      railties (>= 3.2, < 8.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
@@ -369,6 +371,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise (~> 4.8)
+  font-awesome-rails
   jbuilder (~> 2.7)
   kms_encrypted
   listen (~> 3.3)
