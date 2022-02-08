@@ -9,4 +9,6 @@ class Group < ApplicationRecord
   # and subscriptions (to access the actual subscriptions that have been added to the group)
   has_many :shared_subscriptions, dependent: :destroy
   has_many :subscriptions, through: :shared_subscriptions
+  
+	validate :owner
 end
