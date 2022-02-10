@@ -10,16 +10,18 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require font-awesome
+ *= require bootstrap  
+ *= require_tree .
  */
-
+ 
 :root {
   --white: #ffffff;
   --lightgrey: #F8F9FA;
   --greypurple: #bbaeae;
   --magenta: #973756;
-  --purple: #69193E;
+  --wine: #69193E;
   --mauve: #572F41;
   --sage: #6F8A79;
 }
@@ -29,6 +31,10 @@
    color: var(--mauve) !important;
    font-family: 'Libre Franklin', sans-serif;
  }
+
+a { 
+  color: var(--wine) !important;;
+}
 
  a, a:hover {
    color: var(--magenta);
