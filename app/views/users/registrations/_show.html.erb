@@ -4,7 +4,11 @@
   <p>User: <%= resource.first_name + " " + resource.last_name%></p>
   <p>Username: <%= resource.username%></p>
   <p>Email: <%= resource.email%></p>
+
+  <hr/>
   
+  <%= button_to "Subscriptions", subscription_root_path, method: :get, class: "btn btn-dark" %>
+  <%= button_to "Groups", group_root_path, method: :get, class: "btn btn-dark" %>
 
 <% end %>
 
