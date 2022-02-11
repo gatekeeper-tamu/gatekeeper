@@ -7,8 +7,9 @@
 
   <hr/>
   
-  <%= button_to "Subscriptions", subscription_root_path, method: :get, class: "btn btn-dark" %>
-  <%= button_to "Groups", group_root_path, method: :get, class: "btn btn-dark" %>
-
+  <% if (@user == current_user) %>
+    <%= button_to "Subscriptions", subscription_root_path, method: :get, class: "btn btn-dark" %>
+    <%= button_to "Groups", group_root_path, method: :get, class: "btn btn-dark" %>
+  <% end %>
 <% end %>
 

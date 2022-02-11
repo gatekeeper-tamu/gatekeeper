@@ -52,6 +52,13 @@
   </nav>
 
   <%= yield %>
-
+  <script>
+    $(document).on('ready page:load', function () {
+      $('#user_ids').chosen({
+        allow_single_deselect: true,
+        width: '100%'
+      })
+    });
+  </script>
   </body>
 </html>

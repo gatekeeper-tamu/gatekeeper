@@ -67,5 +67,14 @@ gem 'aws-sdk-kms'
 # Styling of icons with font-awesome
 gem "font-awesome-rails"
 
+# Fancier forms
+gem "simple_form"
+
+# Autocomplete search
+source 'https://rails-assets.org' do
+  gem 'rails-assets-chosen'
+end
+gem 'bootstrap-chosen-rails'
+
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"

@@ -2,6 +2,7 @@
 
   <%= render '/users/registrations/show.html.erb' , resource: @user, resource_name: User%>
 
-  <%= render '/users/registrations/edit.html.erb' , resource: @user, resource_name: User, devise_mapping: Devise.mappings[:user]%>
-
+  <% if (@user == current_user) %>
+    <%= render '/users/registrations/edit.html.erb' , resource: @user, resource_name: User, devise_mapping: Devise.mappings[:user]%>
+  <% end %>
 </div>

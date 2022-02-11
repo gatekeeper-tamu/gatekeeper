@@ -28,6 +28,7 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :validatable,
 			:timeoutable, :omniauthable
+	validate :username
 	validates_uniqueness_of :username
 	
 	has_many :subscriptions, dependent: :destroy

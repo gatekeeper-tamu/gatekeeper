@@ -10,5 +10,24 @@
   <%= @group.owner.username %>
 </p>
 
+<p>
+  <strong>Members:</strong>
+  <table>
+    <tr>
+      <th colspan="2">Name</th>
+      <th>Username</th>
+      <th>Email</th>
+    </tr>
+    <% @group.users.each do |user| %>
+      <tr>
+        <td><%= user.first_name%></td>
+        <td><%= user.last_name%></td>
+        <td><%= link_to "#{user.username}", user_root_path(user.username) %></td>
+        <td><%= user.email%></td>
+      </tr>
+    <% end %>
+  </table>
+</p>
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>
