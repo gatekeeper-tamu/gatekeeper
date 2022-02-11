@@ -1,0 +1,7 @@
+<div class="nested-fields">
+    <%= f.hidden_field :_destroy %>
+    <%= f.collection_select :user_id, User.where.not(id: current_user.id), :id, :email %>
+    <div>
+        <%= link_to "Remove", '#', class: "remove_fields" %>
+    </div>
+</div>
