@@ -32,9 +32,9 @@ def sign_up(visitor_info)
 
 def sign_out
 	visit "/"
-	if page.text.match?("Sign out")
-		click_link "Sign out"
-	end
+	click_link "Sign Out"
+	page.has_content?("Sign Up")
+	page.has_content?("Sign In")
 end
 
 ##### GIVEN #####
@@ -56,6 +56,10 @@ Given /^I am logged in$/ do
 	visit "/users/sign_in"
 	sign_in(@visitor_info)
 	page.has_content?("Sign out")
+end
+Given(/^I am on my profile page$/) do
+	expect(@user.nil? == false)
+	visit "/users/#{@user.username}"
 end
 
 ##### WHEN #####
@@ -92,7 +96,6 @@ When /^I sign up with up a mismatched password and password confirmation$/ do
 end
 
 When /^I login with valid user credentials$/ do
-	# create_visitor
 	sign_in(@visitor_info)
 end
 When /^I login with a wrong email$/ do
@@ -110,7 +113,7 @@ end
 
 ##### THEN #####
 Then /^I am on the sign in page$/ do
-	visit "/users/sign_in"
+	expect(page).to have_current_path("/users/sign_in", wait: true)
 end
 Then /^I should see the profile page$/ do
 	expect(page).to have_current_path("/subscriptions", wait: true)

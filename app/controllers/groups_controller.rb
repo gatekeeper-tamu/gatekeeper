@@ -62,7 +62,15 @@ class GroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params[:id])
+      begin
+        @group = current_user.owned_groups.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        puts "Can't access this page! Invalid login."
+        redirect_to "/404.html"
+      rescue => exception
+        puts "ERROR! -> #{exception}"
+      end
+      
     end
 
     # Only allow a list of trusted parameters through.
