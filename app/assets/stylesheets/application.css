@@ -12,7 +12,6 @@
  *
  *= require font-awesome
  *= require bootstrap
- *= require chosen
  *= require chosen.bootstrap.min
  *= require_tree .
  *= require_self

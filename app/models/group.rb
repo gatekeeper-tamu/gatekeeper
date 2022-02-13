@@ -4,7 +4,7 @@ class Group < ApplicationRecord
   # sets up tables members (to access membership records) and users (to access the users that belong to the group)
   has_many :members, class_name: 'Membership'
   has_many :users, through: :members
-  accepts_nested_attributes_for :members, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :members, allow_destroy: true
 
   # sets up tables shared_subscriptions (to access shared_subscriptions records) 
   # and subscriptions (to access the actual subscriptions that have been added to the group)

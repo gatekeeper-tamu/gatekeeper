@@ -39,6 +39,7 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
     respond_to do |format|
+      puts group_params
       if @group.update(group_params)
         format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
         format.json { render :show, status: :ok, location: @group }
@@ -75,6 +76,6 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:group_name, :user_ids, members_attributes: [:id, :user_id, :_destroy])
+      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids)
     end
 end

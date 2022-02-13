@@ -12,15 +12,7 @@
   <% end %>
 
   <%= group_form.input :group_name %>
-
-  <%= group_form.association :users, as: :select, collection: User.where.not(id: current_user.id), multiple: true, label_method: :username, input_html: { class: 'chosen-select'} %>
-  <%# <fieldset> %>
-      <%# <legend>Users:</legend> %>
-      <%# <%= group_form.fields_for :members do |users_form| %> 
-          <%# <%= render "member_fields", f: users_form %> 
-      <%# <% end %> 
-      <%# <%= link_to_add_fields "Add Users", group_form, :members %> 
-  <%# </fieldset> %>
+  <%= group_form.association :users, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :username, collection: User.where.not(id: current_user.id)%>
 
   <%= group_form.submit "Submit", class: 'btn' %>
   <%= link_to "Cancel", :back, {:class=>"btn btn-default"} %>
