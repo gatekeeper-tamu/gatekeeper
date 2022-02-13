@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @groups = Group.all
+    @groups = current_user.owned_groups.concat(current_user.groups).sort_by(&:group_name)
   end
 
   # GET /groups/1 or /groups/1.json
@@ -76,6 +76,6 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids)
+      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, {subscription_ids: []}, :subscription_ids)
     end
 end
