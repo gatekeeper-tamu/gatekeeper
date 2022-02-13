@@ -1,7 +1,0 @@
-<div class="nested-fields">
-    <%= f.hidden_field :_destroy %>
-    <%= f.input :user_id, as: :select, input_html: { class: 'chosen-select' }, collection: User.where.not(id: current_user.id).map{|user| [user.username, user.id]} %>
-    <div>
-        <%= link_to "Remove", '#', class: "remove_fields" %>
-    </div>
-</div>

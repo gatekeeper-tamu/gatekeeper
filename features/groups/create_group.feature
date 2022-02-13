@@ -13,6 +13,6 @@ Feature: Create Subscription
 
     Scenario: User creates a group successfully
 		Given I am on the groups "new" page
-		When I create a new group
+		When I put "Roomies" in the "group_group_name" field
 		And I click the "Create Group" button
   		Then I should see the "Roomies" group's show page

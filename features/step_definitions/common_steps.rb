@@ -21,7 +21,6 @@ def create_test_users
 end
 
 def delete_user(visitor_info)
-	# puts visitor_info
 	user = User.where(:email => visitor_info[:email]).first
 	user.destroy unless user.nil?
 end
@@ -55,8 +54,17 @@ When /^I click the "(.*)" button$/ do |button_name|
 	click_button button_name
 end
 
+When /^I put "(.*)" in the "(.*)" field$/ do |value, field|
+	fill_in field, :with => value
+end
 
 ##### THEN #####
 Then /^I should see the resource not found page$/ do
 	page.should have_content("The page you were looking for doesn't exist.")
+end
+Then /^I should see "(.*)"$/ do |value|
+	page.should have_content(value)
+end
+Then /^I should not see "(.*)"$/ do |value|
+	page.should_not have_content(value)
 end

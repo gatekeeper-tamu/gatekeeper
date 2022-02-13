@@ -12,12 +12,12 @@ Feature: Delete Group
     Scenario: User deletes a group successfully
 	    Given I am on my profile page
 		When I click the "Groups" button
-		And I delete the "Test Family" group
+		And I Destroy the "Test Family" group
   		Then the "Test Family" group should not exist
 	
     Scenario: User tries to view a deleted group
 	    Given I am on my profile page
 		When I click the "Groups" button
-		And I delete the "Test Family" group
-		And I view the "Test Family" group
+		And I Destroy the "Test Family" group
+		And I access the "Test Family" group
   		Then I should see the resource not found page

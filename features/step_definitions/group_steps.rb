@@ -27,8 +27,14 @@ Given /I am on the groups "(.*)" page/ do |page|
 	end
 end
 
+Given /the Roomies group exists/ do
+	expect(!@user.nil?)
+	sarah ||= find_user("sarah@testerwoman.com")
+	@user.owned_groups.create(group_name: "Roomies", user_ids: sarah.id)
+end 
+
 ##### WHEN #####
-When /^I view the "(.*)" group$/ do |group_name|
+When /^I access the "(.*)" group$/ do |group_name|
 	if (@group_id.nil?)
 		if (@group.nil?)
 			@group = Group.where(:group_name => group_name).first
@@ -40,17 +46,21 @@ When /^I view the "(.*)" group$/ do |group_name|
 	visit path
 end
 
-When /^I delete the "(.*)" group$/ do |group_name|
+When /^I (Edit|Destroy|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
 	@group_id = @group.id
-	puts "Group_ID=#{@group_id}"
-	click_link "Destroy"
+	row = page.find("tr", text: group_name)
+	row.click_link action
 end
 
-When /^I create a new group$/ do
-	fill_in "group_group_name", :with => "Roomies"
+When /^I (add|remove) "(.*)" (to|from) the group$/ do |action, user_name, action2|
+	user_option = all(".chosen-select").last.find(:option, user_name)
+	if (action == "add")
+		user_option.select_option
+	else
+		user_option.unselect_option
+	end
 end
-
 
 ##### THEN #####
 Then /^I should see my groups$/ do

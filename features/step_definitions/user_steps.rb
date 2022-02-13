@@ -23,7 +23,7 @@ def sign_up(visitor_info)
 	fill_in "user_first_name", :with => visitor_info[:first_name]
 	fill_in "user_last_name", :with => visitor_info[:first_name]
 	fill_in "user_email", :with => visitor_info[:email]
-	fill_in "user_username", :with => visitor_info[:email]
+	fill_in "user_username", :with => visitor_info[:username]
 	fill_in "user_password", :with => visitor_info[:password]
 	fill_in "user_password_confirmation", :with => visitor_info[:password_confirmation]
 	click_button "Sign up"
@@ -117,10 +117,11 @@ Then /^I am on the sign in page$/ do
 end
 Then /^I should see the profile page$/ do
 	expect(page).to have_current_path("/subscriptions", wait: true)
-	path = "/users/" + @visitor_info[:email].split("@").first
-	visit path	
-	page.has_content?(@visitor_info[:first_name])
-	page.has_content?(@visitor_info[:last_name])
+	# user = User.where(username: @visitor_info[:username])
+	path = "/users/#{@user.username}"
+	visit path
+	page.has_content?(@user.first_name)
+	page.has_content?(@user.last_name)
 end
 Then /^I should see a "(.*?)" message$/ do |error_message|
 	page.has_content?(error_message)
