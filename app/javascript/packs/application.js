@@ -11,6 +11,9 @@ import 'chosen-js/chosen.jquery'
 import 'chosen-js'
 // require("chosen")
 
+require("chartkick")
+require("chart.js")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
