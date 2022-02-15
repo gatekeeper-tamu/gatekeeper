@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  	resources :groups
   	resources :subscriptions
 	devise_for :users, controllers: {
 		omniauth_callbacks: "users/omniauth_callbacks",
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
 	}
 
 	get 'users/:username' => 'users#show', :as => :user_root
+	get 'groups/' => 'groups#index', :as => :group_root
 	get 'subscriptions/' => 'subscriptions#index', :as => :subscription_root
 
 	get 'home/index'

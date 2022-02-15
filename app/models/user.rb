@@ -30,5 +30,11 @@ class User < ApplicationRecord
 			:timeoutable, :omniauthable
 	validates_uniqueness_of :username
 	
-	has_many :subscriptions
+	has_many :subscriptions, dependent: :destroy
+	has_many :owned_groups, class_name: 'Group', inverse_of: 'owner', dependent: :destroy
+	has_many :memberships, dependent: :destroy
+	has_many :groups, through: :memberships
+	
+	accepts_nested_attributes_for :subscriptions
+	accepts_nested_attributes_for :owned_groups
 end

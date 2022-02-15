@@ -30,6 +30,5 @@ Feature: View Subscription
 	
     Scenario: Unauthenticated user tries to view a subscription
 		Given I am not logged in
-		And I am on the homepage
-		When I view the "Hulu" subscription
-  		Then I should see the resource not found page
+		When I view the "Netflix" subscription
+  		Then I am on the sign in page

@@ -15,7 +15,6 @@ Given /the following subscriptions exist for user with email "(.*)"/ do |user_em
 end
 
 Given /I am on the subscriptions "(.*)" page/ do |page|
-	# puts user_email
 	path = ""
 	if (page == "index") 
 		path = "subscriptions##{page}"
@@ -34,16 +33,12 @@ When /^I view the "(.*)" subscription$/ do |sub_name|
 		@subscription = Subscription.where(:subscription_name => sub_name).first
 	end
 	path = "/subscriptions/" + @subscription.id
-	# puts path
 	visit path
 end
 
 When /^I delete the "(.*)" subscription$/ do |sub_name|
-	# puts "UNDEFINED STEP!!!"
-	# accept_confirm do
 	@subscription = Subscription.where(:subscription_name => sub_name).first
 	click_button "Delete"
-	# page.driver.browser.switch_to.confirm.accept
 end
 
 When /^I create a new subscription$/ do

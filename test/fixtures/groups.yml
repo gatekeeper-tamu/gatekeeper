@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_name: MyString
+  subscriptions: one
+  user: one
+
+two:
+  group_name: MyString
+  subscriptions: two
+  user: two
