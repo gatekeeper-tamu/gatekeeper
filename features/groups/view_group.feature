@@ -20,15 +20,15 @@ Feature: View Group
     Scenario: User views a group successfully
 	    Given I am on my profile page
 		When I click the "Groups" button
-		And I view the "Test Family" group
+		And I Show the "Test Family" group
   		Then I should see the "Test Family" group's show page
 	
     Scenario: User tries to view another user's group
 	    Given I am on the homepage
-		When I view the "Roommates" group
+		When I access the "Roommates" group
   		Then I should see the resource not found page
 	
     Scenario: Unauthenticated user tries to view a group
 		Given I am not logged in
-		When I view the "Test Family" group
+		When I access the "Test Family" group
   		Then I am on the sign in page

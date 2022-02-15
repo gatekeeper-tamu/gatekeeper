@@ -1,4 +1,4 @@
-<%= form_with(model: group) do |form| %>
+<%= simple_form_for group do |group_form| %>
   <% if group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
@@ -11,12 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :group_name %>
-    <%= form.text_field :group_name %>
-  </div>
+  <%= group_form.input :group_name %>
+  <%= group_form.association :users, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :username, collection: User.where.not(id: current_user.id)%>
 
   <div class="actions">
-    <%= form.submit %>
+      <%= group_form.submit class:"btn btn-dark"%>
   </div>
 <% end %>
