@@ -34,6 +34,7 @@
   <% @groups.each do |group| %>
     <div class="d-flex flex-row align-items-center">
       <h1 class="float-left display-4"><%= group.group_name %> Subscriptions</h1>
+      <%= link_to 'View Group', group_url(group.id), class: "btn ml-auto", style: "align-items: center", title: "Create a new subscription"%>
     </div>
 
     <hr class="section-break">
