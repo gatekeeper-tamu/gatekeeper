@@ -187,8 +187,8 @@ To start, install the following packages:
 
 - [x] User Login
 - [X] Add/Remove/Update Subscription Entries
-- [ ] Share Subscriptions
-- [ ] Create Groups
+- [X] Share Subscriptions
+- [X] Create Groups
 - [ ] Setup Cancellation/Renewal Reminders
 - [ ] Configure Group/Personal Settings
 - [ ] See Statistics on Monthly Costs/Usage Data
