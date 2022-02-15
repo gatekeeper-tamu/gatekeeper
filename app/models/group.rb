@@ -2,7 +2,7 @@ class Group < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
 
   # sets up tables members (to access membership records) and users (to access the users that belong to the group)
-  has_many :members, class_name: 'Membership'
+  has_many :members, class_name: 'Membership', dependent: :destroy
   has_many :users, through: :members
   accepts_nested_attributes_for :members, allow_destroy: true
 

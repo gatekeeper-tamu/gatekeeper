@@ -39,13 +39,36 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
     respond_to do |format|
+      # puts "HELLO FROM UPDATE"
       # puts group_params
-      if @group.update(group_params)
-        format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
-        format.json { render :show, status: :ok, location: @group }
+      if (group_params[:update_action] == "add")
+        puts "ADDING SUBSCRIPTION"
+        subscription ||= current_user.subscriptions.find(group_params[:subscription_ids].second)
+        if !subscription.nil? && @group.subscriptions << subscription
+          format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
+          format.json { render :show, status: :ok, location: @group }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @group.errors, status: :unprocessable_entity }
+        end
+      elsif (group_params[:update_action] == "remove")
+        puts "REMOVING SUBSCRIPTION"
+        subscription ||= current_user.subscriptions.find(group_params[:subscription_ids].first)
+        if !subscription.nil? && @group.subscriptions.delete(subscription)
+          format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
+          format.json { render :show, status: :ok, location: @group }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @group.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        if @group.update(group_params)
+          format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
+          format.json { render :show, status: :ok, location: @group }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @group.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -76,6 +99,6 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, {subscription_ids: []}, :subscription_ids)
+      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids, :update_action)
     end
 end
