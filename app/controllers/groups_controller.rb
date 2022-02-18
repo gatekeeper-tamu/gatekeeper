@@ -30,8 +30,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        render_errors(format)
       end
     end
   end
@@ -43,31 +42,16 @@ class GroupsController < ApplicationController
       # puts group_params
       if (group_params[:update_action] == "add")
         puts "ADDING SUBSCRIPTION"
-        subscription ||= current_user.subscriptions.find(group_params[:subscription_ids].second)
-        if !subscription.nil? && @group.subscriptions << subscription
-          format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
-          format.json { render :show, status: :ok, location: @group }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @group.errors, status: :unprocessable_entity }
-        end
+        add_subscription(group_params[:subscription_ids].second, format)
       elsif (group_params[:update_action] == "remove")
         puts "REMOVING SUBSCRIPTION"
-        subscription ||= current_user.subscriptions.find(group_params[:subscription_ids].first)
-        if !subscription.nil? && @group.subscriptions.delete(subscription)
-          format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
-          format.json { render :show, status: :ok, location: @group }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @group.errors, status: :unprocessable_entity }
-        end
+        remove_subscription(group_params[:subscription_ids].first, format)
       else
         if @group.update(group_params)
           format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
           format.json { render :show, status: :ok, location: @group }
         else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @group.errors, status: :unprocessable_entity }
+          render_errors(format)
         end
       end
     end
@@ -84,6 +68,28 @@ class GroupsController < ApplicationController
   end
 
   private
+    def add_subscription(subscription_id, format)
+      subscription ||= current_user.subscriptions.find(subscription_id)
+      sub_name = subscription.subscription_name
+      if !subscription.nil? && @group.subscriptions << subscription
+        format.html { redirect_to group_url(@group), notice: "#{sub_name} subscription successfully added." }
+        format.json { render :show, status: :ok, location: @group }
+      else
+        render_errors(format)
+      end
+    end
+    
+    def remove_subscription(subscription_id, format)
+      subscription ||= current_user.subscriptions.find(subscription_id)
+      sub_name = subscription.subscription_name
+      if !subscription.nil? && @group.subscriptions.delete(subscription)
+        format.html { redirect_to group_url(@group), notice: "#{sub_name} subscription successfully removed." }
+        format.json { render :show, status: :ok, location: @group }
+      else
+        render_errors(format)
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       begin
@@ -100,5 +106,10 @@ class GroupsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def group_params
       params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids, :update_action)
+    end
+
+    def render_errors(format)
+      format.html { render :edit, status: :unprocessable_entity }
+      format.json { render json: @group.errors, status: :unprocessable_entity }
     end
 end
