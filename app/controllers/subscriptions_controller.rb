@@ -68,8 +68,18 @@ class SubscriptionsController < ApplicationController
       begin
         @subscription = current_user.subscriptions.find(params[:id])
       rescue ActiveRecord::RecordNotFound => e
-        puts "Can't access this page! Invalid login."
-        redirect_to "/404.html"
+        for group in (current_user.owned_groups | current_user.groups)
+          sub ||= group.subscriptions.where(id: "62a31205-cac7-4d07-9440-e4d8e6bdbfac")
+          if(!sub.first.nil?)
+            @subscription = sub.first
+            # return @subscription
+          end
+        end
+        puts @subscription
+        if (@subscription.nil?)         
+          puts "Can't access this page! Invalid login."
+          redirect_to "/404.html"
+        end
       rescue => exception
         puts "ERROR! -> #{exception}"
       end
