@@ -5,7 +5,8 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions or /subscriptions.json
   def index
     @subscriptions = current_user.subscriptions
-    @groups = current_user.owned_groups.concat(current_user.groups).sort_by(&:group_name)
+    # @groups = current_user.owned_groups.sort_by(&:group_name)
+    @groups = (current_user.owned_groups | current_user.groups).sort_by(&:group_name)
   end
 
   # GET /subscriptions/1 or /subscriptions/1.json

@@ -44,7 +44,7 @@
         <td><%= link_to "#{subscription.subscription_name}", subscription_root_path(subscription.id)%></td>
         <td><%= subscription.username%></td>
         <td>
-          <% if current_user == subscription.user || current_user == group.owner %>
+          <% if current_user == subscription.user || current_user == @group.owner %>
             <%= link_to "Remove", [@group, group: { subscription_ids: [subscription.id], update_action: "remove"}], method: 'patch' %>
           <% end %>
         </td>

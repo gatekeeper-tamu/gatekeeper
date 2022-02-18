@@ -4,7 +4,8 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @groups = current_user.owned_groups.concat(current_user.groups).sort_by(&:group_name)
+    # @groups = current_user.owned_groups.sort_by(&:group_name)
+    @groups = (current_user.owned_groups | current_user.groups).sort_by(&:group_name)
   end
 
   # GET /groups/1 or /groups/1.json
@@ -95,12 +96,13 @@ class GroupsController < ApplicationController
       begin
         @group = current_user.owned_groups.find(params[:id])
       rescue ActiveRecord::RecordNotFound => e
-        puts "Can't access this page! Invalid login."
-        redirect_to "/404.html"
-      rescue => exception
-        puts "ERROR! -> #{exception}"
+        begin
+          @group = current_user.groups.find(params[:id])
+        rescue ActiveRecord::RecordNotFound => e
+          puts "Can't access this page! Invalid login."
+          redirect_to "/404.html"
+        end
       end
-      
     end
 
     # Only allow a list of trusted parameters through.
