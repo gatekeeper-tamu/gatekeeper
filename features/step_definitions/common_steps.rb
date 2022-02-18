@@ -57,6 +57,9 @@ end
 When /^I put "(.*)" in the "(.*)" field$/ do |value, field|
 	fill_in field, :with => value
 end
+When /^I reload the page$/ do
+	visit [ current_path, page.driver.request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
+end
 
 ##### THEN #####
 Then /^I should see the resource not found page$/ do

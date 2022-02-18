@@ -13,6 +13,22 @@ Given /the following groups exist for user with email "(.*)"/ do |user_email, gr
 		create_groups(user, group_table)
 	end
 end
+Given /the following subscriptions and users exist for the "(.*)" group/ do |group_name, group_table|
+	group ||= Group.where(:group_name => group_name).first
+	if (!group.nil?) 
+		group_table.hashes.each do | hash_val |
+			subscription ||= Subscription.where(:subscription_name => hash_val["subscription_name"])
+			if (!subscription.nil?)
+				group.subscriptions << subscription
+			end
+			user ||= User.where(:email => hash_val["user_email"])
+			if (!user.nil?)
+				group.users << user
+			end
+		end
+	end
+end
+
 
 Given /I am on the groups "(.*)" page/ do |page|
 	path = ""
@@ -30,7 +46,12 @@ end
 Given /the Roomies group exists/ do
 	expect(!@user.nil?)
 	sarah ||= find_user("sarah@testerwoman.com")
-	@user.owned_groups.create(group_name: "Roomies", user_ids: sarah.id)
+	roomies = @user.owned_groups.create(group_name: "Roomies", user_ids: sarah.id)
+	netflix ||= @user.subscriptions.where(subscription_name: "Netflix").first
+	if (!netflix.nil?)
+		roomies.subscriptions << netflix
+		puts roomies.subscriptions
+	end
 end 
 
 ##### WHEN #####
@@ -53,12 +74,12 @@ When /^I (Edit|Destroy|Show) the "(.*)" group$/ do |action, group_name|
 	row.click_link action
 end
 
-When /^I (add|remove) "(.*)" (to|from) the group$/ do |action, user_name, action2|
-	user_option = all(".chosen-select").last.find(:option, user_name)
+When /^I (add|remove) "(.*)" (to|from) the group (user|subscription)s$/ do |action, value, action2, table|
+	opt = all("#group_#{table}_ids").last.find(:option, value)
 	if (action == "add")
-		user_option.select_option
+		opt.select_option
 	else
-		user_option.unselect_option
+		opt.unselect_option
 	end
 end
 
@@ -94,4 +115,13 @@ end
 
 Then /^I should see the new group page$/ do
 	page.should have_content("New Group")
+end
+
+Then /^I should see my group subscriptions$/ do
+	for group in @user.groups
+		for subscription in group.subscriptions
+			page.should have_content(subscription.subscription_name)
+			page.should have_content(subscription.username)
+		end
+	end
 end
