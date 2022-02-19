@@ -35,6 +35,7 @@
           <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
         </li>
         <% if current_user %>
+          <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %><span class="sr-only"></li>
             <div class="dropdown nav-item">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= fa_icon "user-circle 2x" %>
@@ -43,12 +44,9 @@
                 <%= link_to "Profile", user_root_path(current_user.username), class: "nav-link"  %>
                 <%= link_to "Subscriptions", subscription_root_path, class: "nav-link"  %>
                 <%= link_to "Groups", group_root_path, class: "nav-link"  %>
+                <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "nav-link" %>
               </div>
             </div>
-          <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %><span class="sr-only"></li>
-          <li class="nav-item"><%= link_to "Subscriptions", subscription_root_path, class: "nav-link"  %></a></li>
-          <li class="nav-item"><%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to user_root_path(current_user.username) do %><%= fa_icon "user-circle 2x" %><% end %></li>
         <% else %>
           <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link"  %> </li>
           <li class="nav-item"><%= link_to "Sign In", user_session_path, class: "nav-link"  %> </li>
