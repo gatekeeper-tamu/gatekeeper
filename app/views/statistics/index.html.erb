@@ -1,4 +1,42 @@
-<h1>This is the statistics page</h1>
+<%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left" %> 
 
-<%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left" %>
+<div class="container" style="margin-top: 50px;">
+  
+  <h1>Gatekeeper Statistics</h1>
+  <ul class="nav nav-tabs">
+    <li class="nav-item active"><a class="nav-link active" href="#personal">Personal</a></li>
+    <li class="nav-item"><a class="nav-link" href="#group">Group</a></li>
+    <li class="nav-item"><a class="nav-link" href="#sitewide">Sitewide</a></li>
+  </ul>
 
+  <div class="tab-content">
+    <div id="personal" class="tab-pane active in">
+      <p>View your personal statistics below.</p>
+    </div>
+    <div id="group" class="tab-pane fade">
+      <p>Use the navbar on the left to view usage and cost statistics for all of the groups you are a part of. </p>
+    </div>
+    <div id="sitewide" class="tab-pane fade">
+      <p>Sitewide statistics have been compiled for you to see what others are using.</p>
+       <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left" %> 
+
+    </div>
+  </div>
+
+</div>
+
+
+ <%
+=begin%>
+ <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left" %>  
+<%
+=end%>
+
+
+<script>
+$(document).ready(function(){
+  $(".nav-tabs a").click(function(){
+    $(this).tab('show');
+  });
+});
+</script>

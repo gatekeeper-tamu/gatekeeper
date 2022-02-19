@@ -11,6 +11,10 @@ import 'chosen-js/chosen.jquery'
 import 'chosen-js'
 // require("chosen")
 
+import "bootstrap-sprockets"
+
+//= require chartkick
+//= require Chart.bundle
 require("chartkick")
 require("chart.js")
 
