@@ -25,10 +25,13 @@ class RemindersController < ApplicationController
 
     respond_to do |format|
       if @reminder.save
-        ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_later
+        #ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_now
+        #ReminderMailer.new_reminder_email(reminder: @reminder).deliver_later(wait: 1.minute)
+        #SendReminderEmailJob.perform_in(1.minute, @reminder)
+        SendReminderEmailJob.set(wait: 1.minute).perform_later
 
         format.html { redirect_to reminder_url(@reminder), notice: "Reminder was successfully created." }
-        format.json { render :show, status: :created, location: @reminder }
+        format.json { render :show, status: :created,   location: @reminder }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @reminder.errors, status: :unprocessable_entity }
@@ -67,6 +70,6 @@ class RemindersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reminder_params
-      params.require(:reminder).permit(:subscription_id, :reminder_id, :time_delta, :recurring, :message)
+      params.require(:reminder).permit(:subscription_id, :reminder_id, :time_delta, :recurring, :message, :end_date)
     end
 end
