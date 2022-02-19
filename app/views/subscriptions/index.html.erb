@@ -1,33 +1,64 @@
 <%= render :layout => 'subscriptions/shared/layout' do %>
 <p id="notice"><%= notice %></p>
 
-<h1>Your Subscriptions</h1>
+  <div class="d-flex flex-row align-items-center">
+    <h1 class="float-left display-4">Your Subscriptions</h1>
+    <a href="subscriptions/new" class="btn ml-auto" style="align-items: center" role="button" title="Create a new subscription">
+      <%= fa_icon "plus" %> New Subscription
+    </a>
+  </div>
 
-<hr class="section-break">
+  <hr class="section-break">
   <% @subscriptions.in_groups_of(3, false).each do |group| %>
-  <div class="row">
-    <% group.each do |subscription| %>
-      <div class="col col-sm-4">
-        <div class="card" style="width: 18rem;">
-          <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
+    <div class="row">
+      <% group.each do |subscription| %>
+        <div class="col col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
 
-          </div>
-          <div class="card-body">
-            <h5 class=""><%= subscription.subscription_name %></h5>
-            <p class="card-text">Username: <%= subscription.username %></p>
-        
-            <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
+            </div>
+            <div class="card-body">
+              <h5 class=""><%= subscription.subscription_name %></h5>
+              <p class="card-text">Username: <%= subscription.username %></p>
+          
+              <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
 
+            </div>
           </div>
         </div>
+      <% end %>
+    </div>
+  <% end %>
+  <br>
+
+  <% @groups.each do |group| %>
+    <div class="d-flex flex-row align-items-center">
+      <h1 class="float-left display-4"><%= group.group_name %> Subscriptions</h1>
+      <%= link_to 'View Group', group_url(group.id), class: "btn ml-auto", style: "align-items: center", title: "Create a new subscription"%>
+    </div>
+
+    <hr class="section-break">
+    <% group.subscriptions.in_groups_of(3, false).each do |sub_group| %>
+      <div class="row">
+        <% sub_group.each do |subscription| %>
+          <div class="col col-sm-4">
+            <div class="card" style="width: 18rem;">
+              <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
+
+              </div>
+              <div class="card-body">
+                <h5 class=""><%= subscription.subscription_name %></h5>
+                <p class="card-text">Username: <%= subscription.username %></p>
+            
+                <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
+
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
-  </div>
+    <br>
+
   <% end %>
-
-
-<br>
-
-<%= button_to 'New Subscription', new_subscription_path, method: :get, class: "btn btn-dark" %>
-
 <% end %>

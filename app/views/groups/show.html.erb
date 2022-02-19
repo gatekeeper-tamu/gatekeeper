@@ -29,5 +29,31 @@
   </table>
 </p>
 
+<p>
+  <strong>Subscriptions:</strong>
+  <table>
+    <tr>
+      <th>Owner</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th></th>
+    </tr>
+    <% @group.subscriptions.each do |subscription| %>
+      <tr>
+        <td><%= link_to "#{subscription.user.username}", user_root_path(subscription.user.username)%></td>
+        <td><%= link_to "#{subscription.subscription_name}", subscription_root_path(subscription.id)%></td>
+        <td><%= subscription.username%></td>
+        <td>
+          <% if current_user == subscription.user || current_user == @group.owner %>
+            <%= link_to "Remove", [@group, group: { subscription_ids: [subscription.id], update_action: "remove"}], method: 'patch' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= render '/groups/add_subscription.html.erb' , resource: @group, resource_name: Group %>
+</p>
+
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

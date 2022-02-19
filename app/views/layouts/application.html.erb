@@ -44,8 +44,16 @@
           <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
         </li>
         <% if current_user %>
-          <li class="nav-item"><%= link_to "Subscriptions", subscription_root_path, class: "nav-link"  %></a></li>
-          <li class="nav-item"><%= link_to user_root_path(current_user.username) do %><%= fa_icon "user-circle 2x" %><% end %></li>
+            <div class="dropdown nav-item">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= fa_icon "user-circle 2x" %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <%= link_to "Profile", user_root_path(current_user.username), class: "nav-link"  %>
+                <%= link_to "Subscriptions", subscription_root_path, class: "nav-link"  %>
+                <%= link_to "Groups", group_root_path, class: "nav-link"  %>
+              </div>
+            </div>
         <% end %>
       </ul>
     </div>

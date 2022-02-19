@@ -14,6 +14,8 @@
   <%= group_form.input :group_name %>
   <%= group_form.association :users, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :username, collection: User.where.not(id: current_user.id)%>
 
+  <%= group_form.association :subscriptions, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :subscription_name, collection: current_user.subscriptions%>
+
   <div class="actions">
       <%= group_form.submit class:"btn btn-dark"%>
   </div>

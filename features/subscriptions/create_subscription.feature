@@ -8,7 +8,7 @@ Feature: Create Subscription
 
     Scenario: User can see the new subscription form
 		Given I am on the subscriptions "index" page
-		When I click the "New Subscription" button
+		When I click the "New Subscription" link
   		Then I should see the new subscription page
 
     Scenario: User creates a subscription successfully
