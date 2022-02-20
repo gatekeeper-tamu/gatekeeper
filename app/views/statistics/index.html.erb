@@ -1,4 +1,8 @@
+
+
+
 <div class="container" style="margin-top: 50px;">
+ <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left" %>   
   
   <h1 style="margin-bottom: 30px;">Gatekeeper Statistics</h1>
   <ul class="nav nav-tabs" id="myTab" role="tablist">

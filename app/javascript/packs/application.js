@@ -15,12 +15,10 @@ import "bootstrap"
 // Import the specific modules you may need (Modal, Alert, etc)
 import { Tooltip, Popover, Dropdown, Tab } from "bootstrap"
 
-import "bootstrap-sprockets"
 
-//= require chartkick
-//= require Chart.bundle
 require("chartkick")
 require("chart.js")
+require("bootstrap-sprockets")
 
 Rails.start()
 Turbolinks.start()
