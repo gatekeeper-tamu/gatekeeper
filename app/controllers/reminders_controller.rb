@@ -25,10 +25,10 @@ class RemindersController < ApplicationController
 
     respond_to do |format|
       if @reminder.save
-        #ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_now
+        ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_now
         #ReminderMailer.new_reminder_email(reminder: @reminder).deliver_later(wait: 1.minute)
         #SendReminderEmailJob.perform_in(1.minute, @reminder)
-        SendReminderEmailJob.set(wait: 1.minute).perform_later
+        #SendReminderEmailJob.set(wait: 1.minute).perform_later
 
         format.html { redirect_to reminder_url(@reminder), notice: "Reminder was successfully created." }
         format.json { render :show, status: :created,   location: @reminder }
