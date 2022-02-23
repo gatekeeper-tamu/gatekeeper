@@ -5,8 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Subscription</th>
-      <th>Reminder</th>
       <th>Time delta</th>
       <th>Recurring</th>
       <th>Message</th>
@@ -17,8 +15,6 @@
   <tbody>
     <% @reminders.each do |reminder| %>
       <tr>
-        <td><%= reminder.subscription_id %></td>
-        <td><%= reminder.reminder_id %></td>
         <td><%= reminder.time_delta %></td>
         <td><%= reminder.recurring %></td>
         <td><%= reminder.message %></td>
