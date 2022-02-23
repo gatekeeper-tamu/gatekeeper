@@ -70,6 +70,6 @@ class RemindersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reminder_params
-      params.require(:reminder).permit(:time_delta, :recurring, :message, :end_date)
+      params.require(:reminder).permit(:recurring, :reminder_type, :time_delta, :end_date)
     end
 end

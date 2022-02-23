@@ -1,17 +1,22 @@
 <p id="notice"><%= notice %></p>
 <p>
-  <strong>Time delta:</strong>
-  <%= @reminder.time_delta %>
-</p>
-
-<p>
   <strong>Recurring:</strong>
   <%= @reminder.recurring %>
 </p>
 
 <p>
-  <strong>Message:</strong>
-  <%= @reminder.message %>
+  <strong>Reminder type:</strong>
+  <%= @reminder.reminder_type %>
+</p>
+
+<p>
+  <strong>Time delta:</strong>
+  <%= @reminder.time_delta %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @reminder.end_date %>
 </p>
 
 <%= link_to 'Edit', edit_reminder_path(@reminder) %> |

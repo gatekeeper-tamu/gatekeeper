@@ -12,28 +12,23 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :subscription_id %>
-    <%= form.text_field :subscription_id %>
+    <%= form.label :recurring %>
+    <%= form.text_field :recurring %>
   </div>
 
   <div class="field">
-    <%= form.label :reminder_id %>
-    <%= form.text_field :reminder_id %>
+    <%= form.label :reminder_type %>
+    <%= form.text_field :reminder_type %>
   </div>
-
+  
   <div class="field">
     <%= form.label :time_delta %>
     <%= form.text_field :time_delta %>
   </div>
 
   <div class="field">
-    <%= form.label :recurring %>
-    <%= form.text_field :recurring %>
-  </div>
-
-  <div class="field">
-    <%= form.label :message %>
-    <%= form.text_field :message %>
+    <%= form.label :end_date %>
+    <%= form.text_field :end_date %>
   </div>
 
   <div class="actions">
