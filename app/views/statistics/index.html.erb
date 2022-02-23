@@ -1,35 +1,28 @@
-
-
-
 <div class="container" style="margin-top: 50px;">
- <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left" %>   
   
   <h1 style="margin-bottom: 30px;">Gatekeeper Statistics</h1>
   <ul class="nav nav-tabs">
-    <li class="nav-item active"><a class="nav-link active" href="#personal">Personal</a></li>
+    <li class="nav-item active"><a class="nav-link active" href="#sitewide">Sitewide</a></li>
     <li class="nav-item"><a class="nav-link" href="#group">Group</a></li>
-    <li class="nav-item"><a class="nav-link" href="#sitewide">Sitewide</a></li>
+    <li class="nav-item"><a class="nav-link" href="#personal">Personal</a></li>
   </ul>
 
   <div class="tab-content">
-    <div id="personal" class="tab-pane active in">
-      <p>View your personal statistics below.</p>
+    <div id="sitewide" class="tab-pane active in">
+    <h3>Sitewide statistics</h3>
+      <p>Sitewide statistics have been compiled for you to see what others are using.</p>
     </div>
     <div id="group" class="tab-pane fade">
+      <h3>Group statistics</h3>
       <p>Use the navbar on the left to view usage and cost statistics for all of the groups you are a part of. </p>
     </div>
-    <div id="sitewide" class="tab-pane fade">
-      <p>Sitewide statistics have been compiled for you to see what others are using.</p>
-      <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left", style: "width: 100%;" %>  
-
-
-
+    <div id="personal" class="tab-pane fade">
+      <h3>Personal statistics</h3>
+      <p>View your personal statistics below.</p>
     </div>
   </div>
 
 </div>
-
-
 
 
 <script>
