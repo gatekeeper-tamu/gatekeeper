@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 2022_02_15_194251) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.integer "subscription_id"
+    t.integer "reminder_id"
+    t.boolean "recurring"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "end_date"
+    t.datetime "time_delta"
+  end
+
   create_table "shared_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "subscription_id", null: false
     t.uuid "group_id", null: false

@@ -7,7 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= favicon_link_tag asset_path('favicon-32x32.png') %>
-    
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;500;700&display=swap" rel="stylesheet">
@@ -31,19 +31,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto">
-        <% if current_user %>
-          <li class="nav-item"><%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "nav-link" %></li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Statistics <span class="sr-only">(current)</span></a>
-          </li>
-        <% else %>
-          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link"  %> </li>
-          <li class="nav-item"><%= link_to "Sign In", user_session_path, class: "nav-link"  %> </li>
-        <% end %>
         <li class="nav-item">
           <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
         </li>
         <% if current_user %>
+          <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %></li>
             <div class="dropdown nav-item">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= fa_icon "user-circle 2x" %>
@@ -52,8 +44,12 @@
                 <%= link_to "Profile", user_root_path(current_user.username), class: "nav-link"  %>
                 <%= link_to "Subscriptions", subscription_root_path, class: "nav-link"  %>
                 <%= link_to "Groups", group_root_path, class: "nav-link"  %>
+                <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "nav-link" %>
               </div>
             </div>
+        <% else %>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link"  %> </li>
+          <li class="nav-item"><%= link_to "Sign In", user_session_path, class: "nav-link"  %> </li>
         <% end %>
       </ul>
     </div>
