@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   	resources :groups
   	resources :subscriptions
+  	resources :reminders
 		resources :statistics
+
 	devise_for :users, controllers: {
 		omniauth_callbacks: "users/omniauth_callbacks",
 		:registrations => "users/registrations"
@@ -13,5 +15,7 @@ Rails.application.routes.draw do
 
 	get 'home/index'
 	root 'home#index'
+
+	resources :reminder, path: '/reminders'
 	# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

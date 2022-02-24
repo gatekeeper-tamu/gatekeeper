@@ -1,0 +1,9 @@
+development:
+  :concurrency: 1
+production:
+  :concurrency: 1
+:verbose: true
+:concurrency: 25
+:queues:
+  - [default, 5]
+  - [mailers, 7]
