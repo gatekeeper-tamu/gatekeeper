@@ -7,28 +7,9 @@ Given /I am on the statistics page/ do
 end
 
 ##### WHEN #####
-When /I click the Statistics link/ do
-	click_link "Statistics"
-	path = "/statistics"
-	visit path
-end
-
-When /I click the Sitewide link/ do
-	click_link "Sitewide"
-	path = "/statistics#sitewide"
-	visit path
-end
-
-When /I click the Group link/ do
-	click_link "Group"
-	path = "/statistics#group"
-	visit path
-end
-
-When /I click the Personal link/ do
-	click_link "Personal"
-	path = "/statistics#personal"
-	visit path
+When /I click the "(Sitewide|Group|Personal)" tab/ do |action|
+	tab = page.find("a##{action.downcase}-tab.nav-link")
+	tab.click
 end
 
 ##### THEN #####

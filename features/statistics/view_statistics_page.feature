@@ -9,20 +9,20 @@ Background: users have statistics
 
 Scenario: Signed in user can view statistics page
   Given I am on my profile page
-  When I click the Statistics link
+  When I click the "Statistics" link
   Then I should see the sitewide statistics page
 
 Scenario: User navigates to sitewide statistics page
   Given I am on the statistics page
-  When I click the Sitewide link
+  When I click the "Sitewide" tab
   Then I should see the sitewide statistics page
 
 Scenario: User navigates to group statistics page
   Given I am on the statistics page
-  When I click the Group link
+  When I click the "Group" tab
   Then I should see the group statistics page
 
 Scenario: User navigates to personal statistics page
   Given I am on the statistics page
-  When I click the Personal link
+  When I click the "Personal" tab
   Then I should see the personal statistics page
