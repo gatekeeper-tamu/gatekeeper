@@ -7,7 +7,6 @@
     <%= csp_meta_tag %>
 
     <%= favicon_link_tag asset_path('favicon-32x32.png') %>
-
     <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +35,11 @@
           <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
         </li>
         <% if current_user %>
+<<<<<<< HEAD
           <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %></li>
+=======
+          <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %><span class="sr-only"></li>
+>>>>>>> e32cf7b6ee8a42024f43994d5980b0a230b333fe
             <div class="dropdown nav-item">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= fa_icon "user-circle 2x" %>

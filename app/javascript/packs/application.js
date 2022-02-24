@@ -18,6 +18,11 @@ import { Tooltip, Popover, Dropdown, Tab } from "bootstrap"
 require("chartkick")
 require("chart.js")
 
+
+require("chartkick")
+require("chart.js")
+require("bootstrap-sprockets")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
