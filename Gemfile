@@ -81,3 +81,6 @@ gem "omniauth-rails_csrf_protection"
 
 # sidkiq for queueing tasks for reminder emails
 gem 'sidekiq', '>= 6.4.1'
+gem "chartkick"
+
+

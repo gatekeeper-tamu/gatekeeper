@@ -9,7 +9,11 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import 'chosen-js/chosen.jquery'
 import 'chosen-js'
-// require("chosen")
+import "chartkick/chart.js"
+import "bootstrap"
+
+// Import the specific modules you may need (Modal, Alert, etc)
+import { Tooltip, Popover, Dropdown, Tab } from "bootstrap"
 
 Rails.start()
 Turbolinks.start()
@@ -18,17 +22,6 @@ ActiveStorage.start()
 import "stylesheets/application"
 require('./nested-forms/addFields')
 require('./nested-forms/removeFields')
-
-
-// function chosen_init() {
-// 	$(".chosen-select").chosen().change(
-// 		function(){
-// 		var user = $('option:selected',this);
-// 		var user_url = user.attr('data-url');
-// 		$.getScript(user_url)
-// 		}
-// 	);
-// }
 
 $(document).on('turbolinks:load', function(){
 	$(".chosen-select").chosen();

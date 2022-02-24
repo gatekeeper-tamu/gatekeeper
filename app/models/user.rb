@@ -39,3 +39,4 @@ class User < ApplicationRecord
 	accepts_nested_attributes_for :subscriptions
 	accepts_nested_attributes_for :owned_groups
 end
+
