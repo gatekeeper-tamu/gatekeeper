@@ -7,7 +7,6 @@ class CreateReminders < ActiveRecord::Migration[6.1]
       t.date :end_date, null: false
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
-      t.references :subscription, null: false, foreign_key: {on_delete: :cascade}, type: :uuid
     end
   end
 end
