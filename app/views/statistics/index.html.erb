@@ -16,6 +16,16 @@
     <div class="tab-pane fade show active" id="sitewide" role="tabpanel" aria-labelledby="sitewide-tab">
       <h3>Sitewide statistics</h3>
       <p>Sitewide statistics have been compiled for you to see what others are using.</p>
+      <p>Browse the graphs below to see how many subscriptions are hosted on Gatekeeper for each service and how much all of our users spend per month combined (hint - it's a lot!).</p>
+
+      <hr>
+      <h4>Total subscription counts</h4>
+
+      <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left", colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'] %> 
+      <hr>
+      <h4>Total subscription costs</h4>
+
+      <%= column_chart Subscription.group(:subscription_name).sum(:cost_per_month), colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'] %>  
     </div>
     <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
       <h3>Group statistics</h3>
