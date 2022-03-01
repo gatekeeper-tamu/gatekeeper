@@ -32,6 +32,7 @@
   </div>
 
   <div class="actions">
+    <%= hidden_field_tag :subscription_id, @reminder.subscription_id %>
     <%= form.submit %>
   </div>
 <% end %>

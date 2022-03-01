@@ -1,4 +1,9 @@
 GEM
+  remote: https://rails-assets.org/
+  specs:
+    rails-assets-chosen (1.8.7)
+
+GEM
   remote: https://rubygems.org/
   specs:
     actioncable (6.1.4.6)
@@ -350,11 +355,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
-
-GEM
-  remote: https://rails-assets.org/
-  specs:
-    rails-assets-chosen (1.8.7)
 
 PLATFORMS
   x86_64-darwin-21

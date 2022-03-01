@@ -1,3 +1,3 @@
 class Reminder < ActiveRecord::Base
-    #belongs_to :subscription
+    belongs_to :subscription
 end

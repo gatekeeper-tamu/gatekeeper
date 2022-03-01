@@ -12,7 +12,7 @@ class RemindersController < ApplicationController
 
   # GET /reminders/new
   def new
-    @reminder = Reminder.new
+    @reminder = Reminder.new(:subscription_id => params[:subscription_id])
   end
 
   # GET /reminders/1/edit
@@ -22,6 +22,7 @@ class RemindersController < ApplicationController
   # POST /reminders or /reminders.json
   def create
     @reminder = Reminder.new(reminder_params)
+    @reminder.subscription = Subscription.find(params[:subscription_id])
 
     respond_to do |format|
       if @reminder.save
@@ -54,6 +55,7 @@ class RemindersController < ApplicationController
 
   # DELETE /reminders/1 or /reminders/1.json
   def destroy
+    @reminder = Reminder.find(params[:id])
     @reminder.destroy
 
     respond_to do |format|
@@ -65,11 +67,18 @@ class RemindersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reminder
-      @reminder = Reminder.find(params[:id])
+      begin
+        @reminder = Reminder.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        puts "Can't access this page!"
+        redirect_to "/404.html"
+      rescue => exception
+        puts "ERROR! -> #{exception}"
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def reminder_params
-      params.require(:reminder).permit(:recurring, :reminder_type, :time_delta, :end_date)
+      params.require(:reminder).permit(:recurring, :reminder_type, :time_delta, :end_date, :subscription_id)
     end
 end
