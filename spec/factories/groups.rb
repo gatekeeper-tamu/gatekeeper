@@ -1,6 +1,6 @@
 require 'faker'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :group do
     group_name { Faker::Company.name }
 	  owner { association :user }

@@ -1,6 +1,6 @@
 require 'faker'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :subscription do |f|
     f.subscription_name { Faker::Company.name }
 	f.user { association :user }
