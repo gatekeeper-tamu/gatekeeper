@@ -5,8 +5,8 @@ RSpec.describe User, type: :model do
 
   it "is valid with valid attributes" do
     FactoryBot.create(:user).should be_valid
-  end 
-  
+  end
+
   it "is not valid without a username" do
     FactoryBot.build(:user, username: nil).should_not be_valid
   end
