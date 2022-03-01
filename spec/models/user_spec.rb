@@ -27,4 +27,16 @@ RSpec.describe User, type: :model do
     FactoryGirl.build(:user, last_name: nil).should be_valid
   end
 
+  it "does not allow duplicate usernames" do
+    username = "testerwoman"
+    FactoryGirl.create(:user, username: username)
+    FactoryGirl.build(:user, username: username).should_not be_valid
+  end
+
+  it "does not allow duplicate emails" do
+    email = "test@test.com"
+    FactoryGirl.create(:user, email: email)
+    FactoryGirl.build(:user, email: email).should_not be_valid
+  end
+
 end
