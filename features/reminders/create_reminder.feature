@@ -9,7 +9,7 @@ Feature: Create Subscription
 		And the following subscriptions exist for user with email "manny@testerman.com":
 		| subscription_name     | username		| password		| url			| cost_per_month	|
 		| Netflix			    | test     		| supersecure	| netflix.com	| 9.95				|
-		| Google				| anothertest   | RidleyScott	| google.com	| 8.99				|
+		| Google			å	| anothertest   | RidleyScott	| google.com	| 8.99				|
 
     Scenario: User can see the new reminder form
 	    Given I am on the homepage
