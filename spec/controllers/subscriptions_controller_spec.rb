@@ -4,11 +4,11 @@ require 'rails_helper'
 RSpec.describe SubscriptionsController, type: :controller do
 
 	login_user
-    
+
 	let(:valid_attributes) {
         { :user => controller.current_user, :subscription_name => "Netflix", :username => "freeguy", :password => "supersecurepass", :url => "https://netflix.com", :cost_per_month => 9.99, :image => "thisisanimage.png" }
     }
-    
+
 	let(:valid_attributes_no_user) {
         { :subscription_name => "Netflix", :username => "freeguy", :password => "supersecurepass", :url => "https://netflix.com", :cost_per_month => 9.99, :image => "thisisanimage.png" }
     }
@@ -74,7 +74,7 @@ RSpec.describe SubscriptionsController, type: :controller do
 				delete :destroy, params: {id: subscription.id}
 			end.to change(Subscription, :count).by(-1)
 		end
-	
+
 		it 'redirects to the Subscriptions list' do
 			subscription = Subscription.new(valid_attributes_no_user)
 			subscription.user = controller.current_user

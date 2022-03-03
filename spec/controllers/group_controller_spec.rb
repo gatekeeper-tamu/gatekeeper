@@ -6,19 +6,19 @@ RSpec.describe GroupsController, type: :controller do
 	login_user
 
 	group_member = FactoryBot.create(:user)
-    
+
 	let(:valid_attributes) {
         { :owner => controller.current_user, :group_name => "Roomies" }
     }
-    
+
 	let(:valid_attributes_no_user) {
         { :group_name => "Roomies"}
     }
-    
+
 	let(:valid_attributes_members) {
         { :owner => controller.current_user, :group_name => "Roomies", :users => [group_member]}
     }
-    
+
 	let(:valid_attributes_no_user_members) {
         { :group_name => "Roomies", :users => [group_member]}
     }
@@ -78,7 +78,7 @@ RSpec.describe GroupsController, type: :controller do
 				end.to change(Group, :count).by(1)
 			end
 		end
-		
+
 		context 'with valid parameters and members' do
 			it "creates a new Group" do
 				expect do
@@ -103,7 +103,7 @@ RSpec.describe GroupsController, type: :controller do
 				delete :destroy, params: {id: group.id}
 			end.to change(Group, :count).by(-1)
 		end
-	
+
 		it 'redirects to the Group list' do
 			group = Group.new(valid_attributes_no_user)
 			group.owner = controller.current_user

@@ -6,11 +6,11 @@ RSpec.describe RemindersController, type: :controller do
 	login_user
 
 	reminder_member = FactoryBot.create(:user)
-    
+
 	let(:valid_attributes) {
         {}
     }
-	
+
 	let(:invalid_attributes) {
 		{}
 	}
@@ -48,7 +48,7 @@ RSpec.describe RemindersController, type: :controller do
 
 	describe 'DELETE /destroy' do
 		it 'destroys the requested Reminder'
-	
+
 		it 'redirects to the posts list'
 	end
 end
