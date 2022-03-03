@@ -4,10 +4,8 @@ require 'rails_helper'
 RSpec.describe RemindersController, type: :controller do
 
 	login_user
-
-	reminder_member = FactoryBot.create(:user)
-
-	let(:valid_attributes) {
+    
+    let(:valid_attributes) {
         {}
     }
 
