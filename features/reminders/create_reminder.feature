@@ -8,7 +8,7 @@ Feature: Create Subscription
 
     Scenario: User can see the new reminder form
 		Given I am on the reminders "index" page
-		When I click the "New Reminder" link
+		When I click the "Create Reminder" button
   		Then I should see the new reminder page
 
     Scenario: User creates a reminder successfully
