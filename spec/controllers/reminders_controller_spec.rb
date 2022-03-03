@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe RemindersController, type: :controller do
 
 	login_user
-    
+
     let(:valid_attributes) {
         {}
     }
