@@ -386,12 +386,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise (~> 4.8)
-<<<<<<< HEAD
   factory_bot_rails
   faker
-=======
-  excon
->>>>>>> 027f382 ([Reminder Feature] implemented scheduling logic and basic UI for displaying active reminders)
   font-awesome-rails
   groupdate
   jbuilder (~> 2.7)
