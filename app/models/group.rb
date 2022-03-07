@@ -12,5 +12,5 @@ class Group < ApplicationRecord
   has_many :subscriptions, through: :shared_subscriptions
   accepts_nested_attributes_for :shared_subscriptions, allow_destroy: true
   
-	validate :owner
+	validates :owner, :group_name, presence: true
 end
