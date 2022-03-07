@@ -7,10 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'faker'
 require 'devise'
-<<<<<<< HEAD
 require 'capybara'
-=======
->>>>>>> fadf6a0 ([Cleanup Feature] - Rspec testing for existing models/controllers (#77) - [Delivers #181424519])
 require_relative 'support/controller_macros'
 # Add additional requires below this line. Rails is not loaded until this point!
 
