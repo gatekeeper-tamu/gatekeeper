@@ -12,8 +12,14 @@
   <% end %>
 
   <%= group_form.input :group_name %>
-  <%= group_form.association :users, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :username, collection: User.where.not(id: current_user.id)%>
-
+  <fieldset>
+      <legend>Members:</legend>
+      <%= group_form.fields_for :members do |members_form| %>
+          <%= render "member_fields", f: members_form %>
+      <% end %>
+      <%= link_to_add_fields "Add Members", group_form, :members %>
+  </fieldset>
+  
   <%= group_form.association :subscriptions, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :subscription_name, collection: current_user.subscriptions%>
 
   <div class="actions">
