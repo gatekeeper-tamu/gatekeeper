@@ -37,6 +37,10 @@ RSpec.describe GroupsController, type: :controller do
     end
 
     describe "GET /show" do
+<<<<<<< HEAD
+=======
+		context
+>>>>>>> fadf6a0 ([Cleanup Feature] - Rspec testing for existing models/controllers (#77) - [Delivers #181424519])
         it "returns a success response without members" do
             group = Group.create! valid_attributes
             redirect_to groups_path(group.id)
