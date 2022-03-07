@@ -70,6 +70,9 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
+<<<<<<< HEAD
   config.include Warden::Test::Helpers
+=======
+>>>>>>> fadf6a0 ([Cleanup Feature] - Rspec testing for existing models/controllers (#77) - [Delivers #181424519])
   config.extend ControllerMacros, :type => :controller
 end

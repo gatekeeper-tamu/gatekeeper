@@ -57,6 +57,7 @@ RSpec.describe GroupsController, type: :controller do
     end
 
     describe "GET /edit" do
+<<<<<<< HEAD
         context 'with valid attributes' do
             it "returns a success response" do
                 group = Group.create! valid_attributes
@@ -77,6 +78,17 @@ RSpec.describe GroupsController, type: :controller do
                 redirect_to edit_group_path(group.id)
                 expect(response).to be_successful
             end
+=======
+        it "returns a success response" do
+            group = Group.create! valid_attributes
+            redirect_to edit_group_path(group.id)
+            expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+        end
+        it "returns a success response with members" do
+            group = Group.create! valid_attributes_members
+            redirect_to edit_group_path(group.id)
+            expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+>>>>>>> fadf6a0 ([Cleanup Feature] - Rspec testing for existing models/controllers (#77) - [Delivers #181424519])
         end
     end
 
