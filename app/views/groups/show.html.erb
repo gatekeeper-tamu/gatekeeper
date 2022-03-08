@@ -17,13 +17,16 @@
       <th colspan="2">Name</th>
       <th>Username</th>
       <th>Email</th>
+      <th>Permission</th>
     </tr>
-    <% @group.users.each do |user| %>
+    <% @group.members.each do |member| %>
       <tr>
+        <%user = member.user%>
         <td><%= user.first_name%></td>
         <td><%= user.last_name%></td>
         <td><%= link_to "#{user.username}", user_root_path(user.username) %></td>
         <td><%= user.email%></td>
+        <td><%= member.permission%></td>
       </tr>
     <% end %>
   </table>
