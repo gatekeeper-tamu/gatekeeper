@@ -1,6 +1,8 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :set_owner, except: %i[ create new ]
+  before_action :set_self_owner, only: %i[ create new ]
 
   # GET /groups or /groups.json
   def index
@@ -103,6 +105,18 @@ class GroupsController < ApplicationController
           redirect_to "/404.html"
         end
       end
+    end
+
+    def set_owner
+      if (@group)
+        @owner = @group.owner
+      else
+        @owner = nil
+      end
+    end
+
+    def set_self_owner
+      @owner = current_user
     end
 
     # Only allow a list of trusted parameters through.

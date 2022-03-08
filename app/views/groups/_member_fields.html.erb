@@ -1,6 +1,6 @@
 <div class="nested-fields">
     <%= f.hidden_field :_destroy %>
-    <%= f.association :user, as: :select, input_html: {class: 'chosen-select'}, label_method: :username, collection: User.where.not(id: current_user.id) %>
+    <%= f.association :user, as: :select, input_html: {class: 'chosen-select'}, label_method: :username, collection: User.where.not(id: @owner.id) %>
     <%= f.select :permission, Membership.permissions.keys, input_html: {class: 'chosen-select'}%>
     <%= link_to "Remove", '#', class: "remove_fields" %>
 </div>
