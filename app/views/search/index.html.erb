@@ -1,16 +1,16 @@
+
 <body>
   <div class="main">
 	<h1 class="display-2 center">TV show / movie search</h1>
-  <%= form_with(url: search_path, method: 'get', local: true) do %>
+  <%= form_with(url: search_show_path, method: 'get', local: true) do %>
           <div class="form-group">
             <%= text_field_tag :title, nil, placeholder: 'Search for shows and movies to watch now!', class: 'form-control' %>
           </div>
-          <%= button_tag 'Search' %>
+          <%= button_tag 'Search', class: 'btn btn-success btn-block'%>
         <% end %>
     <% if flash[:alert] %>
       <div class="alert alert-warning"><%= flash[:alert] %></div>
      <% end %>
-      <div> <%= @response %> </div>
   </div>
   <div class="container">
   </div>

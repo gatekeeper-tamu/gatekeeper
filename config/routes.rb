@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 	get 'users/:username' => 'users#show', :as => :user_root
 	get 'groups/' => 'groups#index', :as => :group_root
 	get 'subscriptions/' => 'subscriptions#index', :as => :subscription_root
-	get '/search', to: 'search#index'
+	get 'search/'=> 'search#index', :as => :search_root
 	get 'home/index'
 	root 'home#index'
 	resources :reminder, path: '/reminders'
