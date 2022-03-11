@@ -38,5 +38,26 @@ class User < ApplicationRecord
 	
 	accepts_nested_attributes_for :subscriptions
 	accepts_nested_attributes_for :owned_groups
+
+
+	def total_cost
+    sum = 0
+    for sub in subscriptions
+      sum += sub.cost_per_month
+    end
+    return sum
+	end
+
+	def total_cost_overall
+    sum = 0
+    for sub in subscriptions
+			sub_date = sub.created_at.to_datetime
+			delta = ((Time.now - sub_date) / 60 / 60 / 24).round
+			num_mo = (delta / 30 + 1)
+      sum +=  sub.cost_per_month * num_mo
+    end
+		return sum
+	end
+
 end
 
