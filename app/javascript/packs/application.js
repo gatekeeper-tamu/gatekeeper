@@ -10,6 +10,7 @@ import "channels"
 import 'chosen-js/chosen.jquery'
 import 'chosen-js'
 import "chartkick/chart.js"
+import "chartkick/highcharts"
 import "bootstrap"
 
 // Import the specific modules you may need (Modal, Alert, etc)
