@@ -84,7 +84,7 @@ class GroupsController < ApplicationController
         render_errors(format)
       end
     end
-    
+
     def remove_subscription(subscription_id, format)
       subscription ||= Subscription.find(subscription_id)
       return if (subscription.nil?)
@@ -129,7 +129,7 @@ class GroupsController < ApplicationController
     def update_params
       params.compact!
       permission = @group.access_level(current_user)
-      if (current_user.is_admin?(@group)) 
+      if (current_user.is_admin?(@group))
         puts params
         params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids, :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]}, :update_action)
         # puts params
