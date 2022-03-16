@@ -9,7 +9,10 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
-    return unless (current_user.is_viewer?(@group))
+    if !current_user.is_viewer?(@group)
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end 
   end
 
   # GET /groups/new
@@ -19,7 +22,10 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    return unless (current_user.is_collaborator?(@group))
+    if !current_user.is_collaborator?(@group)
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end
   end
 
   # POST /groups or /groups.json
@@ -60,7 +66,10 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1 or /groups/1.json
   def destroy
-    return unless (current_user.is_owner?(@group))
+    if (!current_user.is_owner?(@group))
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end
     @group.destroy
 
     respond_to do |format|
@@ -104,13 +113,12 @@ class GroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       begin
-        accessible_groups = Group.accessible_by_user(current_user)
-        @groups = accessible_groups.sort_by(&:group_name)
+        @groups = Group.accessible_by_user(current_user)
         if (params[:id].present?)
-          @group = accessible_groups.find(params[:id]).first
+          @group = @groups.find(params[:id])
           @owner = @group.owner
         end
-        rescue ActiveRecord::RecordNotFound => e
+        rescue ActiveRecord::RecordNotFound
           puts "Can't access this page! Invalid login."
           redirect_to "/404.html"
         end

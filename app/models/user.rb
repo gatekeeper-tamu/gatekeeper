@@ -43,19 +43,16 @@ class User < ApplicationRecord
 
     def is_viewer?(group)
 		access = access_level(group)
-		puts "#{access} = #{Membership.permissions[access]} >= #{Membership.permissions[:viewer]}"
 		return (Membership.permissions[access] >= Membership.permissions[:viewer])
 	end
 
 	def is_collaborator?(group)
 		access = access_level(group)
-		puts "#{access} = #{Membership.permissions[access]} >= #{Membership.permissions[:collaborator]}"
 		return (Membership.permissions[access] >= Membership.permissions[:collaborator])
 	end
 
 	def is_admin?(group)
 		access = access_level(group)
-		puts "#{access} = #{Membership.permissions[access]} >= #{Membership.permissions[:admin]}"
 		return (Membership.permissions[access] == Membership.permissions[:admin])
 	end
 

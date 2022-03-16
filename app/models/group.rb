@@ -15,10 +15,7 @@ class Group < ApplicationRecord
 	validates :owner, :group_name, presence: true
 
   scope :accessible_by_user, ->(user) {
-    user.groups | user.owned_groups
-    # query1 = includes(:members).where(owner: user)
-    # query2 = includes(:members).where(:members => {user_id: user.id})
-    # query1.or(query2)
+    where(id: user.memberships.pluck(:group_id)).or(where(owner: user))
   }
 
   def access_level(user)

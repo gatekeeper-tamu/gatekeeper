@@ -41,3 +41,8 @@ Feature: Add and Remove Subscriptions from Group Feature
 		And I click the "Update Group" button
   		Then I should see the "Roomies" group's show page
   		# And I should not see "Netflix"
+
+	Scenario: Viewer user cannot edit a group
+		Given the Flatmates group exists
+		And I am on the groups "index" page
+		Then I should not be able to Edit the "Flatmates" group

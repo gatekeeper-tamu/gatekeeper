@@ -23,18 +23,6 @@ RSpec.describe GroupsController, type: :controller do
         { :group_name => "Roomies", :users => [group_member]}
     }
 
-	let(:valid_attributes_viewer) {
-        { :owner => group_member, :group_name => "Roomies", :members => [{:user_id => controller.current_user.id, :permission => 0}]}
-    }
-
-	let(:valid_attributes_collaborator) {
-        { :owner => group_member, :group_name => "Roomies", :members => [{:user_id => controller.current_user.id, :permission => 1}]}
-    }
-
-	let(:valid_attributes_admin) {
-        { :owner => group_member, :group_name => "Roomies", :members => [{:user_id => controller.current_user.id, :permission => 2}]}
-    }
-
 	let(:invalid_attributes) {
 		{:cost_per_month => 9.99}
 	}
@@ -49,7 +37,6 @@ RSpec.describe GroupsController, type: :controller do
     end
 
     describe "GET /show" do
-		context
         it "returns a success response without members" do
             group = Group.create! valid_attributes
             redirect_to groups_path(group.id)
@@ -70,15 +57,26 @@ RSpec.describe GroupsController, type: :controller do
     end
 
     describe "GET /edit" do
-        it "returns a success response" do
-            group = Group.create! valid_attributes
-            redirect_to edit_group_path(group.id)
-            expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+        context 'with valid attributes' do
+            it "returns a success response" do
+                group = Group.create! valid_attributes
+                redirect_to edit_group_path(group.id)
+                expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+            end
         end
-        it "returns a success response with members" do
-            group = Group.create! valid_attributes_members
-            redirect_to edit_group_path(group.id)
-            expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+
+        context 'with valid attributes' do
+            it "returns a success response for owner" do
+                group = Group.create! valid_attributes_members
+                redirect_to edit_group_path(group.id)
+                expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+            end
+            it "returns an error response for viewer member" do
+                group = Group.create! valid_attributes_members
+                sign_in group_member
+                redirect_to edit_group_path(group.id)
+                expect(response).to be_successful
+            end
         end
     end
 
