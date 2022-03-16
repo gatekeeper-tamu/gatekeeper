@@ -2,15 +2,22 @@
 <body>
   <div class="main">
 	<h1 class="display-2 center">TV show / movie search</h1>
-  <%= form_with(url: search_show_path, method: 'get', local: true) do %>
+  <%= form_for(:search, :url =>{:controller => 'search', :action => 'show' }) do |form|%>
           <div class="form-group">
-            <%= text_field_tag :title, nil, placeholder: 'Search for shows and movies to watch now!', class: 'form-control' %>
+            <%= form.text_field :title, placeholder: 'Search for shows and movies to watch now!', class: 'form-control'%>
+            <%= form.submit "show" %>
           </div>
-          <%= button_tag 'Search', class: 'btn btn-success btn-block'%>
         <% end %>
     <% if flash[:alert] %>
       <div class="alert alert-warning"><%= flash[:alert] %></div>
      <% end %>
+      <div> 
+      
+      <% @resultsName.each do |r|%> 
+            <a><%= r %></a> 
+            <%end%>
+      
+      </div>
   </div>
   <div class="container">
   </div>
