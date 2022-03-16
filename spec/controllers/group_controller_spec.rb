@@ -23,6 +23,18 @@ RSpec.describe GroupsController, type: :controller do
         { :group_name => "Roomies", :users => [group_member]}
     }
 
+	let(:valid_attributes_viewer) {
+        { :owner => group_member, :group_name => "Roomies", :members => [{:user_id => controller.current_user.id, :permission => 0}]}
+    }
+
+	let(:valid_attributes_collaborator) {
+        { :owner => group_member, :group_name => "Roomies", :members => [{:user_id => controller.current_user.id, :permission => 1}]}
+    }
+
+	let(:valid_attributes_admin) {
+        { :owner => group_member, :group_name => "Roomies", :members => [{:user_id => controller.current_user.id, :permission => 2}]}
+    }
+
 	let(:invalid_attributes) {
 		{:cost_per_month => 9.99}
 	}

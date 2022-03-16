@@ -83,9 +83,6 @@ gem 'bootstrap-chosen-rails'
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
-# permissions
-gem 'cancancan'
-
 # sidkiq for queueing tasks for reminder emails
 gem 'sidekiq', '>= 6.4.1'
 gem "chartkick"

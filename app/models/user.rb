@@ -38,5 +38,30 @@ class User < ApplicationRecord
 	
 	accepts_nested_attributes_for :subscriptions
 	accepts_nested_attributes_for :owned_groups
+
+	
+
+    def is_viewer?(group)
+		return (access_level(group).to_i >= Membership.permissions[:viewer].to_i)
+	end
+  
+	def is_collaborator?(group)
+		return (access_level(group).to_i >= Membership.permissions[:collaborator].to_i)
+	end
+  
+	def is_admin?(group)
+		return (is_owner?(group) || access_level(group) == Membership.permissions[:admin])
+	end
+  
+	def is_owner?(group)
+		return (group.owner == self)
+	end
+  
+	def access_level(group)
+		if (is_owner?(group)) 
+			return Membership.permissions[:admin]
+		end
+		return group.access_level(self)
+	end
 end
 

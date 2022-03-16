@@ -13,4 +13,21 @@ class Group < ApplicationRecord
   accepts_nested_attributes_for :shared_subscriptions, allow_destroy: true
   
 	validates :owner, :group_name, presence: true
+
+  scope :accessible_by_user, ->(user) {
+    query1 = includes(:members).where(owner: user)
+    query2 = includes(:members).where(:members => {user_id: user.id})
+    query1.or(query2)
+  }
+
+  def access_level(user)
+    return Membership.permissions[:admin] if (user == owner)
+    begin
+      membership = members.find_by(user_id: user.id)
+      permission = membership.permission
+      return permission
+    rescue ActiveRecord::RecordNotFound => e
+      return nil
+    end
+  end
 end
