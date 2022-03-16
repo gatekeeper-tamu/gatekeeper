@@ -41,11 +41,9 @@ class GroupsController < ApplicationController
   def update
     return unless (current_user.is_collaborator?(@group))
     respond_to do |format|
-      # puts "HELLO FROM UPDATE"
-      # puts group_params
       if (update_params[:update_action] == "add")
         puts "ADDING SUBSCRIPTION"
-        add_subscription(group_params[:subscription_ids].second, format)
+        add_subscription(update_params[:subscription_ids].second, format)
       elsif (update_params[:update_action] == "remove")
         puts "REMOVING SUBSCRIPTION"
         remove_subscription(update_params[:subscription_ids].first, format)
@@ -88,8 +86,9 @@ class GroupsController < ApplicationController
     end
     
     def remove_subscription(subscription_id, format)
-      if (current_user.is_admin?(@group))
-        subscription ||= current_user.subscriptions.find(subscription_id)
+      subscription ||= Subscription.find(subscription_id)
+      return if (subscription.nil?)
+      if (current_user.is_admin?(@group) || current_user == subscription.user)
         sub_name = subscription.subscription_name
         if !subscription.nil? && @group.subscriptions.delete(subscription)
           format.html { redirect_to group_url(@group), notice: "#{sub_name} subscription successfully removed." }
@@ -108,7 +107,7 @@ class GroupsController < ApplicationController
         accessible_groups = Group.accessible_by_user(current_user)
         @groups = accessible_groups.sort_by(&:group_name)
         if (params[:id].present?)
-          @group = accessible_groups.find(params[:id])
+          @group = accessible_groups.find(params[:id]).first
           @owner = @group.owner
         end
         rescue ActiveRecord::RecordNotFound => e
@@ -131,12 +130,15 @@ class GroupsController < ApplicationController
       params.compact!
       permission = @group.access_level(current_user)
       if (current_user.is_admin?(@group)) 
+        puts params
         params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids, :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]}, :update_action)
+        # puts params
       elsif (current_user.is_collaborator?(@group))
-        params.require(:group).permit(:subscription_id, {subscription_ids: []}, :subscription_ids, :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]}, :update_action)
+        params.require(:group).permit(:subscription_id, {subscription_ids: []}, :subscription_ids, :update_action)
       elsif (current_user.is_viewer?(@group))
         params.require(:group).permit()
       end
+      # return params
     end
 
     def render_errors(format)

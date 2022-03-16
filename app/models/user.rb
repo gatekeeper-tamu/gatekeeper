@@ -42,15 +42,21 @@ class User < ApplicationRecord
 	
 
     def is_viewer?(group)
-		return (access_level(group).to_i >= Membership.permissions[:viewer].to_i)
+		access = access_level(group)
+		puts "#{access} = #{Membership.permissions[access]} >= #{Membership.permissions[:viewer]}"
+		return (Membership.permissions[access] >= Membership.permissions[:viewer])
 	end
   
 	def is_collaborator?(group)
-		return (access_level(group).to_i >= Membership.permissions[:collaborator].to_i)
+		access = access_level(group)
+		puts "#{access} = #{Membership.permissions[access]} >= #{Membership.permissions[:collaborator]}"
+		return (Membership.permissions[access] >= Membership.permissions[:collaborator])
 	end
   
 	def is_admin?(group)
-		return (is_owner?(group) || access_level(group) == Membership.permissions[:admin])
+		access = access_level(group)
+		puts "#{access} = #{Membership.permissions[access]} >= #{Membership.permissions[:admin]}"
+		return (Membership.permissions[access] == Membership.permissions[:admin])
 	end
   
 	def is_owner?(group)
@@ -59,8 +65,10 @@ class User < ApplicationRecord
   
 	def access_level(group)
 		if (is_owner?(group)) 
-			return Membership.permissions[:admin]
+			puts "User is owner"
+			return Membership.permissions.key(2)
 		end
+		puts "User is not owner"
 		return group.access_level(self)
 	end
 end

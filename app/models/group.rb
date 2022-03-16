@@ -15,13 +15,14 @@ class Group < ApplicationRecord
 	validates :owner, :group_name, presence: true
 
   scope :accessible_by_user, ->(user) {
-    query1 = includes(:members).where(owner: user)
-    query2 = includes(:members).where(:members => {user_id: user.id})
-    query1.or(query2)
+    user.groups | user.owned_groups
+    # query1 = includes(:members).where(owner: user)
+    # query2 = includes(:members).where(:members => {user_id: user.id})
+    # query1.or(query2)
   }
 
   def access_level(user)
-    return Membership.permissions[:admin] if (user == owner)
+    return Membership.permissions.key(2) if (user == owner || owner.nil?)
     begin
       membership = members.find_by(user_id: user.id)
       permission = membership.permission
