@@ -67,12 +67,11 @@ class SubscriptionsController < ApplicationController
     def set_subscription
       begin
         @subscription = current_user.subscriptions.find(params[:id])
-      rescue ActiveRecord::RecordNotFound => e
+      rescue ActiveRecord::RecordNotFound
         for group in (current_user.owned_groups | current_user.groups)
-          sub ||= group.subscriptions.where(id: "62a31205-cac7-4d07-9440-e4d8e6bdbfac")
-          if(!sub.first.nil?)
-            @subscription = sub.first
-            # return @subscription
+          @subscription ||= group.subscriptions.find(params[:id])
+          if(@subscription)
+            return @subscription
           end
         end
         puts @subscription
