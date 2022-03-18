@@ -20,15 +20,37 @@
   <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
 </p>
 
-<p class="subscription-card-title">Url</p>
-<p><%= @subscription.url %></p>
-
 <p class="subscription-card-title">Cost per month</p>
 <p><%= @subscription.cost_per_month %></p>
 
-<p class="subscription-card-title">Image</p>
-<p><%= @subscription.image %></p>
+<br>
 
+<h2 class="card-title">Shared With:</h1>
+<hr>
+<strong>Groups</strong>
+<table>
+  <tr>
+    <th>Group Name</th>
+    <th>Owner</th>
+    <th>Permission</th>
+    <th></th>
+  </tr>
+  <% @subscription.share_records.each do |share_record| %>
+    <tr>
+      <% group = Group.find(share_record.group_id) %>
+      <td><%= link_to "#{group.group_name}", group_path(group) %></td>
+      <td><%= link_to "#{group.owner.username}", user_root_path(group.owner.username) %></td>
+      <td><%= share_record.permission %></td>
+      <td>
+        <% if current_user == @subscription.user || current_user.is_admin?(group) %>
+          <%= link_to "Remove", group_path(group, group: { subscription_ids: [@subscription.id], update_action: "remove"}), method: 'patch' %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= button_to 'Visit Service', @subscription.url, method: :get, class: "btn btn-dark" %>
 <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
 <%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %> 
 <%= button_to 'Back', subscriptions_path, method: :get, class: "btn btn-dark"%>

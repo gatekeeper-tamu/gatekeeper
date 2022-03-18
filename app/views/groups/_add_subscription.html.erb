@@ -5,7 +5,13 @@
 <hr/>
 <div class="collapse" id="collapseExample">
 <%= simple_form_for @group, method: :patch do |group_form| %>
-	<%= group_form.association :subscriptions, as: :select, input_html: {class: 'chosen-select'}, label_method: :subscription_name, collection: current_user.subscriptions.where.not(id: @group.subscriptions.pluck(:id))%>
+	<fieldset>
+        <%= group_form.fields_for :shared_subscriptions do |f| %>
+            <%= f.hidden_field :_destroy %>
+			<%= f.association :subscription, as: :select, input_html: {class: 'chosen-select'}, label_method: :subscription_name, collection: current_user.subscriptions %>
+			<%= f.select :permission, SharedSubscription.permissions.keys, input_html: {class: 'chosen-select'}%>
+        <% end %>
+    </fieldset>
 	<%= group_form.input :update_action, as: :hidden, :input_html => { :value => "add" }%>
 	<div class="actions">
 		<%= group_form.submit :add_subscription, class: "btn btn-dark" %>

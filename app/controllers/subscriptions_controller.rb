@@ -86,6 +86,6 @@ class SubscriptionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def subscription_params
-      params.require(:subscription).permit(:user, :subscription_name, :username, :password, :url, :cost_per_month, :image)
+      params.require(:subscription).permit(:user, :subscription_name, :username, :password, :url, :cost_per_month, :image, :share_records_attributes, {:share_records_attributes => [:id, :_destroy, :group_id, :permission]})
     end
 end

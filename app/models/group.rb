@@ -18,10 +18,17 @@ class Group < ApplicationRecord
     where(id: user.memberships.pluck(:group_id)).or(where(owner: user))
   }
 
+  def self.where_user_is_collaborator(user)
+    accessible_by_user(user).select { |group|
+      user.is_collaborator?(group)
+    }
+  end
+
   def user_access_level(user)
     return Membership.permissions.key(2) if (user == owner || owner.nil?)
     begin
       membership = members.find_by(user_id: user.id)
+      # return if (membership.nil?) nil
       permission = membership.permission
       return permission
     rescue ActiveRecord::RecordNotFound => e

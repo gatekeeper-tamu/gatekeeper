@@ -60,10 +60,10 @@ class User < ApplicationRecord
 
 	def group_access_level(group)
 		if (is_owner?(group))
-			puts "User is owner"
+			# puts "User is owner"
 			return Membership.permissions.key(2)
 		end
-		puts "User is not owner"
+		# puts "User is not owner"
 		return group.user_access_level(self)
 	end
 
