@@ -21,7 +21,7 @@ class Subscription < ApplicationRecord
   validates :url, :format => { :with => URI::DEFAULT_PARSER.make_regexp(%w(http https)), :message => " is not valid" }
 
   scope :accessible_by_user, ->(user) {
-    where(id: SharedSubscription.where(group_id: Group.accessible_by_user(user)).pluck(:subscription_id))
+    where(id: SharedSubscription.where(group_id: Group.accessible_by_user(user)).pluck(:subscription_id)).or(where(user: user))
   }
 
   def can_edit?(user)
@@ -46,7 +46,7 @@ class Subscription < ApplicationRecord
 protected
 
   def smart_add_url_protocol
-    unless url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
+    unless url.nil? || url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
       self.url = "http://#{url}"
     end
   end

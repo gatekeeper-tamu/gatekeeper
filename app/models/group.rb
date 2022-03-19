@@ -33,7 +33,7 @@ class Group < ApplicationRecord
       end
       permission = membership.permission
       return permission
-    rescue ActiveRecord::RecordNotFound => e
+    rescue ActiveRecord::RecordNotFound
       return nil
     end
   end

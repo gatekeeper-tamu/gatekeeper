@@ -78,7 +78,7 @@ class User < ApplicationRecord
 			return true
 		end
 		access = subscription_access_level(subscription)
-		puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:editor]}"
+		# puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:editor]}"
 		return (SharedSubscription.permissions[access] == SharedSubscription.permissions[:editor])
 	end
 
