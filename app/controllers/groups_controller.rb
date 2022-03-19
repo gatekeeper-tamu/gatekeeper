@@ -50,9 +50,9 @@ class GroupsController < ApplicationController
       if (update_params[:update_action] == "add")
         puts "ADDING SUBSCRIPTION"
         # if (update_params[:shared_subscriptions_attributes].nil?)
-        #   add_subscription(update_params[:subscription_ids].second, format)
+          add_subscription(update_params[:subscription_ids].second, format)
         # else
-          add_shared_subscription(update_params[:shared_subscriptions_attributes]["0"][:subscription_id], update_params[:shared_subscriptions_attributes]["0"][:permission], format)
+          # add_shared_subscription(update_params[:shared_subscriptions_attributes]["0"][:subscription_id], update_params[:shared_subscriptions_attributes]["0"][:permission], format)
         # end
       elsif (update_params[:update_action] == "remove")
         puts "REMOVING SUBSCRIPTION"
@@ -83,27 +83,11 @@ class GroupsController < ApplicationController
   end
 
   private
-    # def add_subscription(subscription_id, format)
-    #   if (current_user.is_collaborator?(@group))
-    #     subscription ||= current_user.subscriptions.find(subscription_id)
-    #     sub_name = subscription.subscription_name
-    #     if !subscription.nil? && @group.subscriptions << subscription
-    #       format.html { redirect_to group_url(@group), notice: "#{sub_name} subscription successfully added." }
-    #       format.json { render :show, status: :ok, location: @group }
-    #     else
-    #       render_errors(format)
-    #     end
-    #   else
-    #     render_errors(format)
-    #   end
-    # end
-
-    def add_shared_subscription(subscription_id, permission, format)
+    def add_subscription(subscription_id, format)
       if (current_user.is_collaborator?(@group))
         subscription ||= current_user.subscriptions.find(subscription_id)
         sub_name = subscription.subscription_name
-        share_record = SharedSubscription.create(subscription_id: subscription_id, group: @group, permission: permission)
-        if !share_record.nil?
+        if !subscription.nil? && @group.subscriptions << subscription
           format.html { redirect_to group_url(@group), notice: "#{sub_name} subscription successfully added." }
           format.json { render :show, status: :ok, location: @group }
         else
@@ -158,6 +142,7 @@ class GroupsController < ApplicationController
     end
 
     def update_params
+      puts params
       params.compact!
       if (current_user.is_admin?(@group))
         params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids,
