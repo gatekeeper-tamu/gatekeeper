@@ -5,7 +5,8 @@ class SharedSubscription < ApplicationRecord
   validates :group_id, :uniqueness => {:scope=>:subscription_id}
 
   enum permission: {
-    viewer: 0,
-    editor: 1
+    no_access: 0,
+    viewer: 1,
+    editor: 2
   }
 end

@@ -21,8 +21,26 @@ class Subscription < ApplicationRecord
   validates :url, :format => { :with => URI::regexp(%w(http https)), :message => " is not valid" }
 
   scope :accessible_by_user, ->(user) {
-    where(id: SharedSubscription.where(group_id: user.memberships.pluck(:group_id)).pluck(:subscription_id)).or(where(user: user))
+    where(id: SharedSubscription.where(group_id: Group.accessible_by_user(user)).pluck(:subscription_id))
   }
+
+  def can_edit?(user)
+    return user.can_edit?(self)
+  end
+
+  def can_view?(user)
+    return user.can_view?(self)
+  end
+
+  def access_level(user)
+    if (can_edit?(user))
+      return SharedSubscription.permissions.key(2)
+    elsif (can_edit?(user))
+      return SharedSubscription.permissions.key(1)
+    else
+      return nil
+    end
+  end
 
 
 protected

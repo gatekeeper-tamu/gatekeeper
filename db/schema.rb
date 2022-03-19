@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_011907) do
     t.uuid "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "permission", default: 0
+    t.integer "permission", default: 1
     t.index ["group_id"], name: "index_shared_subscriptions_on_group_id"
     t.index ["subscription_id"], name: "index_shared_subscriptions_on_subscription_id"
   end

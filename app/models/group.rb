@@ -28,7 +28,9 @@ class Group < ApplicationRecord
     return Membership.permissions.key(2) if (user == owner || owner.nil?)
     begin
       membership = members.find_by(user_id: user.id)
-      # return if (membership.nil?) nil
+      if (membership.nil?) 
+        return nil
+      end
       permission = membership.permission
       return permission
     rescue ActiveRecord::RecordNotFound => e

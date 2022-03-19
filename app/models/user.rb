@@ -69,6 +69,7 @@ class User < ApplicationRecord
 
 	def can_view?(subscription)
 		access = subscription_access_level(subscription)
+		# puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:viewer]}"
 		return (SharedSubscription.permissions[access] >= SharedSubscription.permissions[:viewer])
 	end
 
@@ -77,33 +78,34 @@ class User < ApplicationRecord
 			return true
 		end
 		access = subscription_access_level(subscription)
+		puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:editor]}"
 		return (SharedSubscription.permissions[access] == SharedSubscription.permissions[:editor])
 	end
 
 	def subscription_access_level(subscription)
 		if (subscription.user == self)
-			return Subscription.permissions.key(1)
+			return SharedSubscription.permissions.key(2)
 		end
 		can_view = false
 		can_edit = false
-		for group in SharedSubscription.where(subscription_id: subscription.id)
+		for share_record in SharedSubscription.where(subscription_id: subscription.id, group_id: Group.accessible_by_user(self).pluck(:id))
 			begin
-				group = Group.accessible_by_user(self).find(share_record.group_id)
-				if (share_record.permission == SharedSubscription.permissions[:viewer])
+				if (SharedSubscription.permissions[share_record.permission] == SharedSubscription.permissions[:viewer])
 					can_view = true
 				end
-				if (share_record.permission == SharedSubscription.permissions[:editor] and is_admin?(group))
+				if (SharedSubscription.permissions[share_record.permission] == SharedSubscription.permissions[:editor] and is_admin?(Group.find(share_record.group_id)))
 					can_edit = true
+					break
 				end
 				rescue ActiveRecord::RecordNotFound
 			end
 		end
 		if (can_edit)
-			SharedSubscription.permissions.key(1)
+			SharedSubscription.permissions.key(2)
 		elsif (can_view)
-			SharedSubscription.permissions.key(0)
+			SharedSubscription.permissions.key(1)
 		else
-			nil
+			SharedSubscription.permissions.key(0)
 		end
 	end
 end
