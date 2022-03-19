@@ -52,7 +52,30 @@ Given /the Roomies group exists/ do
 		roomies.subscriptions << netflix
 		puts roomies.subscriptions
 	end
-end 
+end
+
+Given /the Flatmates group exists/ do
+	expect(!@user.nil?)
+	sarah ||= find_user("sarah@testerwoman.com")
+	flatmates = sarah.owned_groups.create(group_name: "Flatmates", user_ids: @user.id)
+	hulu ||= sarah.subscriptions.where(subscription_name: "Hulu").first
+	if (!hulu.nil?)
+		flatmates.subscriptions << hulu
+		puts flatmates.subscriptions
+	end
+end
+
+Given /the Flatmates2 group exists/ do
+	expect(!@user.nil?)
+	sarah ||= find_user("sarah@testerwoman.com")
+	flatmates = sarah.owned_groups.create(group_name: "Flatmates2", user_ids: @user.id)
+	hulu ||= sarah.subscriptions.where(subscription_name: "Hulu").first
+	flatmates.members.first.permission = Membership.permissions[:admin]
+	if (!hulu.nil?)
+		flatmates.subscriptions << hulu
+		puts flatmates.subscriptions
+	end
+end
 
 ##### WHEN #####
 When /^I access the "(.*)" group$/ do |group_name|
@@ -72,6 +95,13 @@ When /^I (Edit|Destroy|Show) the "(.*)" group$/ do |action, group_name|
 	@group_id = @group.id
 	row = page.find("tr", text: group_name)
 	row.click_link action
+end
+
+When /^I should not be able to (Edit|Destroy|Show) the "(.*)" group$/ do |action, group_name|
+	@group = Group.where(:group_name => group_name).first
+	@group_id = @group.id
+	row = page.find("tr", text: group_name)
+	row.should_not have_content(action)
 end
 
 When /^I (add|remove) "(.*)" (to|from) the group (user|subscription)s$/ do |action, value, action2, table|
