@@ -1,9 +1,9 @@
 class Subscription < ApplicationRecord
 	has_kms_key
   before_validation :smart_add_url_protocol
-	
+
   belongs_to :user
-  has_many :share_records, class_name: 'SharedSubscription', :dependent => :delete_all 
+  has_many :share_records, class_name: 'SharedSubscription', :dependent => :delete_all
   has_many :groups, through: :share_records
   accepts_nested_attributes_for :share_records, allow_destroy: true
   # has_many :reminders
@@ -18,7 +18,7 @@ class Subscription < ApplicationRecord
 
 	validates :username, presence: true
 	validates :password, presence: true
-  validates :url, :format => { :with => URI::regexp(%w(http https)), :message => " is not valid" }
+  validates :url, :format => { :with => URI::DEFAULT_PARSER.make_regexp(%w(http https)), :message => " is not valid" }
 
   scope :accessible_by_user, ->(user) {
     where(id: SharedSubscription.where(group_id: Group.accessible_by_user(user)).pluck(:subscription_id))

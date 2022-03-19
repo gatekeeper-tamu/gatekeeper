@@ -6,12 +6,12 @@ class Group < ApplicationRecord
   has_many :users, through: :members
   accepts_nested_attributes_for :members, allow_destroy: true
 
-  # sets up tables shared_subscriptions (to access shared_subscriptions records) 
+  # sets up tables shared_subscriptions (to access shared_subscriptions records)
   # and subscriptions (to access the actual subscriptions that have been added to the group)
   has_many :shared_subscriptions, dependent: :destroy
   has_many :subscriptions, through: :shared_subscriptions
   accepts_nested_attributes_for :shared_subscriptions, allow_destroy: true
-  
+
 	validates :owner, :group_name, presence: true
 
   scope :accessible_by_user, ->(user) {
@@ -28,7 +28,7 @@ class Group < ApplicationRecord
     return Membership.permissions.key(2) if (user == owner || owner.nil?)
     begin
       membership = members.find_by(user_id: user.id)
-      if (membership.nil?) 
+      if (membership.nil?)
         return nil
       end
       permission = membership.permission
