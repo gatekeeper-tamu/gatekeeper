@@ -55,3 +55,7 @@ nav {
 .hidden {
   display: none;
 }
+
+.select {
+  display: inline-flex;
+}

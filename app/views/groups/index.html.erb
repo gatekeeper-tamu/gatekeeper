@@ -17,8 +17,12 @@
         <td><%= group.group_name %></td>
         <td><%= group.owner.username %></td>
         <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if (current_user.is_collaborator?(group)) %>
+          <td><%= link_to 'Edit', edit_group_path(group) %></td>
+        <% end %>
+        <% if (current_user.is_owner?(group)) %>
+          <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

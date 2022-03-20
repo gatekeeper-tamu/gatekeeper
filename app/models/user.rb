@@ -30,12 +30,12 @@ class User < ApplicationRecord
 			:timeoutable, :omniauthable
 	validates :username, presence: true
 	validates_uniqueness_of :username
-	
+
 	has_many :subscriptions, dependent: :destroy
 	has_many :owned_groups, class_name: 'Group', inverse_of: 'owner', dependent: :destroy
 	has_many :memberships, dependent: :destroy
 	has_many :groups, through: :memberships
-	
+
 	accepts_nested_attributes_for :subscriptions
 	accepts_nested_attributes_for :owned_groups
 
@@ -57,6 +57,34 @@ class User < ApplicationRecord
       sum +=  sub.cost_per_month * num_mo
     end
 		return sum
+	end
+
+  def is_viewer?(group)
+		access = access_level(group)
+		return (Membership.permissions[access] >= Membership.permissions[:viewer])
+	end
+
+	def is_collaborator?(group)
+		access = access_level(group)
+		return (Membership.permissions[access] >= Membership.permissions[:collaborator])
+	end
+
+	def is_admin?(group)
+		access = access_level(group)
+		return (Membership.permissions[access] == Membership.permissions[:admin])
+	end
+
+	def is_owner?(group)
+		return (group.owner == self)
+	end
+
+	def access_level(group)
+		if (is_owner?(group))
+			puts "User is owner"
+			return Membership.permissions.key(2)
+		end
+		puts "User is not owner"
+		return group.access_level(self)
 	end
 
 end
