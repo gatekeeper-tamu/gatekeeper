@@ -11,6 +11,7 @@
     "chart.js": "^3.7.1",
     "chartkick": "^4.1.1",
     "chosen-js": "^1.8.7",
+    "highcharts": "^9.3.3",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0",
