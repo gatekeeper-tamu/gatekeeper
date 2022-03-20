@@ -99,7 +99,8 @@
                     <td>$<%= sub.cost_per_month %></td>
                     <td>$<%= ((((Time.now - sub.created_at) / 60 / 60 / 24).round / 30 + 1) * sub.cost_per_month) %></td>
                     <td><%= sub.subscription_name %></td>
-                    <td><a href="https://<%= sub.url %>" target=_blank><%= sub.url %></a></td>
+                    <td><a href="<%= sub.url %>" target=_blank><%= sub.url %></a></td>
+
                     <td><%= sub.created_at.to_datetime.month %> / <%= sub.created_at.to_datetime.day %> / <%= sub.created_at.to_datetime.year %></td>
                   </tr>
                 <% end %>
