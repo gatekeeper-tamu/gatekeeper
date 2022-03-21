@@ -1,40 +1,117 @@
-<div class="container" style="margin-top: 50px;">
+<div class="container stat-page" style="margin-top: 50px;">
   
   <h1 style="margin-bottom: 30px;">Gatekeeper Statistics</h1>
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link active" id="sitewide-tab" data-bs-toggle="tab" data-bs-target="#sitewide" type="button" role="tab" aria-controls="sitewide" aria-selected="true">Sitewide</a>
     </li>
+    <% if current_user %>
     <li class="nav-item" role="presentation">
       <a class="nav-link" id="group-tab" data-bs-toggle="tab" data-bs-target="#group" type="button" role="tab" aria-controls="group" aria-selected="false">Group</a>
     </li>
     <li class="nav-item" role="presentation">
       <a class="nav-link" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab" aria-controls="personal" aria-selected="false">Personal</a>
     </li>
+    <% end %>
   </ul>
+
   <div class="tab-content" id="myTabContent">
+    
     <div class="tab-pane fade show active" id="sitewide" role="tabpanel" aria-labelledby="sitewide-tab">
       <h3>Sitewide statistics</h3>
       <p>Sitewide statistics have been compiled for you to see what others are using.</p>
       <p>Browse the graphs below to see how many subscriptions are hosted on Gatekeeper for each service and how much all of our users spend per month combined (hint - it's a lot!).</p>
-
       <hr>
-      <h4>Total subscription counts</h4>
+      <div class="row stat-row">
+        <div class="col col-8 stat-col-data">
+          <%= pie_chart Subscription.group(:subscription_name).count, 
+            donut: true, legend: "left", 
+            colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'] %> 
+        </div>
+        <div class="col col-4 stat-col-info">
+          <h4>Sitewide Subscription Counts</h4>
+          <p>We have a total of <b><%= Subscription.count() %> accounts</b> stored on gatekeeper.com across all of our users' accounts. 
+          If you aren't already a user, sign up for an account today. If you are one of our loyal customers, use the <i>Group</i> and <i>Personal</i> 
+          tabs at the top of the page to see how your stats stack up.</p>
+        </div>
+      </div>
+      
+       <div class="row stat-row">
+          <div class="col col-4 stat-col-info">
+            <h4>Total Subscription Costs</h4>
+            <p>The amount spent per month by service by our entire Gatekeeper userbase can be seen in this section. Hover over the bar chart sections 
+            to see the total dollar value spent each month by users just like you.</p>
+          </div>
+          <div class="col col-8 stat-col-data">
+            <%= column_chart Subscription.group(:subscription_name).sum(:cost_per_month), 
+              colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'] %>
+          </div>
+        </div>
+        
+    </div>
+    
+    <% if current_user %>
+      <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
+        <h3>Group statistics</h3>
+          <p>Use the navbar on the left to view usage and cost statistics for all of the groups you are a part of. </p>
+      </div>
+      <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+        <h3>Personal statistics</h3>
+        <p>View your personal statistics below.</p>
+        <hr>
+        <div class="row stat-row">
+          <div class="col col-8 stat-col-data">
+            <%= pie_chart current_user.subscriptions.group(:subscription_name).sum(:cost_per_month), 
+            colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
+            legend: "left"
+            %>  
+          </div>
+          <div class="col col-4 stat-col-info">
+            <h4>Cost of Your Monthly Subscriptions</h4>
+            <p>Your total monthly cost of serivces on our website is <b>$<%= current_user.total_cost %></b>. 
+            The breakdown of where you spend your money can be seen on the pie chart for this section. 
+            Hover over the pie sections or view the table below to see where you spend your money or view the table below for a more indepth analysis.</p>
+          </div>
 
-      <%= pie_chart Subscription.group(:subscription_name).count, donut: true, legend: "left", colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'] %> 
-      <hr>
-      <h4>Total subscription costs</h4>
+        </div>
+        
+        <div class="row stat-row">
+          <div class="col col-4 stat-col-info">
+            <h4>Total Cost of Your Subscriptions</h4>
+            <p>Your total all-time cost of serivces tracked on our website is <b>$<%= current_user.total_cost_overall %></b>.
+            The table in this section shows the cost you pay per month, the total amount of money you've spent on a subscription service since adding it to Gatekeeper, 
+            the service's website, and the day you added the subscription to our website.</p>
+          </div>
+          <div class="col col-8 stat-col-data">
+            <table class="table">
+              <thead class="stat-table">
+                <tr>
+                  <th scope="col">Cost / mo</th>
+                  <th scope="col">Total Cost</th>
+                  <th scope="col">Subscription Name</th>
+                  <th scope="col">Website</th>
+                  <th scope="col">Created On</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% current_user.subscriptions.order(:cost_per_month).each do |sub| %>
+                  <tr>
+                    <td>$<%= sub.cost_per_month %></td>
+                    <td>$<%= ((((Time.now - sub.created_at) / 60 / 60 / 24).round / 30 + 1) * sub.cost_per_month) %></td>
+                    <td><%= sub.subscription_name %></td>
+                    <td><a href="<%= sub.url %>" target=_blank><%= sub.url %></a></td>
 
-      <%= column_chart Subscription.group(:subscription_name).sum(:cost_per_month), colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'] %>  
-    </div>
-    <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
-      <h3>Group statistics</h3>
-        <p>Use the navbar on the left to view usage and cost statistics for all of the groups you are a part of. </p>
-    </div>
-    <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
-      <h3>Personal statistics</h3>
-      <p>View your personal statistics below.</p>
-    </div>
+                    <td><%= sub.created_at.to_datetime.month %> / <%= sub.created_at.to_datetime.day %> / <%= sub.created_at.to_datetime.year %></td>
+                  </tr>
+                <% end %>
+              
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
   </div>
 
 </div>

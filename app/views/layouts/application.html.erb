@@ -31,11 +31,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
+        <li class="nav-item"> 
           <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %></li>
         <% if current_user %>
-          <li class="nav-item"><%= link_to "Statistics", statistics_path, class: "nav-link" %></li>
             <div class="dropdown nav-item">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= fa_icon "user-circle 2x" %>

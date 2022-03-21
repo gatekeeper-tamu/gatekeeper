@@ -5,3 +5,35 @@
 .tab-pane {
   margin-top: 20px;
 }
+
+.stat-row {
+  margin-bottom: 80px;
+}
+
+.stat-col-info {
+  padding: 40px;
+  background-color: var(--magenta);
+  color: var(--white);
+  border-radius: 5px;
+  font-weight: 200;
+}
+
+
+.stat-col-data {
+  padding-left: 50px;
+  font-weight: 200;
+}
+
+
+.stat-page {
+  margin-bottom: 50px;
+}
+
+.stat-table {
+  background-color: var(--sage);
+  color: var(--white);
+}
+
+h4 {
+  font-weight: 500;
+}
