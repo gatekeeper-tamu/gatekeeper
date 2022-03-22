@@ -40,6 +40,7 @@ class User < ApplicationRecord
 	accepts_nested_attributes_for :owned_groups
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	def total_cost
     sum = 0
     for sub in subscriptions
@@ -58,6 +59,10 @@ class User < ApplicationRecord
     end
 		return sum
 	end
+=======
+
+	
+>>>>>>> initial group statistics page started
 =======
 
 	
@@ -142,6 +147,15 @@ class User < ApplicationRecord
     return sum
 	end
 
+	# definitions for statistics page 
+	def total_cost
+    sum = 0
+    for sub in subscriptions
+      sum += sub.cost_per_month
+    end
+    return sum
+	end
+
 	def total_cost_overall
     sum = 0
     for sub in subscriptions
@@ -169,5 +183,12 @@ class User < ApplicationRecord
 		total = group_cost(group)
     return (total).round(2)
 	end
+
+	def total_groups
+		sum = 0
+		sum = owned_groups.count + groups.count
+    return sum
+	end
+
 end
 
