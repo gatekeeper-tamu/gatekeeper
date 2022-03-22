@@ -50,11 +50,94 @@
         
     </div>
     
+
     <% if current_user %>
       <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
+        
         <h3>Group statistics</h3>
           <p>Use the navbar on the left to view usage and cost statistics for all of the groups you are a part of. </p>
+          <% if current_user.total_groups > 0 %>
+          <p>You are currently the owner of <b><%= current_user.owned_groups.count %> group(s)</b> and are a member of 
+          <b><%= current_user.groups.count %> group(s)</b>. Thanks for using the core feature of Gatekeeper... sharing! 
+          Too often does this feature go unused on our site which makes our developers sad (😓) since that was the purpose behind
+          starting this wonderful subscription manager.</p>
+          
+
+          <div class="row stat-row">
+            <div class="col col-4 stat-col-info">
+              <h4>Total Cost of Your Subscriptions</h4>
+              <p>Your total all-time cost of serivces tracked on our website is <b>$<%= current_user.total_cost_overall %></b>.
+              The table in this section shows the cost you pay per month, the total amount of money you've spent on a subscription service since adding it to Gatekeeper, 
+              the service's website, and the day you added the subscription to our website.</p>
+              
+              <div class="btn-group" role="group" aria-label="Basic example">
+              <% current_user.owned_groups.each do |group| %>
+                <button type="button" class="btn btn-dark stat-a-show-graph" onclick="showGraph('<%= group.group_name %>')"><%= group.group_name %></button>
+                <script>
+                  function showGraph(groupName) {
+                    alert(groupName);
+                    // const collection = document.getElementById("stat-div-charts");
+                    // for (let i = 0; i < collection.length; i++) {
+                    //   collection[i].classList.add("hidden");
+                    // }
+                    var graph = document.getElementById("stat-div-"+groupName);
+                    graph.classList.remove("hidden");
+
+                    
+                  }
+                </script>
+              <% end %>
+              <% current_user.groups.each do |group| %>
+                <button type="button" class="btn btn-dark stat-a-show-graph" onclick="showGraph('<%= group.group_name %>')"><%= group.group_name %></button>
+              <% end %>
+              </div>
+
+            </div>
+            <div class="col col-8 stat-col-data">
+              <% current_user.owned_groups.each do |gr| %>
+                <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts hidden">
+                <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
+                colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
+                legend: "left"
+                %>
+              </div>
+              <% end %>
+              <% current_user.groups.each do |gr| %>
+                <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts hidden">
+                <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
+                colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
+                legend: "left"
+                %>
+              </div>
+              <% end %>
+            </div>
+
+          </div>
+
+        <div class="row stat-row">
+            <div class="col col-8 stat-col-data">
+              <%= pie_chart current_user.subscriptions.group(:subscription_name).sum(:cost_per_month), 
+              colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
+              legend: "left"
+              %>  
+            </div>
+            <div class="col col-4 stat-col-info">
+              <h4>Cost of Your Monthly Subscriptions</h4>
+              <p>Your total monthly cost of serivces on our website is <b>$<%= current_user.total_cost %></b>. 
+              The breakdown of where you spend your money can be seen on the pie chart for this section. 
+              Hover over the pie sections or view the table below to see where you spend your money or view the table below for a more indepth analysis.</p>
+            </div>
+
+          </div>
+          <% else %>
+          <p>You currently are not a member or owner of any groups. In order to get the full Gatekeeper experience, 
+          think about starting a group or joining a friend's group today! Sharing is the best aspect of being a member
+          on our site</p>
+
+          <% end %>
       </div>
+
+
       <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
         <h3>Personal statistics</h3>
         <p>View your personal statistics below.</p>

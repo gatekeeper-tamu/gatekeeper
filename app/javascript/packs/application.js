@@ -27,3 +27,4 @@ require('./nested-forms/removeFields')
 $(document).on('turbolinks:load', function(){
 	$(".chosen-select").chosen();
 });
+
