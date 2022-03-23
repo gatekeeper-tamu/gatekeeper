@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 	get 'users/:username' => 'users#show', :as => :user_root
 	get 'groups/' => 'groups#index', :as => :group_root
 	get 'subscriptions/' => 'subscriptions#index', :as => :subscription_root
-
+	get '/search', to: 'search#index'
+	post 'search/show'
 	get 'home/index'
 	root 'home#index'
 
