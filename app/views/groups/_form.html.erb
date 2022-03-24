@@ -16,14 +16,22 @@
     <fieldset>
         <legend>Members:</legend>
         <%= group_form.fields_for :members do |members_form| %>
-            <%= render "member_fields", f: members_form %>
+            <%= render "member_fields", f: members_form, locals: {g: group}%>
         <% end %>
         <%= link_to_add_fields "Add Members", group_form, :members %>
     </fieldset>
   <% end %>
-  
-  <%= group_form.association :subscriptions, as: :select, multiple: true, input_html: {class: 'chosen-select'}, label_method: :subscription_name, collection: current_user.subscriptions%>
 
+  <% if current_user.is_collaborator?(group) %>
+    <fieldset>
+        <legend>Subscriptions:</legend>
+        <%= group_form.fields_for :shared_subscriptions do |subscriptions_form| %>
+            <%= render "shared_subscription_fields", f: subscriptions_form, locals: {g: group} %>
+        <% end %>
+        <%= link_to_add_fields "Add Subscription", group_form, :shared_subscriptions %>
+    </fieldset>
+  <% end %>
+  
   <div class="actions">
       <%= group_form.submit class:"btn btn-dark"%>
   </div>

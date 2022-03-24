@@ -13,17 +13,24 @@ Given /the following groups exist for user with email "(.*)"/ do |user_email, gr
 		create_groups(user, group_table)
 	end
 end
-Given /the following subscriptions and users exist for the "(.*)" group/ do |group_name, group_table|
+Given /the user with email "(.*)" belongs to the following groups/ do |user_email, group_table|
+	user ||= User.where(:email => user_email).first
+	if (!user.nil?) 
+		group_table.hashes.each do | hash_val |
+			group ||= Group.where(:group_name => hash_val["group_name"]).first
+			if (!group.nil?)
+				Membership.create(user: user, group: group, permission: hash_val["permission"])
+			end
+		end
+	end
+end
+Given /the following subscriptions exist for the "(.*)" group/ do |group_name, group_table|
 	group ||= Group.where(:group_name => group_name).first
 	if (!group.nil?) 
 		group_table.hashes.each do | hash_val |
-			subscription ||= Subscription.where(:subscription_name => hash_val["subscription_name"])
+			subscription ||= Subscription.where(:subscription_name => hash_val["subscription_name"]).first
 			if (!subscription.nil?)
-				group.subscriptions << subscription
-			end
-			user ||= User.where(:email => hash_val["user_email"])
-			if (!user.nil?)
-				group.users << user
+				SharedSubscription.create(subscription: subscription, group: group, permission: hash_val["permission"])
 			end
 		end
 	end
@@ -50,7 +57,7 @@ Given /the Roomies group exists/ do
 	netflix ||= @user.subscriptions.where(subscription_name: "Netflix").first
 	if (!netflix.nil?)
 		roomies.subscriptions << netflix
-		puts roomies.subscriptions
+		# puts roomies.subscriptions
 	end
 end
 
@@ -61,7 +68,7 @@ Given /the Flatmates group exists/ do
 	hulu ||= sarah.subscriptions.where(subscription_name: "Hulu").first
 	if (!hulu.nil?)
 		flatmates.subscriptions << hulu
-		puts flatmates.subscriptions
+		# puts flatmates.subscriptions
 	end
 end
 
@@ -73,7 +80,7 @@ Given /the Flatmates2 group exists/ do
 	flatmates.members.first.permission = Membership.permissions[:admin]
 	if (!hulu.nil?)
 		flatmates.subscriptions << hulu
-		puts flatmates.subscriptions
+		# puts flatmates.subscriptions
 	end
 end
 
@@ -140,6 +147,14 @@ Then /^I should see the "(.*)" group's show page$/ do |group_name|
 	expect(!group.nil?)
 	expect(group.group_name == group_name)
 	page.should have_content(group.group_name)
+	page.should have_content(group.owner.username)
+end
+
+Then /^I should see the "(.*)" group's edit page$/ do |group_name|
+	expect(URI.parse(current_url).path.split('/').last == "edit")
+	group = Group.where(:group_name => group_name).first
+	expect(!group.nil?)
+	# page.should have_content(group.group_name)
 	page.should have_content(group.owner.username)
 end
 

@@ -16,9 +16,12 @@ Feature: View Group Subscription
 		And the following groups exist for user with email "sarah@testerwoman.com":
 		| group_name	|
 		| Test Family	| 
-		And the following subscriptions and users exist for the "Test Family" group:
-		| subscription_name	| user_email            |
-		| Hulu          	| manny@testerman.com   |
+		And the following subscriptions exist for the "Test Family" group:
+		| subscription_name	| permission |
+		| Hulu          	| viewer	 |
+		And the user with email "manny@testerman.com" belongs to the following groups:
+		| group_name	| permission |
+		| Test Family  	| viewer	 |
 
     Scenario: Signed in user sees group subscriptions on homepage
 	    Given I am on the homepage

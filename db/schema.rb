@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_07_233941) do
+ActiveRecord::Schema.define(version: 2022_03_17_011907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_233941) do
     t.uuid "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "permission", default: 1
     t.index ["group_id"], name: "index_shared_subscriptions_on_group_id"
     t.index ["subscription_id"], name: "index_shared_subscriptions_on_subscription_id"
   end

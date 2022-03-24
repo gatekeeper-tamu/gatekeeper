@@ -50,6 +50,7 @@ Given /^I exist as a user$/ do
 end
 Given /^I am not logged in$/ do
 	sign_out
+	@user = nil
 end
 Given /^I am logged in$/ do
 	create_visitor
