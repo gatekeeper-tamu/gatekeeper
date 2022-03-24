@@ -49,7 +49,11 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if (update_params[:update_action] == "add")
         puts "ADDING SUBSCRIPTION"
-        add_subscription(update_params[:subscription_ids].second, format)
+        # if (update_params[:shared_subscriptions_attributes].nil?)
+          add_subscription(update_params[:subscription_ids].second, format)
+        # else
+          # add_shared_subscription(update_params[:shared_subscriptions_attributes]["0"][:subscription_id], update_params[:shared_subscriptions_attributes]["0"][:permission], format)
+        # end
       elsif (update_params[:update_action] == "remove")
         puts "REMOVING SUBSCRIPTION"
         remove_subscription(update_params[:subscription_ids].first, format)
@@ -131,18 +135,24 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def create_params
-      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids, :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]}, :update_action)
+      params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids,
+        :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]},
+        :shared_subscriptions_attributes, {:shared_subscriptions_attributes => [:id, :_destroy, :subscription_id, :permission]},
+        :update_action)
     end
 
     def update_params
+      puts params
       params.compact!
-      permission = @group.access_level(current_user)
       if (current_user.is_admin?(@group))
-        puts params
-        params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids, :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]}, :update_action)
-        # puts params
+        params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids,
+          :members_attributes, {:members_attributes => [:id, :_destroy, :user_id, :permission]},
+          :shared_subscriptions_attributes, {:shared_subscriptions_attributes => [:id, :_destroy, :subscription_id, :permission]},
+          :update_action)
       elsif (current_user.is_collaborator?(@group))
-        params.require(:group).permit(:subscription_id, {subscription_ids: []}, :subscription_ids, :update_action)
+        params.require(:group).permit(:subscription_id, {subscription_ids: []}, :subscription_ids,
+          :shared_subscriptions_attributes, {:shared_subscriptions_attributes => [:id, :_destroy, :subscription_id, :permission]},
+          :update_action)
       elsif (current_user.is_viewer?(@group))
         params.require(:group).permit()
       end

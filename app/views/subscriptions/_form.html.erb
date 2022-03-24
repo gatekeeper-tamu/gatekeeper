@@ -9,7 +9,7 @@
     }
   </script>
   
-  <%= form_with(model: subscription) do |form| %>
+  <%= simple_form_for subscription do |form| %>
     <% if subscription.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
@@ -58,6 +58,14 @@
       <%= form.label :image %>
       <%= form.text_field :image %>
     </div>
+
+    <fieldset>
+        <legend>Groups:</legend>
+        <%= form.fields_for :share_records do |group_form| %>
+            <%= render "share_record_fields", f: group_form %>
+        <% end %>
+        <%= link_to_add_fields "Add Group", form, :share_records %>
+    </fieldset>
 
     <div class="actions">
       <%= form.submit class:"btn btn-dark"%>

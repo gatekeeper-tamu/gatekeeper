@@ -11,6 +11,10 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions/1 or /subscriptions/1.json
   def show
+    if (!@subscription.can_view?(current_user))
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end
   end
 
   # GET /subscriptions/new
@@ -21,6 +25,10 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions/1/edit
   def edit
+    if (!@subscription.can_edit?(current_user))
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end
   end
 
   # POST /subscriptions or /subscriptions.json
@@ -41,6 +49,10 @@ class SubscriptionsController < ApplicationController
 
   # PATCH/PUT /subscriptions/1 or /subscriptions/1.json
   def update
+    if (!@subscription.can_edit?(current_user))
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end
     respond_to do |format|
       if @subscription.update(subscription_params)
         format.html { redirect_to subscription_url(@subscription), notice: "Subscription was successfully updated." }
@@ -54,6 +66,10 @@ class SubscriptionsController < ApplicationController
 
   # DELETE /subscriptions/1 or /subscriptions/1.json
   def destroy
+    if (!@subscription.can_edit?(current_user))
+      puts "Can't access this page! Invalid login."
+      redirect_to "/404.html"
+    end
     @subscription.destroy
 
     respond_to do |format|
@@ -66,26 +82,16 @@ class SubscriptionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_subscription
       begin
-        @subscription = current_user.subscriptions.find(params[:id])
+        @subscription = Subscription.accessible_by_user(current_user).find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        for group in (current_user.owned_groups | current_user.groups)
-          @subscription ||= group.subscriptions.find(params[:id])
-          if(@subscription)
-            return @subscription
-          end
-        end
-        puts @subscription
-        if (@subscription.nil?)         
-          puts "Can't access this page! Invalid login."
-          redirect_to "/404.html"
-        end
-      rescue => exception
-        puts "ERROR! -> #{exception}"
+        puts "Can't access this page! Invalid login."
+        redirect_to "/404.html"
       end
     end
 
     # Only allow a list of trusted parameters through.
     def subscription_params
-      params.require(:subscription).permit(:user, :subscription_name, :username, :password, :url, :cost_per_month, :image)
+      params.require(:subscription).permit(:user, :subscription_name, :username, :password, :url, :cost_per_month, :image,
+        :share_records_attributes, {:share_records_attributes => [:id, :_destroy, :group_id, :permission]})
     end
 end
