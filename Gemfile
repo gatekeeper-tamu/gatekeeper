@@ -88,5 +88,3 @@ gem 'sidekiq', '>= 6.4.1'
 gem "chartkick"
 gem "groupdate"
 
-
-gem 'excon'

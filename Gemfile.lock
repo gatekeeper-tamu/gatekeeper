@@ -157,7 +157,6 @@ GEM
     diff-lcs (1.5.0)
     encryptor (3.0.0)
     erubi (1.10.0)
-    excon (0.91.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -386,7 +385,6 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise (~> 4.8)
-  excon
   factory_bot_rails
   faker
   font-awesome-rails

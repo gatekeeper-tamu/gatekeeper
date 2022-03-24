@@ -26,9 +26,17 @@
     <%= form.select :time_delta, ["1 day before", "2 days before", "3 days before", "4 days before", "5 days before"]  %>
   </div>
 
+  <% invalid = reminder.errors.include?(:end_date) %>
   <div class="field">
     <%= form.label :end_date %> (DD-MM-YYYY)
-    <%= form.text_field :end_date %>
+    <%= form.text_field :end_date, class: "form-control #{'is-invalid' if invalid}" %>
+    <% if invalid %>
+      <div class="invalid-feedback d-block">
+        <% quiz.errors.full_messages_for(:title).each do |error_message| %>
+          <%= error_message %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class="actions">
