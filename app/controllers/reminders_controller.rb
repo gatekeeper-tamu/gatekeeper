@@ -70,7 +70,7 @@ class RemindersController < ApplicationController
     def set_reminder
       begin
         @reminder = Reminder.find(params[:id])
-      rescue ActiveRecord::RecordNotFound => e
+      rescue ActiveRecord::RecordNotFound
         puts "Can't access this page!"
         redirect_to "/404.html"
       rescue => exception

@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
     if !current_user.is_viewer?(@group)
       puts "Can't access this page! Invalid login."
       redirect_to "/404.html"
-    end 
+    end
   end
 
   # GET /groups/new

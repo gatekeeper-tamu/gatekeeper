@@ -18,4 +18,4 @@ namespace :send_reminder_email do
         end
         puts "End emails"
     end
-end 
+end

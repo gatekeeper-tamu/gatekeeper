@@ -7,7 +7,7 @@ end
 ##### GIVEN #####
 Given /I am on the reminders "(.*)" page for "(.*)" subscription/ do |page, subscription|
 	path = ""
-	if (page == "index") 
+	if (page == "index")
 		path = "reminders##{page}"
 	elsif (page == "new")
 		if (@subscription.nil?)
@@ -18,14 +18,14 @@ Given /I am on the reminders "(.*)" page for "(.*)" subscription/ do |page, subs
 		path = "reminders/#{page}"
 	end
 	visit path
-	if (page == "index") 
+	if (page == "index")
 		current_path.should eq("/reminders")
 	end
 end
 
 Given('the following reminders exist for {string} subscription:') do |string, reminder_table|
 	subscription ||= Subscription.where(:subscription_name => string).first
-	if (!subscription.nil?) 
+	if (!subscription.nil?)
 		create_reminders(subscription, reminder_table)
 	end
 end
@@ -63,6 +63,6 @@ Then /^I should see reminders for the "(.*)" subscription$/ do |subscription|
 	end
 end
 
-Then /^the reminder should not exist$/ do 
+Then /^the reminder should not exist$/ do
 	page.should have_content("Reminder was successfully destroyed.")
 end
