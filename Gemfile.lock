@@ -157,6 +157,7 @@ GEM
     diff-lcs (1.5.0)
     encryptor (3.0.0)
     erubi (1.10.0)
+    excon (0.91.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -164,7 +165,6 @@ GEM
       railties (>= 5.0.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
-    excon (0.91.0)
     faraday (2.2.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
@@ -386,12 +386,9 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise (~> 4.8)
-<<<<<<< HEAD
+  excon
   factory_bot_rails
   faker
-=======
-  excon
->>>>>>> 027f382 ([Reminder Feature] implemented scheduling logic and basic UI for displaying active reminders)
   font-awesome-rails
   groupdate
   jbuilder (~> 2.7)
