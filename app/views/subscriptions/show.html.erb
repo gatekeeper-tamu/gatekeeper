@@ -29,7 +29,6 @@
 <p class="subscription-card-title">Image</p>
 <p><%= @subscription.image %></p>
 
-<%= button_to 'Create Reminder', new_reminder_path, params: {subscription_id: @subscription},  method: :get, class: "btn btn-dark" %>
 <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
 <%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %> 
 <%= button_to 'Back', subscriptions_path, method: :get, class: "btn btn-dark"%>
