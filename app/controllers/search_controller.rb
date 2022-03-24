@@ -43,8 +43,11 @@ class SearchController < ApplicationController
         @resultsURL = []
         @services_result
         while i < @idresult.size
-            @id = @idresult['title_results'][i]['id']
-            puts @id
+            while @idresult['title_results'][i]['id'] != nil
+                @id = @idresult['title_results'][i]['id']
+                puts @id
+                break
+            end
         
         #streaming services results
             services_url = URI("https://watchmode.p.rapidapi.com/title/#@id/sources/")

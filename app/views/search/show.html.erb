@@ -1,5 +1,5 @@
 <body>
-<h1> Available on: </h1>
+<h1> <%= params[:search][:title] %> is available on: </h1>
       <% @resultsName.each do |r|%> 
             <a><%= r %></a><br> 
             <%end%>
