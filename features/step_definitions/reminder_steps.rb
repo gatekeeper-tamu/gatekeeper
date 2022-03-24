@@ -25,7 +25,11 @@ end
 
 Given('the following reminders exist for {string} subscription:') do |string, reminder_table|
 	subscription ||= Subscription.where(:subscription_name => string).first
+<<<<<<< HEAD
 	if (!subscription.nil?)
+=======
+	if (!subscription.nil?) 
+>>>>>>> 404c397 ([Reminder Feature] implemented scheduling logic and basic UI for displaying active reminders)
 		create_reminders(subscription, reminder_table)
 	end
 end
