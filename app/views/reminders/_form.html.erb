@@ -13,21 +13,21 @@
 
   <div class="field">
     <%= form.label :recurring %>
-    <%= form.text_field :recurring %>
+    <%= form.select :recurring, ["Yes", "No"] %>
   </div>
 
   <div class="field">
     <%= form.label :reminder_type %>
-    <%= form.text_field :reminder_type %>
+    <%= form.select :reminder_type, ["Billing", "Cancellation"] %>
   </div>
   
   <div class="field">
-    <%= form.label :time_delta %>
-    <%= form.text_field :time_delta %>
+    <%= form.label "Reminder me:" %> 
+    <%= form.select :time_delta, ["1 day before", "2 days before", "3 days before", "4 days before", "5 days before"]  %>
   </div>
 
   <div class="field">
-    <%= form.label :end_date %>
+    <%= form.label :end_date %> (DD-MM-YYYY)
     <%= form.text_field :end_date %>
   </div>
 

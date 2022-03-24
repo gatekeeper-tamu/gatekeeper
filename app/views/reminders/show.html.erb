@@ -1,12 +1,10 @@
+<%= render :layout => 'subscriptions/shared/show' do %>
+
+
 <p id="notice"><%= notice %></p>
 <p>
   <strong>Subscription:</strong>
   <%= @reminder.subscription.subscription_name %>
-</p>
-
-<p>
-  <strong>Reminder ID:</strong>
-  <%= @reminder.id %>
 </p>
 
 <p>
@@ -20,8 +18,8 @@
 </p>
 
 <p>
-  <strong>Time delta:</strong>
-  <%= @reminder.time_delta %>
+  <strong>Remind me:</strong>
+  <%= @reminder.time_delta  %> days before
 </p>
 
 <p>
@@ -29,5 +27,7 @@
   <%= @reminder.end_date %>
 </p>
 
-<%= link_to 'Edit', edit_reminder_path(@reminder) %> |
-<%= link_to 'Back', @reminder.subscription, method: :get %> 
+<%= button_to 'Edit Reminder', edit_reminder_path(@reminder), method: :get, class: "btn btn-dark btn-view-sub" %>
+<%= button_to 'Back', @reminder.subscription, method: :get %> 
+
+<% end %>

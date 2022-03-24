@@ -1,9 +1,13 @@
 class RemindersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_reminder, only: %i[ show edit update destroy ]
 
   # GET /reminders or /reminders.json
   def index
-    @reminders = Reminder.all
+    @subscriptions = current_user.subscriptions
+    @subscriptions.each do |subscription|
+      @reminders = subscription.reminders.all
+    end
   end
 
   # GET /reminders/1 or /reminders/1.json
@@ -26,10 +30,7 @@ class RemindersController < ApplicationController
 
     respond_to do |format|
       if @reminder.save
-        ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_now
-
-        ##TODO: use the ActiveJobs when implementing recurrence
-        #SendReminderEmailJob.set(wait: 1.minute).perform_later
+        ReminderMailer.with(user: current_user, reminder: @reminder).new_reminder_email.deliver_later
 
         format.html { redirect_to reminder_url(@reminder), notice: "Reminder was successfully created." }
         format.json { render :show, status: :created,   location: @reminder }
@@ -59,7 +60,7 @@ class RemindersController < ApplicationController
     @reminder.destroy
 
     respond_to do |format|
-      format.html { redirect_to reminders_url, notice: "Reminder was successfully destroyed." }
+      format.html { redirect_to subscriptions_url, notice: "Reminder was successfully destroyed." }
       format.json { head :no_content }
     end
   end
