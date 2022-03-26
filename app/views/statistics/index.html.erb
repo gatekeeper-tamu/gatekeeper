@@ -56,7 +56,7 @@
         
         <h3>Group statistics</h3>
           <p>Use the navbar on the left to view usage and cost statistics for all of the groups you are a part of. </p>
-          <% if current_user.total_groups > 0 %>
+          <% if current_user.all_groups.count > 0 %>
           <p>You are currently the owner of <b><%= current_user.owned_groups.count %> group(s)</b> and are a member of 
           <b><%= current_user.groups.count %> group(s)</b>. Thanks for using the core feature of Gatekeeper... sharing! 
           Too often does this feature go unused on our site which makes our developers sad (😓) since that was the purpose behind
@@ -70,46 +70,43 @@
               The table in this section shows the cost you pay per month, the total amount of money you've spent on a subscription service since adding it to Gatekeeper, 
               the service's website, and the day you added the subscription to our website.</p>
               
-              <div class="btn-group" role="group" aria-label="Basic example">
-              <% current_user.owned_groups.each do |group| %>
-                <button type="button" class="btn btn-dark stat-a-show-graph" onclick="showGraph('<%= group.group_name %>')"><%= group.group_name %></button>
-                <script>
-                  function showGraph(groupName) {
-                    alert(groupName);
-                    // const collection = document.getElementById("stat-div-charts");
-                    // for (let i = 0; i < collection.length; i++) {
-                    //   collection[i].classList.add("hidden");
-                    // }
-                    var graph = document.getElementById("stat-div-"+groupName);
-                    graph.classList.remove("hidden");
-
-                    
-                  }
-                </script>
-              <% end %>
-              <% current_user.groups.each do |group| %>
-                <button type="button" class="btn btn-dark stat-a-show-graph" onclick="showGraph('<%= group.group_name %>')"><%= group.group_name %></button>
-              <% end %>
-              </div>
 
             </div>
             <div class="col col-8 stat-col-data">
-              <% current_user.owned_groups.each do |gr| %>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <% current_user.all_groups.each do |group| %>
+                  <button type="button" class="btn btn-dark stat-a-show-graph" onclick="showGraph('<%= group.group_name %>')"><%= group.group_name %></button>
+                  <script>
+                    function showGraph(groupName) {
+                      const collection = document.getElementsByClassName("stat-div-charts visible");
+                      for (let i = 0; i < collection.length; i++) {
+                          collection[i].classList.add("hidden");
+                      }
+
+                      var graph = document.getElementById("stat-div-"+groupName);
+                      graph.classList.remove("hidden");
+                      graph.classList.add("visible");                    
+                    }
+                  </script>
+                <% end %>
+              </div>
+              <% current_user.all_groups.each_with_index do |gr, index| %>
+              <% if index==0 %>
+                <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts visible">
+                  <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
+                  colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
+                  legend: "right"
+                  %>
+                </div>
+              <% end %>
                 <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts hidden">
                 <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
                 colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
-                legend: "left"
+                legend: "right"
                 %>
-              </div>
+                </div>
               <% end %>
-              <% current_user.groups.each do |gr| %>
-                <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts hidden">
-                <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
-                colors: ['#69193E', '#973756', '#572F41', '#BBAEAE', '#6F8A79', '#BDDDC9'],
-                legend: "left"
-                %>
-              </div>
-              <% end %>
+              
             </div>
 
           </div>
