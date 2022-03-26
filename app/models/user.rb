@@ -184,10 +184,8 @@ class User < ApplicationRecord
     return (total).round(2)
 	end
 
-	def total_groups
-		sum = 0
-		sum = owned_groups.count + groups.count
-    return sum
+	def all_groups
+		return owned_groups + groups
 	end
 
 end
