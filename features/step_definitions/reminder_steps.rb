@@ -31,14 +31,23 @@ Given('the following reminders exist for {string} subscription:') do |string, re
 end
 
 
-
-
 ##### WHEN #####
 When /^I create a new reminder for "(.*)" subscription$/ do |subscription|
 	select("Yes", :from => "reminder_recurring")
 	select("Billing", :from => "reminder_reminder_type")
 	select("3 days before", :from => "reminder_time_delta")
 	fill_in "reminder_end_date", :with => "26-04-2022"
+end
+
+When /^I delete a reminder for "(.*)"$/ do |subscription_name|
+	if (@subscription.nil?)
+		@subscription = Subscription.where(subscription_name: subscription_name).first
+	end
+	path = @subscription.id
+	if (@reminder.nil?)
+		@reminder = Reminder.where(:subscription_id => path).first
+	end
+	first(:button, 'Delete Reminder', minimum: 1).click
 end
 
 ##### THEN #####
@@ -65,4 +74,9 @@ end
 
 Then /^the reminder should not exist$/ do
 	page.should have_content("Reminder was successfully destroyed.")
+end
+
+Then /^I should see the reminders index page$/ do
+	path = "/reminders"
+	visit path
 end

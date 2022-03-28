@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Reminder, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it "is valid with valid attributes" do
+    FactoryBot.create(:reminder).should be_valid
+  end
+
+  it "is not valid without subscription" do
+    FactoryBot.build(:reminder, subscription_id: nil).should_not be_valid
+  end
 end

@@ -1,4 +1,4 @@
-Feature: Create Subscription
+Feature: Create Reminder
 	As an existing user
     I want to be able to create reminders
     So that I can receive emails reminders for my subscriptions

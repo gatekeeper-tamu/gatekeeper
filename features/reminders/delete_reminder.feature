@@ -1,7 +1,7 @@
-Feature: View Reminder
+Feature: Delete Reminder
 	As an existing user
-    I want to be able to view reminders
-    So that I know which of my subscriptions have reminders
+    I want to be able to delete reminders
+    So that I can remove unnecessary reminders when they expire
 
 	Background: users have reminders
 		Given I am logged in
@@ -14,18 +14,9 @@ Feature: View Reminder
 		| Yes       		    | Billing     		| 3 days before	| 26-04-2022	| 
 		| Yes				    | Cancellation      | 1 day before	| 26-04-2022	| 
 		
-    Scenario: User views a reminder successfully
+    Scenario: User deletes a subscription successfully
 	    Given I am on the homepage
 		When I view the "Netflix" subscription
-  		Then I should see reminders for the "Netflix" subscription
-
-	Scenario: User views all reminders successfully
-	    Given I am on the homepage
-		When I click the "dropdownMenuButton" button
-		And I click the "Reminders" link
-  		Then I should see the reminders index page
+		And I delete a reminder for "Netflix"
+  		Then the reminder should not exist
 	
-    Scenario: Unauthenticated user tries to view a reminder
-		Given I am not logged in
-		When I view the "Netflix" subscription
-  		Then I am on the sign in page

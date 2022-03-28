@@ -4,6 +4,6 @@
 <hr>
 <%= render 'form', reminder: @reminder %>
 <%= button_to 'Delete', @reminder, method: :delete, data: { confirm: 'Are you sure?' } %>
-<%= button_to 'Back', @reminder.subscription, method: :get, class: "btn btn-dark"  %>
+<%= button_to 'Back to Subscription', @reminder.subscription, method: :get, class: "btn btn-dark"  %>
 
 <% end %>
