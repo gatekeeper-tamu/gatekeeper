@@ -4,10 +4,7 @@ class RemindersController < ApplicationController
 
   # GET /reminders or /reminders.json
   def index
-    @subscriptions = current_user.subscriptions
-    @subscriptions.each do |subscription|
-      @reminders = subscription.reminders.all
-    end
+    @reminders = Reminder.belonging_to_user(current_user)
   end
 
   # GET /reminders/1 or /reminders/1.json
