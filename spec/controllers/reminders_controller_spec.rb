@@ -5,6 +5,10 @@ RSpec.describe RemindersController, type: :controller do
 
 	login_user
 
+    before (:each) do
+        FactoryBot.create(:subscription, user: controller.current_user)
+    end
+
     let(:valid_attributes) {
         { :subscription_id => controller.current_user.subscriptions.first.id, :recurring => "True", :reminder_type => "Billing", :end_date => DateTime.now, :time_delta => "2 days before" }
     }
