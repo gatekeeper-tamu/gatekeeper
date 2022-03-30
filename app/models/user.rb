@@ -59,7 +59,7 @@ class User < ApplicationRecord
 	end
 
   def is_viewer?(group)
-		access = access_level(group)
+		access = group_access_level(group)
 		return (Membership.permissions[access] >= Membership.permissions[:viewer])
 	end
 
