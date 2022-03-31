@@ -6,15 +6,22 @@ Given /I am on the search page/ do
  end
 
 ####WHEN####
-When /I submit the search form / do 
-	fill_in 'search[title]', :with => 'Riverdale'
+When /^I click the search link$/ do
+	click_link('Search ')
+end
+When /I fill in the search form / do 
+	fill_in 'search_title', :with => 'Riverdale'
 end
 
 When /^I click the search button$/ do
-    click_button "search"
+    find('.btn', :text => '"Search "').click
 end
 
 ####THEN####
+
+Then /^I should see the search page$/ do
+	page.should have_content("TV show / movie search")
+end
 Then /^I should see search's show page$/ do
 	page.should have_content("Search Results")
 end

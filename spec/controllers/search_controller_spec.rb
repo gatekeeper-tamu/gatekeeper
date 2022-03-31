@@ -1,23 +1,22 @@
 require 'rails_helper'
 require 'webdrivers'
 require 'spec_helper'
-RSpec.describe SearchController, type: :controller do
+RSpec.describe SearchController, type: :request do
 
     describe "GET /search" do
         it "displays search page successfully " do
-            redirect_to '/search'
-            expect(response).to be_successful
+            visit '/search'
+            expect(page).to have_content 'TV show / movie search'
         end
-        
     end
 
     describe "POST /search/show" do
         it "returns show or movie results successfully" do
-            redirect_to '/search'
-            fill_in 'search[title]', with: 'Riverdale', disabled: true
+            visit '/search'
+            fill_in 'search_title', with: 'Riverdale'
+            click_button "search"
             expect(page).to have_content 'Search Results'
         end
-        
     end
 
 end
