@@ -139,7 +139,7 @@ class User < ApplicationRecord
 	end
 
 
-	# definitions for statistics page 
+	# definitions for statistics page
 	def total_cost
     sum = 0
     for sub in subscriptions
