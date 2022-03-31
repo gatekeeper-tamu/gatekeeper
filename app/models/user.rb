@@ -45,7 +45,7 @@ class User < ApplicationRecord
     for sub in subscriptions
       sum += sub.cost_per_month
     end
-    return sum
+    return (sum).round(2)
 	end
 
 	def total_cost_overall
@@ -150,11 +150,19 @@ class User < ApplicationRecord
 			num_mo = (delta / 30 + 1)
       sum +=  sub.cost_per_month * num_mo
     end
-		return sum
+		return (sum).round(2)
 	end
 
 	def all_groups
 		return owned_groups + groups
+	end
+
+	def group_cost(group)
+		sum = 0
+    for sub in group.subscriptions
+      sum += sub.cost_per_month
+    end
+    return (sum).round(2)
 	end
 
 end
