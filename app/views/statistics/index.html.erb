@@ -22,10 +22,26 @@
 
     <% if current_user %>
       <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
-        
-        <h3>Group statistics</h3>
-          <p>Use the buttons below to view cost statistics for all of the groups you either own or are a member of.</p>
+        <div class="row">
+          <div class="col col-md-6">
+            <h3>Group statistics</h3>
+          </div>
+          <div class="col col-md-6 text-right">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <% current_user.all_groups.each_with_index do |group, index| %>
+                <% if index==0 %>
+                  <button type="button" class="btn btn-light stat-btn-group active" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
+                <% else %>
+                  <button type="button" class="btn btn-light stat-btn-group" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
+                <% end %>
+              <% end %>
+                
+            </div>
+          </div>
+        </div>
+
           <% if current_user.all_groups.count > 0 %>
+          <p>Use the buttons above to view cost statistics for all of the groups you either own or are a member of.</p>
           <p>You are currently the owner of <b><%= current_user.owned_groups.count %> group(s)</b> and are a member of 
           <b><%= current_user.groups.count %> group(s)</b>. Thanks for using the core feature of Gatekeeper... sharing! 
           Too often does this feature go unused on our site which makes our developers sad since that was the purpose behind
@@ -42,63 +58,23 @@
 
             </div>
             <div class="col col-lg-8 stat-col-data">
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <% current_user.all_groups.each_with_index do |group, index| %>
+              
+              <% current_user.all_groups.each_with_index do |gr, index| %>
                 <% if index==0 %>
-                  <button type="button" class="btn btn-light stat-btn-group active" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
+                  <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts visible">
+                    <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
+                    colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
+                    legend: "right"
+                    %>
+                  </div>
                 <% else %>
-                  <button type="button" class="btn btn-light stat-btn-group" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
-                <% end %>
-                <% end %>
-                  <script>
-                    function showGraph(groupName, monthlyCost) {
-                      const collection = document.getElementsByClassName("stat-div-charts visible");
-                      console.log(collection);
-                      for (let i = 0; i < collection.length; i++) {
-                          collection[i].classList.add("hidden");
-                          collection[i].classList.remove("visible");
-                      }
-
-                      var graph = document.getElementById("stat-div-"+groupName);
-                      graph.classList.remove("hidden");
-                      graph.classList.add("visible");     
-                      
-                      var graph2 = document.getElementById("stat-div-"+groupName+"-2");
-                      graph2.classList.remove("hidden");
-                      graph2.classList.add("visible"); 
-
-                      const buttons = document.getElementsByClassName("stat-btn-group active")
-                      for (let i = 0; i < buttons.length; i++) {
-                        buttons[i].classList.remove("active");
-                      }
-
-                      var activeBtn = document.getElementById("stat-btn-"+groupName);
-                      activeBtn.classList.add("active");
-
-                      document.getElementById("stat-group-header").innerHTML = "Monthly Cost of Group "+groupName;
-                      document.getElementById("stat-group-header-2").innerHTML = "Monthly Cost of Group "+groupName;
-
-
-                      document.getElementById("stat-group-cost").innerHTML = "$" + monthlyCost;
-                    }
-                  </script>
-              </div>
-              <% current_user.all_groups.each_with_index do |gr, index2| %>
-              <% if index2==0 %>
-                <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts visible">
+                  <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts hidden">
                   <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
                   colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
                   legend: "right"
                   %>
-                </div>
-                <% else %>
-                <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts hidden">
-                <%= pie_chart gr.subscriptions.group(:subscription_name).sum(:cost_per_month), 
-                colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
-                legend: "right"
-                %>
-                </div>
-              <% end %>
+                  </div>
+                <% end %>
               <% end %>
               
             </div>
@@ -108,23 +84,46 @@
            
             <div class="col col-lg-8 stat-col-data">
               
-              <% current_user.all_groups.each_with_index do |gr, index| %>
-              <% if index==0 %>
+              <% current_user.all_groups.each_with_index do |gr, index2| %>
+              <% if index2==0 %>
                 <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts visible">
-                  <%= pie_chart gr.subscriptions.group(:user).sum(:cost_per_month), 
+                  <%= pie_chart gr.subscriptions.joins(:user).group("users.username").sum(:cost_per_month), 
                   colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
                   legend: "left"
                   %>
                 </div>
                 <% else %>
                 <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts hidden">
-                <%= pie_chart gr.subscriptions.group(:user).sum(:cost_per_month), 
+                <%= pie_chart gr.subscriptions.joins(:user).group("users.username").sum(:cost_per_month), 
                 colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
                 legend: "left"
                 %>
                 </div>
               <% end %>
               <% end %>
+
+              <table class="table">
+              <thead class="stat-table">
+                <tr>
+                  <th scope="col">Group</th>
+                  <th scope="col">Cost / month</th>
+                  <th scope="col">Cost / member</th>
+                  <th scope="col">?</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% current_user.all_groups.each do |gr| %>
+                  <tr>
+                    <td><%= gr.group_name %></td>
+                    <td>$<%= current_user.group_cost(gr) %></td>
+                    <td>$<%= current_user.group_cost_each(gr) %></td>
+                    <td><%= gr.subscriptions.joins(:user).group("users.username").count %></td>
+
+                  </tr>
+                <% end %>
+              
+              </tbody>
+            </table>
               
             </div>
              <div class="col col-lg-4 stat-col-info">
@@ -204,5 +203,36 @@
       </div>
     <% end %>
   </div>
+<script>
+  function showGraph(groupName, monthlyCost) {
+    const collection = document.getElementsByClassName("stat-div-charts visible");
+    console.log(collection);
+    for (let i = 0; i < collection.length; i++) {
+        collection[i].classList.add("hidden");
+        collection[i].classList.remove("visible");
+    }
 
+    var graph = document.getElementById("stat-div-"+groupName);
+    graph.classList.remove("hidden");
+    graph.classList.add("visible");     
+    
+    var graph2 = document.getElementById("stat-div-"+groupName+"-2");
+    graph2.classList.remove("hidden");
+    graph2.classList.add("visible"); 
+
+    const buttons = document.getElementsByClassName("stat-btn-group active")
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].classList.remove("active");
+    }
+
+    var activeBtn = document.getElementById("stat-btn-"+groupName);
+    activeBtn.classList.add("active");
+
+    document.getElementById("stat-group-header").innerHTML = "Monthly Cost of Group "+groupName;
+    document.getElementById("stat-group-header-2").innerHTML = "Monthly Cost of Group "+groupName;
+
+
+    document.getElementById("stat-group-cost").innerHTML = "$" + monthlyCost;
+  }
+</script>
 </div>

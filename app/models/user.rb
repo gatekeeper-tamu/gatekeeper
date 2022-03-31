@@ -165,5 +165,9 @@ class User < ApplicationRecord
     return (sum).round(2)
 	end
 
+	def group_cost_each(group)
+		total = group_cost(group)
+    return (total).round(2)
+	end
 end
 
