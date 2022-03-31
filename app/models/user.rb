@@ -176,6 +176,5 @@ class User < ApplicationRecord
     return (sum).round(2)
 	end
 
-
 end
 
