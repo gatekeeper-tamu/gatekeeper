@@ -86,14 +86,14 @@
               
               <% current_user.all_groups.each_with_index do |gr, index2| %>
               <% if index2==0 %>
-                <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts visible">
+                <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts-2 visible">
                   <%= pie_chart gr.subscriptions.joins(:user).group("users.username").sum(:cost_per_month), 
                   colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
                   legend: "left"
                   %>
                 </div>
                 <% else %>
-                <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts hidden">
+                <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts-2 hidden">
                 <%= pie_chart gr.subscriptions.joins(:user).group("users.username").sum(:cost_per_month), 
                 colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'],
                 legend: "left"
@@ -101,29 +101,6 @@
                 </div>
               <% end %>
               <% end %>
-
-              <table class="table">
-              <thead class="stat-table">
-                <tr>
-                  <th scope="col">Group</th>
-                  <th scope="col">Cost / month</th>
-                  <th scope="col">Cost / member</th>
-                  <th scope="col">?</th>
-                </tr>
-              </thead>
-              <tbody>
-              <% current_user.all_groups.each do |gr| %>
-                  <tr>
-                    <td><%= gr.group_name %></td>
-                    <td>$<%= current_user.group_cost(gr) %></td>
-                    <td>$<%= current_user.group_cost_each(gr) %></td>
-                    <td><%= gr.subscriptions.joins(:user).group("users.username").count %></td>
-
-                  </tr>
-                <% end %>
-              
-              </tbody>
-            </table>
               
             </div>
              <div class="col col-lg-4 stat-col-info">
@@ -206,10 +183,15 @@
 <script>
   function showGraph(groupName, monthlyCost) {
     const collection = document.getElementsByClassName("stat-div-charts visible");
-    console.log(collection);
     for (let i = 0; i < collection.length; i++) {
         collection[i].classList.add("hidden");
         collection[i].classList.remove("visible");
+    }
+
+    const collection2 = document.getElementsByClassName("stat-div-charts-2 visible");
+    for (let i = 0; i < collection2.length; i++) {
+        collection2[i].classList.add("hidden");
+        collection2[i].classList.remove("visible");
     }
 
     var graph = document.getElementById("stat-div-"+groupName);
