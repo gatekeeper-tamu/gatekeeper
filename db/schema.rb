@@ -42,8 +42,6 @@ ActiveRecord::Schema.define(version: 2022_04_03_201239) do
     t.date "end_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "subscription_id", null: false
-    t.index ["subscription_id"], name: "index_reminders_on_subscription_id"
   end
 
   create_table "shared_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -105,7 +103,6 @@ ActiveRecord::Schema.define(version: 2022_04_03_201239) do
   add_foreign_key "groups", "users", on_delete: :cascade
   add_foreign_key "memberships", "groups", on_delete: :cascade
   add_foreign_key "memberships", "users", on_delete: :cascade
-  add_foreign_key "reminders", "subscriptions", on_delete: :cascade
   add_foreign_key "shared_subscriptions", "groups", on_delete: :cascade
   add_foreign_key "shared_subscriptions", "subscriptions", on_delete: :cascade
   add_foreign_key "subscriptions", "users"
