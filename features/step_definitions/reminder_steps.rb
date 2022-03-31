@@ -39,6 +39,13 @@ When /^I create a new reminder for "(.*)" subscription$/ do |subscription|
 	fill_in "reminder_end_date", :with => "26-04-2022"
 end
 
+When /^I create a new reminder for "(.*)" subscription with an invalid date$/ do |subscription|
+	select("Yes", :from => "reminder_recurring")
+	select("Billing", :from => "reminder_reminder_type")
+	select("3 days before", :from => "reminder_time_delta")
+	fill_in "reminder_end_date", :with => "29-02-2022"
+end
+
 When /^I delete a reminder for "(.*)"$/ do |subscription_name|
 	if (@subscription.nil?)
 		@subscription = Subscription.where(subscription_name: subscription_name).first
@@ -57,7 +64,6 @@ Then /^I should see the reminder's show page$/ do
 	expect(!reminder.nil?)
 	page.should have_content("Reminder was successfully created.")
 end
-
 
 Then /^I should see the new reminder page$/ do
 	page.should have_content("New")
@@ -79,4 +85,8 @@ end
 Then /^I should see the reminders index page$/ do
 	path = "/reminders"
 	visit path
+end
+
+Then /^I should see an error$/ do
+	page.should have_content("End date can't be blank")
 end
