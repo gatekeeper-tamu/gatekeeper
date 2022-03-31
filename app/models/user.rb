@@ -159,21 +159,9 @@ class User < ApplicationRecord
 		return (sum).round(2)
 	end
 
-	def all_groups
-		return owned_groups + groups
-	end
-
-	def group_cost(group)
-		sum = 0
-    for sub in group.subscriptions
-      sum += sub.cost_per_month
-    end
-    return (sum).round(2)
-	end
-
-	def group_cost_each(group)
-		total = group_cost(group)
-    return (total).round(2)
+	def total_groups
+		sum = owned_groups.count + groups.count
+    return sum
 	end
 
 	def all_groups
@@ -187,6 +175,7 @@ class User < ApplicationRecord
     end
     return (sum).round(2)
 	end
+
 
 end
 
