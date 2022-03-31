@@ -24,41 +24,5 @@
       <%= render 'personal' %>      
     <% end %>
   </div>
-<script>
-  function showGraph(groupName, monthlyCost) {
-    const collection = document.getElementsByClassName("stat-div-charts visible");
-    for (let i = 0; i < collection.length; i++) {
-        collection[i].classList.add("hidden");
-        collection[i].classList.remove("visible");
-    }
 
-    const collection2 = document.getElementsByClassName("stat-div-charts-2 visible");
-    for (let i = 0; i < collection2.length; i++) {
-        collection2[i].classList.add("hidden");
-        collection2[i].classList.remove("visible");
-    }
-
-    var graph = document.getElementById("stat-div-"+groupName);
-    graph.classList.remove("hidden");
-    graph.classList.add("visible");     
-    
-    var graph2 = document.getElementById("stat-div-"+groupName+"-2");
-    graph2.classList.remove("hidden");
-    graph2.classList.add("visible"); 
-
-    const buttons = document.getElementsByClassName("stat-btn-group active")
-    for (let i = 0; i < buttons.length; i++) {
-      buttons[i].classList.remove("active");
-    }
-
-    var activeBtn = document.getElementById("stat-btn-"+groupName);
-    activeBtn.classList.add("active");
-
-    document.getElementById("stat-group-header").innerHTML = "Monthly Cost of Group "+groupName;
-    document.getElementById("stat-group-header-2").innerHTML = "Monthly Cost of Group "+groupName;
-
-
-    document.getElementById("stat-group-cost").innerHTML = "$" + monthlyCost;
-  }
-</script>
 </div>
