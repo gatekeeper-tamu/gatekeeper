@@ -27,10 +27,15 @@
 <script>
   function showGraph(groupName, monthlyCost) {
     const collection = document.getElementsByClassName("stat-div-charts visible");
-    console.log(collection);
     for (let i = 0; i < collection.length; i++) {
         collection[i].classList.add("hidden");
         collection[i].classList.remove("visible");
+    }
+
+    const collection2 = document.getElementsByClassName("stat-div-charts-2 visible");
+    for (let i = 0; i < collection2.length; i++) {
+        collection2[i].classList.add("hidden");
+        collection2[i].classList.remove("visible");
     }
 
     var graph = document.getElementById("stat-div-"+groupName);
