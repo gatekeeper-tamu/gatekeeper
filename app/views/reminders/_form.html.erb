@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
 <%= form_with(model: reminder) do |form| %>
   <% if reminder.errors.any? %>
     <div id="error_explanation">
@@ -29,14 +31,7 @@
   <% invalid = reminder.errors.include?(:end_date) %>
   <div class="field">
     <%= form.label :end_date %> (DD-MM-YYYY)
-    <%= form.text_field :end_date, class: "form-control #{'is-invalid' if invalid}" %>
-    <% if invalid %>
-      <div class="invalid-feedback d-block">
-        <% quiz.errors.full_messages_for(:title).each do |error_message| %>
-          <%= error_message %>
-        <% end %>
-      </div>
-    <% end %>
+    <%= form.text_field :end_date, class: "form-control datepicker" %>
   </div>
 
   <div class="actions">
