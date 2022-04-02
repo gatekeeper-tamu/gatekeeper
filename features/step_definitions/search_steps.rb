@@ -9,7 +9,7 @@ Given /I am on the search page/ do
 When /^I click the search link$/ do
 	click_link('Search ')
 end
-When /I fill in the search form / do 
+When /I fill in the search form / do
 	fill_in 'search_title', :with => 'Riverdale'
 end
 
