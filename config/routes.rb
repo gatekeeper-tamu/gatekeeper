@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 	resources :subscriptions
 	resources :reminders
   resources :statistics
+  resources :temp_shared_subscriptions, :path => '/shares'
 
   devise_for :users, controllers: {
 	  omniauth_callbacks: "users/omniauth_callbacks",

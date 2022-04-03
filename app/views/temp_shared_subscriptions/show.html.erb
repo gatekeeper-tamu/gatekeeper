@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @temp_shared_subscription.end_date %>
+</p>
+
+<p>
+  <strong>Subscription:</strong>
+  <%= @temp_shared_subscription.subscription %>
+</p>
+
+<%= link_to 'Edit', edit_temp_shared_subscription_path(@temp_shared_subscription) %> |
+<%= link_to 'Back', temp_shared_subscriptions_path %>
