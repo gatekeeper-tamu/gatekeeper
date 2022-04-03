@@ -61,18 +61,16 @@ class TempSharedSubscriptionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_temp_shared_subscription
-      begin
-        @temp_shared_subscription = TempSharedSubscription.find(params[:id])
-        if (@temp_shared_subscription.end_date < Date.today)
-          @temp_shared_subscription.destroy
-          puts "Can't access this page! Temp Share Link expired"
-          redirect_to "/404.html"
-        end
-        @subscription = @temp_shared_subscription.subscription
-      rescue ActiveRecord::RecordNotFound
-        puts "Can't access this page! Invalid login. SET_TEMP_SUBSCRIPTION"
+      @temp_shared_subscription = TempSharedSubscription.find(params[:id])
+      if (@temp_shared_subscription.end_date < Date.today)
+        @temp_shared_subscription.destroy
+        puts "Can't access this page! Temp Share Link expired"
         redirect_to "/404.html"
       end
+      @subscription = @temp_shared_subscription.subscription
+    rescue ActiveRecord::RecordNotFound
+      puts "Can't access this page! Invalid login. SET_TEMP_SUBSCRIPTION"
+      redirect_to "/404.html"
     end
 
     # Only allow a list of trusted parameters through.
