@@ -23,31 +23,61 @@
 <p class="subscription-card-title">Cost per month</p>
 <p><%= @subscription.cost_per_month %></p>
 
-<br>
-<h2 class="card-title">Shared With:</h1>
-<hr>
-<strong>Groups</strong>
-<table>
-  <tr>
-    <th>Group Name</th>
-    <th>Owner</th>
-    <th>Permission</th>
-    <th></th>
-  </tr>
-  <% @subscription.share_records.each do |share_record| %>
-    <tr>
-      <% group = Group.find(share_record.group_id) %>
-      <td><%= link_to "#{group.group_name}", group_path(group) %></td>
-      <td><%= link_to "#{group.owner.username}", user_root_path(group.owner.username) %></td>
-      <td><%= share_record.permission %></td>
-      <td>
-        <% if current_user == @subscription.user || current_user.is_admin?(group) %>
-          <%= link_to "Remove", group_path(group, group: { subscription_ids: [@subscription.id], update_action: "remove"}), method: 'patch' %>
-        <% end %>
-      </td>
-    </tr>
+<% if @subscription.share_records.size > 0 || (@subscription.user == current_user && @subscription.temp_share_records.size > 0) %>
+  <br>
+  <h2 class="card-title">Shared With:</h1>
+  <hr>
+  <% if @subscription.share_records.size > 0 %>
+    <strong>Groups</strong>
+    <table>
+      <tr>
+        <th>Group Name</th>
+        <th>Owner</th>
+        <th>Permission</th>
+        <th></th>
+      </tr>
+      <% @subscription.share_records.each do |share_record| %>
+        <tr>
+          <% group = Group.find(share_record.group_id) %>
+          <td><%= link_to "#{group.group_name}", group_path(group) %></td>
+          <td><%= link_to "#{group.owner.username}", user_root_path(group.owner.username) %></td>
+          <td><%= share_record.permission %></td>
+          <td>
+            <% if current_user == @subscription.user || current_user.is_admin?(group) %>
+              <%= link_to "Remove", group_path(group, group: { subscription_ids: [@subscription.id], update_action: "remove"}), method: 'patch' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   <% end %>
-</table>
+  <% if @subscription.user == current_user && @subscription.temp_share_records.size > 0 %>
+    <strong>Temporary Share Links</strong>
+    <table>
+      <tr>
+        <th>Created On</th>
+        <th>Expires</th>
+        <th>Link</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% @subscription.temp_share_records.each do |temp_share_record| %>
+        <tr>
+          <td><%= temp_share_record.created_at %></td>
+          <td><%= temp_share_record.end_date %></td>
+          <td><%= temp_shared_subscription_url(temp_share_record) %></td>
+          <td>
+              <%= link_to "Extend", edit_temp_shared_subscription_path(temp_share_record), method: :get %>
+          </td>
+          <td>
+              <%= link_to "Delete", temp_share_record, method: :delete, data: { confirm: 'Are you sure?' }  %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>
+<%= button_to 'Generate Shareable Link', share_subscription_path, method: :get, class: "btn btn-dark" %>
 
 <%= button_to 'Visit Service', @subscription.url, method: :get, class: "btn btn-dark" %>
 <% if @subscription.can_edit?(current_user) %>

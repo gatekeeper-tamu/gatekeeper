@@ -1,6 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_subscription, only: %i[ show edit update destroy ]
+  before_action :set_subscription, only: %i[ show edit update destroy share ]
 
   # GET /subscriptions or /subscriptions.json
   def index
@@ -78,13 +78,30 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def share
+    if (!@subscription.user == current_user)
+      puts "Can't access this page! Invalid login. SHARE_SUBSCRIPTION"
+      redirect_to "/404.html"
+    end
+
+    respond_to do |format|
+      if (TempSharedSubscription.create(subscription: @subscription))
+        format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Share link successfully generated." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Share link could not be generated." }
+        format.json { render json: @subscription.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subscription
       begin
         @subscription = Subscription.accessible_by_user(current_user).find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        puts "Can't access this page! Invalid login."
+        puts "Can't access this page! Invalid login. SET_SUBSCRIPTION"
         redirect_to "/404.html"
       end
     end

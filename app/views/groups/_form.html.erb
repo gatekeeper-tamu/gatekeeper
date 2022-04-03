@@ -16,7 +16,7 @@
     <fieldset>
         <legend>Members:</legend>
         <%= group_form.fields_for :members do |members_form| %>
-            <%= render "member_fields", f: members_form, locals: {g: group}%>
+            <%= render "member_fields", f: members_form%>
         <% end %>
         <%= link_to_add_fields "Add Members", group_form, :members %>
     </fieldset>
@@ -26,7 +26,7 @@
     <fieldset>
         <legend>Subscriptions:</legend>
         <%= group_form.fields_for :shared_subscriptions do |subscriptions_form| %>
-            <%= render "shared_subscription_fields", f: subscriptions_form, locals: {g: group} %>
+            <%= render "shared_subscription_fields", f: subscriptions_form%>
         <% end %>
         <%= link_to_add_fields "Add Subscription", group_form, :shared_subscriptions %>
     </fieldset>

@@ -1,9 +1,10 @@
 class TempSharedSubscriptionsController < ApplicationController
+  before_action :authenticate_user!, except: %i[ show ]
   before_action :set_temp_shared_subscription, only: %i[ show edit update destroy ]
 
   # GET /temp_shared_subscriptions or /temp_shared_subscriptions.json
   def index
-    @temp_shared_subscriptions = TempSharedSubscription.all
+    @temp_shared_subscriptions = TempSharedSubscription.where(subscription: Subscription.where(user: current_user))
   end
 
   # GET /temp_shared_subscriptions/1 or /temp_shared_subscriptions/1.json
@@ -25,7 +26,7 @@ class TempSharedSubscriptionsController < ApplicationController
 
     respond_to do |format|
       if @temp_shared_subscription.save
-        format.html { redirect_to temp_shared_subscription_url(@temp_shared_subscription), notice: "Temp shared subscription was successfully created." }
+        format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Temp sharing link was successfully created." }
         format.json { render :show, status: :created, location: @temp_shared_subscription }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class TempSharedSubscriptionsController < ApplicationController
   def update
     respond_to do |format|
       if @temp_shared_subscription.update(temp_shared_subscription_params)
-        format.html { redirect_to temp_shared_subscription_url(@temp_shared_subscription), notice: "Temp shared subscription was successfully updated." }
+        format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Temp sharing link was successfully updated." }
         format.json { render :show, status: :ok, location: @temp_shared_subscription }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +53,7 @@ class TempSharedSubscriptionsController < ApplicationController
     @temp_shared_subscription.destroy
 
     respond_to do |format|
-      format.html { redirect_to temp_shared_subscriptions_url, notice: "Temp shared subscription was successfully destroyed." }
+      format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Temp sharing link was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -60,7 +61,13 @@ class TempSharedSubscriptionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_temp_shared_subscription
-      @temp_shared_subscription = TempSharedSubscription.find(params[:id])
+      begin
+        @temp_shared_subscription = TempSharedSubscription.find(params[:id])
+        @subscription = @temp_shared_subscription.subscription
+      rescue ActiveRecord::RecordNotFound
+        puts "Can't access this page! Invalid login. SET_TEMP_SUBSCRIPTION"
+        redirect_to "/404.html"
+      end
     end
 
     # Only allow a list of trusted parameters through.
