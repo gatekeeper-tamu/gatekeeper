@@ -35,7 +35,7 @@ class Subscription < ApplicationRecord
   def access_level(user)
     if (can_edit?(user))
       return SharedSubscription.permissions.key(2)
-    elsif (can_edit?(user))
+    elsif (can_view?(user))
       return SharedSubscription.permissions.key(1)
     else
       return nil
