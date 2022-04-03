@@ -1,1 +1,0 @@
-json.partial! "temp_shared_subscriptions/temp_shared_subscription", temp_shared_subscription: @temp_shared_subscription

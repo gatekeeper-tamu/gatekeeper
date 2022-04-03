@@ -1,14 +1,29 @@
+
+<script type="text/javascript">
+    function toggleHidden() {
+      document.getElementById("hidden_password").parentElement.classList.toggle("hidden");
+    }
+</script>
+
+<%= render :layout => 'subscriptions/shared/show' do %>
+
+<h1 class="card-title">Subscription Information</h1>
+<hr>
 <p id="notice"><%= notice %></p>
 
 <p>
   <strong>End date:</strong>
   <%= @temp_shared_subscription.end_date %>
 </p>
+<p class="subscription-card-title">Name</p>
+<p><%= @subscription.subscription_name %></p>
 
-<p>
-  <strong>Subscription:</strong>
-  <%= @temp_shared_subscription.subscription %>
+<p class="subscription-card-title">Username</p>
+<p><%= @subscription.username %></p>
+
+<p class="subscription-card-title">Password</p>
+<p><a id="view-password-button" class="button default ok" onclick=toggleHidden()>    View
+  </a>
+  <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
 </p>
-
-<%= link_to 'Edit', edit_temp_shared_subscription_path(@temp_shared_subscription) %> |
-<%= link_to 'Back', temp_shared_subscriptions_path %>
+<% end %>
