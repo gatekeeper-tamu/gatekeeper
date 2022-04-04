@@ -14,18 +14,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :recurring %>
-    <%= form.select :recurring, ["Yes", "No"] %>
-  </div>
-
-  <div class="field">
     <%= form.label :reminder_type %>
     <%= form.select :reminder_type, ["Billing", "Cancellation"] %>
   </div>
-  
+
   <div class="field">
-    <%= form.label "Reminder me:" %> 
-    <%= form.select :time_delta, ["1 day before", "2 days before", "3 days before", "4 days before", "5 days before"]  %>
+    <fieldset>
+      <legend><%= form.label :recurring %></legend>
+      <%= form.select :recurring, [['No', false], ['Yes', true]] %>
+    
+      <div id="frequency" class="hidden">
+        <%= form.label :frequency %>
+        <%= form.select :frequency, ["Weekly", "Monthly", "Annually"] %>
+      </div>
+      
+    </fieldset>
   </div>
 
   <% invalid = reminder.errors.include?(:end_date) %>
@@ -34,8 +37,32 @@
     <%= form.text_field :end_date, class: "form-control datepicker" %>
   </div>
 
+  <div class="field">
+    <%= form.label "Reminder me:" %> 
+    <%= form.select :notification_time, [ ["same day", 0], 
+                                          ["1 day before", 1],
+                                          ["2 days before", 2],
+                                          ["3 days before", 3],
+                                          ["4 days before", 4],
+                                          ["5 days before", 5]]  %>
+  </div>
+
   <div class="actions">
     <%= hidden_field_tag :subscription_id, @reminder.subscription_id %>
     <%= form.submit %>
   </div>
+
+  <script language="javascript">
+  $('#reminder_recurring').change(function(event){
+    if($('#reminder_recurring').val() === 'true') {
+      $('#frequency').removeClass('hidden');
+    }
+  });
+
+  $('#reminder_recurring').change(function(event){
+    if($('#reminder_recurring').val() === 'false') {
+      $('#frequency').addClass('hidden');
+    }
+  });
+  </script>
 <% end %>

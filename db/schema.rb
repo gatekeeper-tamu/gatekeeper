@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_011907) do
+ActiveRecord::Schema.define(version: 2022_04_04_164313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -38,11 +38,12 @@ ActiveRecord::Schema.define(version: 2022_03_17_011907) do
   create_table "reminders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "recurring", null: false
     t.string "reminder_type", null: false
-    t.integer "time_delta", null: false
+    t.integer "notification_time", null: false
     t.date "end_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "subscription_id", null: false
+    t.string "frequency"
     t.index ["subscription_id"], name: "index_reminders_on_subscription_id"
   end
 
