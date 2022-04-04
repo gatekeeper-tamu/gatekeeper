@@ -17,8 +17,15 @@ Feature: Create Reminder
 		And I click the "Create Reminder" button
   		Then I should see the new reminder page
 
-	Scenario: User create a reminder successfully
+	Scenario: User creates a reminder successfully
 		Given I am on the reminders "new" page for "Netflix" subscription
 		When I create a new reminder for "Netflix" subscription
 		And I click the "Create Reminder" button
   		Then I should see the reminder's show page
+
+	Scenario: User creates a reminder unsuccessfully with an invalid date
+		Given I am on the reminders "new" page for "Netflix" subscription
+		When I create a new reminder for "Netflix" subscription with an invalid date
+		And I click the "Create Reminder" button
+  		Then I should see an error
+

@@ -15,6 +15,7 @@
  *= require chosen.bootstrap.min
  *= require_tree .
  *= require_self
+ *= require bootstrap-datepicker
  */
  
 :root {
