@@ -83,4 +83,28 @@ RSpec.describe SubscriptionsController, type: :controller do
 			expect(response).to redirect_to(subscription_root_url)
 		end
 	end
+
+    describe "GET /share" do
+        it "returns a success response" do
+            subscription = Subscription.create! valid_attributes
+            redirect_to share_subscription_path(subscription.id)
+            expect(response).to be_successful # be_successful expects a HTTP Status code of 200
+        end
+		context 'with valid parameters' do
+			it "creates a new TempSharedSubscription" do
+				expect do
+					subscription = Subscription.create! valid_attributes
+					get :share, params: {id: subscription.id}, session: valid_session
+				end.to change(TempSharedSubscription, :count).by(1)
+			end
+		end
+
+		context 'with invalid parameters' do
+			it 'does not create a new TempSharedSubscription' do
+				expect do
+					get :share, params: {id: "12345678"}, session: valid_session
+				end.to change(Subscription, :count).by(0)
+			end
+		end
+    end
 end

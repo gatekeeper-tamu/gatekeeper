@@ -26,4 +26,5 @@
   </a>
   <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
 </p>
+<%= button_to 'Visit Service', @subscription.url, method: :get, class: "btn btn-dark" %>
 <% end %>

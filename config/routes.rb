@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 	resources :reminders
   resources :statistics
-  resources :temp_shared_subscriptions, :path => '/shares', only: [:index, :edit, :show, :update]
+  resources :temp_shared_subscriptions, :path => '/shares', only: [:index, :edit, :show, :update, :destroy]
 
   devise_for :users, controllers: {
 	  omniauth_callbacks: "users/omniauth_callbacks",
