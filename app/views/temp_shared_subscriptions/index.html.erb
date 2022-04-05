@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Temp Shared Subscriptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>End date</th>
+      <th>Subscription</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @temp_shared_subscriptions.each do |temp_shared_subscription| %>
+      <tr>
+        <td><%= temp_shared_subscription.end_date %></td>
+        <td><%= temp_shared_subscription.subscription %></td>
+        <td><%= link_to 'Show', temp_shared_subscription %></td>
+        <td><%= link_to 'Edit', edit_temp_shared_subscription_path(temp_shared_subscription) %></td>
+        <td><%= link_to 'Destroy', temp_shared_subscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
