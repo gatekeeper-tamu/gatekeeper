@@ -33,16 +33,28 @@ end
 
 ##### WHEN #####
 When /^I create a new reminder for "(.*)" subscription$/ do |subscription|
-	select("Yes", :from => "reminder_recurring")
 	select("Billing", :from => "reminder_reminder_type")
-	select("3 days before", :from => "reminder_time_delta")
+	select("No", :from => "reminder_recurring")
 	fill_in "reminder_end_date", :with => "26-04-2022"
+	select("3 days before", :from => "reminder_notification_time")
+end
+
+When /^I create a new recurring reminder for "(.*)" subscription$/ do |subscription|
+	select("Billing", :from => "reminder_reminder_type")
+	select("Yes", :from => "reminder_recurring")
+	select("Monthly", :from => "reminder_frequency")
+	fill_in "reminder_end_date", :with => "26-04-2022"
+	select("3 days before", :from => "reminder_notification_time")
+end
+
+When /^I select "(.*)" for reminder recurring$/ do |option|
+	select(option, :from => "reminder_recurring")
 end
 
 When /^I create a new reminder for "(.*)" subscription with an invalid date$/ do |subscription|
 	select("Yes", :from => "reminder_recurring")
 	select("Billing", :from => "reminder_reminder_type")
-	select("3 days before", :from => "reminder_time_delta")
+	select("3 days before", :from => "reminder_notification_time")
 	fill_in "reminder_end_date", :with => "29-02-2022"
 end
 
@@ -58,15 +70,19 @@ When /^I delete a reminder for "(.*)"$/ do |subscription_name|
 end
 
 ##### THEN #####
-Then /^I should see the reminder's show page$/ do
-	sub_id = URI.parse(current_url).path.split('/').last
-	reminder = Reminder.where(:id => sub_id).first
-	expect(!reminder.nil?)
-	page.should have_content("Reminder was successfully created.")
-end
-
-Then /^I should see the new reminder page$/ do
-	page.should have_content("New")
+Then /^I should see the reminder "(.*)" page$/ do |page_name|
+	if (page_name == "show")
+		sub_id = URI.parse(current_url).path.split('/').last
+		reminder = Reminder.where(:id => sub_id).first
+		expect(!reminder.nil?)
+		page.should have_content("Reminder was successfully created.")
+	elsif (page_name == "new")
+		page.should have_content("New")
+	elsif (page == "index")
+		path = "/reminders"
+		visit path
+		current_path.should eq("/reminders")
+	end
 end
 
 Then /^I should see reminders for the "(.*)" subscription$/ do |subscription|
@@ -82,11 +98,18 @@ Then /^the reminder should not exist$/ do
 	page.should have_content("Reminder was successfully destroyed.")
 end
 
-Then /^I should see the reminders index page$/ do
-	path = "/reminders"
-	visit path
-end
-
 Then /^I should see an error$/ do
 	page.should have_content("End date can't be blank")
+end
+
+Then /^I should see the frequency options$/ do
+	page { should have_selector('reminder_frequency', text: 'Weekly') } 
+end
+
+Then /^I should not see the frequency options$/ do
+	page.should have_no_content('frequency')
+end
+
+Then /^I should not see reminders for the "(.*)" subscription$/ do |subscription_name|
+	page.should have_no_content(subscription_name)
 end
