@@ -20,18 +20,69 @@
   <span class="hidden"><input value="<%= @subscription.password %>"  id="hidden_password"/></span>
 </p>
 
-<p class="subscription-card-title">Url</p>
-<p><%= @subscription.url %></p>
-
 <p class="subscription-card-title">Cost per month</p>
 <p><%= @subscription.cost_per_month %></p>
 
-<p class="subscription-card-title">Image</p>
-<p><%= @subscription.image %></p>
+<br>
+<h2 class="card-title">Shared With:</h1>
+<hr>
+<strong>Groups</strong>
+<table>
+  <tr>
+    <th>Group Name</th>
+    <th>Owner</th>
+    <th>Permission</th>
+    <th></th>
+  </tr>
+  <% @subscription.share_records.each do |share_record| %>
+    <tr>
+      <% group = Group.find(share_record.group_id) %>
+      <td><%= link_to "#{group.group_name}", group_path(group) %></td>
+      <td><%= link_to "#{group.owner.username}", user_root_path(group.owner.username) %></td>
+      <td><%= share_record.permission %></td>
+      <td>
+        <% if current_user == @subscription.user || current_user.is_admin?(group) %>
+          <%= link_to "Remove", group_path(group, group: { subscription_ids: [@subscription.id], update_action: "remove"}), method: 'patch' %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
 
-<%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
-<%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %> 
+<%= button_to 'Visit Service', @subscription.url, method: :get, class: "btn btn-dark" %>
+<% if @subscription.can_edit?(current_user) %>
+  <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
+<% end %>
+<% if @subscription.user == current_user %>
+  <%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %> 
+<% end %>
 <%= button_to 'Back', subscriptions_path, method: :get, class: "btn btn-dark"%>
+
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<%= render :layout => 'subscriptions/shared/show' do %>
+
+<h1 class="card-title">Active Reminders</h1>
+
+  <% @subscription.reminders.each do |reminder| %>
+    <% if reminder.subscription.subscription_name == @subscription.subscription_name %>
+      <div class="card-body">
+        <p class="card-text">Reminder type: <%= reminder.reminder_type %></p>
+        <p class="card-text">Reminder occurrence: <%= reminder.time_delta %></p>        
+        <p class="card-text">End date: <%= reminder.end_date %></p>
+        <p class="card-text">Reminder on: <%= reminder.recurring %></p>
+        <%= button_to 'Edit Reminder', edit_reminder_path(reminder), method: :get, class: "btn btn-dark btn-view-sub" %>
+        <%= button_to 'Delete Reminder', reminder, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+      </div>
+    <% else %>
+      <p class="card-text">No Reminders</p>
+    <% end %>
+  <% end %>
+
+
+<%= button_to 'Create Reminder', new_reminder_path, params: {subscription_id: @subscription},  method: :get, class: "btn btn-dark" %>
 
 <p id="notice"><%= notice %></p>
 <% end %>

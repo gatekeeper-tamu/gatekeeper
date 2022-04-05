@@ -1,9 +1,10 @@
 class RemindersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_reminder, only: %i[ show edit update destroy ]
 
   # GET /reminders or /reminders.json
   def index
-    @reminders = Reminder.all
+    @reminders = Reminder.belonging_to_user(current_user)
   end
 
   # GET /reminders/1 or /reminders/1.json
@@ -12,7 +13,7 @@ class RemindersController < ApplicationController
 
   # GET /reminders/new
   def new
-    @reminder = Reminder.new
+    @reminder = Reminder.new(:subscription_id => params[:subscription_id])
   end
 
   # GET /reminders/1/edit
@@ -22,13 +23,11 @@ class RemindersController < ApplicationController
   # POST /reminders or /reminders.json
   def create
     @reminder = Reminder.new(reminder_params)
+    @reminder.subscription = Subscription.find(params[:subscription_id])
 
     respond_to do |format|
       if @reminder.save
-        ReminderMailer.with(reminder: @reminder).new_reminder_email.deliver_now
-
-        ##TODO: use the ActiveJobs when implementing recurrence
-        #SendReminderEmailJob.set(wait: 1.minute).perform_later
+        ReminderMailer.with(user: current_user, reminder: @reminder).new_reminder_email.deliver_later
 
         format.html { redirect_to reminder_url(@reminder), notice: "Reminder was successfully created." }
         format.json { render :show, status: :created,   location: @reminder }
@@ -54,10 +53,11 @@ class RemindersController < ApplicationController
 
   # DELETE /reminders/1 or /reminders/1.json
   def destroy
+    @reminder = Reminder.find(params[:id])
     @reminder.destroy
 
     respond_to do |format|
-      format.html { redirect_to reminders_url, notice: "Reminder was successfully destroyed." }
+      format.html { redirect_to subscriptions_url, notice: "Reminder was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,11 +65,18 @@ class RemindersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reminder
-      @reminder = Reminder.find(params[:id])
+      begin
+        @reminder = Reminder.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        puts "Can't access this page!"
+        redirect_to "/404.html"
+      rescue => exception
+        puts "ERROR! -> #{exception}"
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def reminder_params
-      params.require(:reminder).permit(:recurring, :reminder_type, :time_delta, :end_date)
+      params.require(:reminder).permit(:recurring, :reminder_type, :time_delta, :end_date, :subscription_id)
     end
 end

@@ -2,6 +2,7 @@
 
 def create_subscriptions(user, subscription_table) 
 	subscription_table.hashes.each do |subscription|
+		subscription["user"] = user
 		user.subscriptions.create subscription
 	end
 end
@@ -30,14 +31,14 @@ end
 ##### WHEN #####
 When /^I view the "(.*)" subscription$/ do |sub_name|
 	if (@subscription.nil?)
-		@subscription = Subscription.where(:subscription_name => sub_name).first
+		@subscription = Subscription.where(subscription_name: sub_name).first
 	end
 	path = "/subscriptions/" + @subscription.id
 	visit path
 end
 
 When /^I delete the "(.*)" subscription$/ do |sub_name|
-	@subscription = Subscription.where(:subscription_name => sub_name).first
+	@subscription = Subscription.where(subscription_name: sub_name).first
 	click_button "Delete"
 end
 
@@ -62,20 +63,20 @@ Then /^I should see my subscriptions$/ do
 end
 
 Then /^I should see the "(.*)" subscription$/ do |sub_name|
-	subscription = Subscription.where(:subscription_name => sub_name).first
+	subscription = Subscription.where(subscription_name: sub_name).first
 	page.should have_content(subscription.subscription_name)
 	page.should have_content(subscription.username)
 end
 
 Then /^the "(.*)" subscription should not exist$/ do |sub_name|
 	subscription = Subscription.where(:subscription_name => sub_name).first
-	expect(subscription.nil?)
+	expect(subscription).to be nil
 end
 
 Then /^I should see the subscription's show page$/ do
 	sub_id = URI.parse(current_url).path.split('/').last
-	subscription = Subscription.where(:id => sub_id).first
-	expect(!subscription.nil?)
+	subscription = Subscription.where(id: sub_id).first
+	expect(subscription.present?).to be true
 	page.should have_content(subscription.subscription_name)
 	page.should have_content(subscription.username)
 end

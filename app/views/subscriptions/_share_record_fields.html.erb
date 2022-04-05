@@ -1,0 +1,6 @@
+<div class="nested-fields">
+    <%= f.hidden_field :_destroy %>
+    <%= f.association :group, as: :select, input_html: {class: 'chosen-select'}, label_method: :group_name, collection: Group.where_user_is_collaborator(current_user) | @subscription.groups %>
+    <%= f.select :permission, SharedSubscription.permissions.keys, input_html: {class: 'chosen-select'}%>
+    <%= link_to "Remove", '#', class: "remove_fields" %>
+</div>

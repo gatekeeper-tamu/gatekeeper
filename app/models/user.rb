@@ -39,7 +39,6 @@ class User < ApplicationRecord
 	accepts_nested_attributes_for :subscriptions
 	accepts_nested_attributes_for :owned_groups
 
-
 	def total_cost
     sum = 0
     for sub in subscriptions
@@ -60,17 +59,17 @@ class User < ApplicationRecord
 	end
 
   def is_viewer?(group)
-		access = access_level(group)
+		access = group_access_level(group)
 		return (Membership.permissions[access] >= Membership.permissions[:viewer])
 	end
 
 	def is_collaborator?(group)
-		access = access_level(group)
+		access = group_access_level(group)
 		return (Membership.permissions[access] >= Membership.permissions[:collaborator])
 	end
 
 	def is_admin?(group)
-		access = access_level(group)
+		access = group_access_level(group)
 		return (Membership.permissions[access] == Membership.permissions[:admin])
 	end
 
@@ -78,13 +77,55 @@ class User < ApplicationRecord
 		return (group.owner == self)
 	end
 
-	def access_level(group)
+	def group_access_level(group)
 		if (is_owner?(group))
-			puts "User is owner"
+			# puts "User is owner"
 			return Membership.permissions.key(2)
 		end
-		puts "User is not owner"
-		return group.access_level(self)
+		# puts "User is not owner"
+		return group.user_access_level(self)
+	end
+
+	def can_view?(subscription)
+		access = subscription_access_level(subscription)
+		# puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:viewer]}"
+		return (SharedSubscription.permissions[access] >= SharedSubscription.permissions[:viewer])
+	end
+
+	def can_edit?(subscription)
+		if (subscription.user == self)
+			return true
+		end
+		access = subscription_access_level(subscription)
+		# puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:editor]}"
+		return (SharedSubscription.permissions[access] == SharedSubscription.permissions[:editor])
+	end
+
+	def subscription_access_level(subscription)
+		if (subscription.user == self)
+			return SharedSubscription.permissions.key(2)
+		end
+		can_view = false
+		can_edit = false
+		for share_record in SharedSubscription.where(subscription_id: subscription.id, group_id: Group.accessible_by_user(self).pluck(:id))
+			begin
+				if (SharedSubscription.permissions[share_record.permission] == SharedSubscription.permissions[:viewer])
+					can_view = true
+				end
+				if (SharedSubscription.permissions[share_record.permission] == SharedSubscription.permissions[:editor] and is_admin?(Group.find(share_record.group_id)))
+					can_edit = true
+					break
+				end
+				rescue ActiveRecord::RecordNotFound
+			end
+		end
+		if (can_edit)
+			SharedSubscription.permissions.key(2)
+		elsif (can_view)
+			SharedSubscription.permissions.key(1)
+		else
+			SharedSubscription.permissions.key(0)
+		end
 	end
 
 end

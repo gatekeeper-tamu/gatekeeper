@@ -87,4 +87,5 @@ gem "omniauth-rails_csrf_protection"
 gem 'sidekiq', '>= 6.4.1'
 gem "chartkick"
 gem "groupdate"
-
+gem 'bootstrap-datepicker-rails'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'

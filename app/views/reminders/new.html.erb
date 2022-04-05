@@ -1,5 +1,10 @@
-<h1>New Reminder</h1>
+<%= render :layout => 'users/shared/cards' do %>
+
+
+<h1>New <%= @reminder.subscription.subscription_name %> Reminder</h1>
 
 <%= render 'form', reminder: @reminder %>
 
-<%= link_to 'Back', reminders_path %>
+<%= button_to 'Back', @reminder.subscription, method: :get %> 
+
+<% end %>
