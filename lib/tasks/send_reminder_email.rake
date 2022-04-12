@@ -6,7 +6,7 @@ namespace :send_reminder_email do
                 subscription.reminders.all.each do |reminder|
                     #for each reminder, check if the end date and calculate date to send reminder
                     reminderDate = reminder.end_date - reminder.notification_time
-                    
+
                     if reminderDate == Date.today
                         puts "Reminder date today, sending email"
                         ReminderMailer.with(user: user, reminder: reminder).new_reminder_email.deliver_now
@@ -25,12 +25,12 @@ namespace :send_reminder_email do
                         else
                             #destroy inactive reminders
                             puts "destroying reminder", reminder.id
-                            Reminder.destroy(reminder.id)                            
+                            Reminder.destroy(reminder.id)
                         end
 
                         #check for outdated reminders
                         if reminder.end_date < Date.today
-                            Reminder.destroy(reminder.id)                            
+                            Reminder.destroy(reminder.id)
                         end
                     end
                 end

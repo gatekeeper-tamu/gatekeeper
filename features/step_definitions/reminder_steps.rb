@@ -103,7 +103,7 @@ Then /^I should see an error$/ do
 end
 
 Then /^I should see the frequency options$/ do
-	page { should have_selector('reminder_frequency', text: 'Weekly') } 
+	page { should have_selector('reminder_frequency', text: 'Weekly') }
 end
 
 Then /^I should not see the frequency options$/ do
