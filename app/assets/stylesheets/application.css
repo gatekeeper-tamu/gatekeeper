@@ -60,3 +60,10 @@ nav {
 .select {
   display: inline-flex;
 }
+
+/* #notice {
+  background-color: var(--sage);
+  padding: 4px;
+  color: white;
+  border-radius: 5px;
+} */

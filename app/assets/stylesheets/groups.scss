@@ -1,0 +1,33 @@
+.ct-group {
+  text-align: left !important;
+}
+
+.card-user {
+  text-decoration: none;
+  padding: 5px 10px;
+  background-color: var(--lightgrey);
+  border-radius: 20px;
+  border: 1px solid var(--mauve) !important;
+}
+
+.card-user:hover {
+  background-color: var(--mauve);
+  color: white !important;
+  text-decoration: none;
+}
+
+.card-btn {
+  text-decoration: none;
+  padding: 7px 15px;
+  background-color: var(--wine);
+  border-radius: 5px;
+  color: white !important;
+}
+
+.card-btn:hover {
+  text-decoration: none;
+  padding: 7px 15px;
+  background-color: var(--magenta);
+  border-radius: 5px;
+  color: white !important;
+}
