@@ -10,13 +10,12 @@ Feature: Delete Reminder
 		| Netflix			    | test     		| supersecure	| netflix.com	| 9.95				|
 		| Google				| anothertest   | RidleyScott	| google.com	| 8.99				|
 		And the following reminders exist for "Netflix" subscription:
-		| recurring             | reminder_type		| time_delta	| end_date		| 
-		| Yes       		    | Billing     		| 3 days before	| 26-04-2022	| 
-		| Yes				    | Cancellation      | 1 day before	| 26-04-2022	| 
-		
+		| recurring             | reminder_type		| notification_time	| end_date		| 
+		| Yes       		    | Billing     		| 3 days before		| 26-04-2022	| 
+		| Yes				    | Cancellation      | 1 day before		| 26-04-2022	| 
+			
     Scenario: User deletes a subscription successfully
 	    Given I am on the homepage
 		When I view the "Netflix" subscription
 		And I delete a reminder for "Netflix"
   		Then the reminder should not exist
-	

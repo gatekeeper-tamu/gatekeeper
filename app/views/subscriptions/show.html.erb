@@ -99,7 +99,7 @@
     <% if reminder.subscription.subscription_name == @subscription.subscription_name %>
       <div class="card-body">
         <p class="card-text">Reminder type: <%= reminder.reminder_type %></p>
-        <p class="card-text">Reminder occurrence: <%= reminder.time_delta %></p>        
+        <p class="card-text">Reminder occurrence: <%= reminder.notification_time %> day before </p>        
         <p class="card-text">End date: <%= reminder.end_date %></p>
         <p class="card-text">Reminder on: <%= reminder.recurring %></p>
         <%= button_to 'Edit Reminder', edit_reminder_path(reminder), method: :get, class: "btn btn-dark btn-view-sub" %>

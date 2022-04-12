@@ -13,13 +13,18 @@
 </p>
 
 <p>
+  <strong>Frequency:</strong>
+  <%= @reminder.frequency %> 
+</p>
+
+<p>
   <strong>Reminder type:</strong>
   <%= @reminder.reminder_type %>
 </p>
 
 <p>
   <strong>Remind me:</strong>
-  <%= @reminder.time_delta  %> days before
+  <%= @reminder.notification_time %> days before
 </p>
 
 <p>
@@ -28,6 +33,6 @@
 </p>
 
 <%= button_to 'Edit Reminder', edit_reminder_path(@reminder), method: :get, class: "btn btn-dark btn-view-sub" %>
-<%= button_to 'Back', @reminder.subscription, method: :get %> 
+<%= button_to 'Back to Subscription', @reminder.subscription, method: :get %> 
 
 <% end %>
