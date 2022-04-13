@@ -120,13 +120,8 @@ Rails.application.configure do
   
   config.action_mailer.delivery_method = :smtp
   ###for development, use this
-  ###host = 'gatekeeper-tamu.herokuapp.com' #replace with your own url
-  ###config.action_mailer.default_url_options = { host: host }
-  
-  ###for testing purposes
-  host = 'localhost:3000'
-  config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
-  ##
+  # host = 'gatekeeper-tamu.herokuapp.com' #replace with your own url
+  # config.action_mailer.default_url_options = { host: host }
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
