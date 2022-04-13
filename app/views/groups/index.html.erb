@@ -12,25 +12,27 @@
 
   <tbody>
     <% @groups.in_groups_of(2, false).each do |group| %>
-      <div class="row">
+      <div class="row" style="margin-bottom: 40px;">
         <% group.each do |gr| %>
           <div class="col col-lg-6">
-            <div class="card mb-3" style="width: 100%;">
+            <div class="card" style="width: 100%;">
               <div class="row no-gutters">
-                <div class="col-lg-4" style="background-color: var(--magenta)">
-                  
+                <div class="col-lg-4" >
+                  <div class="" style="height: 100%; border-radius: 3px; background-color: var(--magenta); margin-left: 12px;">
+
+                  </div>
                 </div>
-                <div class="col-lg-8">
-                  <div class="card-body cb-group">
+                <div class="col-lg-8" >
+                  <div class="card-body cb-group" >
                     <h5 class="card-title ct-group"><%= gr.group_name %></h5>
                     <p class="card-text" style="text-decoration: underline;">members:</p>
                     <div class="row">
-                      <div class="col-auto">
+                      <div class="col-auto col-users">
                         <a href="<%= user_root_path(gr.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{gr.owner.username}" %></a>
                       </div>
                       <% gr.members.each do |member| %>
                         <%user = member.user%>
-                        <div class="col-auto">
+                        <div class="col-auto col-users">
                           <a href="<%= user_root_path(user.username) %>" class="card-user"><%= fa_icon "user" %> <%= "#{user.username}" %></a>
                         </div>
                       <% end %>
@@ -46,7 +48,7 @@
                       <% end %>
                       <% if (current_user.is_owner?(gr)) %>
                         <div class="col-auto">
-                          <p><%= link_to 'Destroy', gr, class:"card-btn", method: :delete, data: { confirm: 'Are you sure?' } %></p>
+                          <p><%= link_to 'Destroy', gr, class:"card-btn-delete", method: :delete, data: { confirm: 'Are you sure?' } %></p>
                         </div>
                       <% end %>
                     </div>

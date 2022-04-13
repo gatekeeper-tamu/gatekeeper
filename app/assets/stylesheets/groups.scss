@@ -1,3 +1,5 @@
+
+
 .ct-group {
   text-align: left !important;
 }
@@ -5,7 +7,6 @@
 .card-user {
   text-decoration: none;
   padding: 5px 10px;
-  background-color: var(--lightgrey);
   border-radius: 20px;
   border: 1px solid var(--mauve) !important;
 }
@@ -30,4 +31,44 @@
   background-color: var(--magenta);
   border-radius: 5px;
   color: white !important;
+}
+
+.card-btn-delete {
+  text-decoration: none;
+  padding: 7px 15px;
+  background-color: crimson;
+  border-radius: 5px;
+  color: white !important;
+}
+
+.card-btn-delete:hover {
+  text-decoration: none;
+  padding: 7px 15px;
+  background-color: firebrick;
+  border-radius: 5px;
+  color: white !important;
+}
+
+th {
+  text-decoration: underline;
+  font-weight: normal;
+  padding: 20px 40px 20px 0;;
+}
+
+td {
+  padding: 0px 40px 20px 0;;
+
+}
+
+.col-users {
+  margin: 10px 0;
+}
+
+.col-sm-2 {
+  padding-top: 10px;
+}
+
+.header-btn {
+  text-decoration: none;
+  size: 20;
 }
