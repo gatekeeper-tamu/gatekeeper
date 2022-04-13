@@ -1,6 +1,6 @@
 class TempSharedSubscriptionsController < ApplicationController
   before_action :authenticate_user!, except: %i[ show ]
-  before_action :set_temp_shared_subscription, only: %i[ show edit update destroy ]
+  before_action :set_temp_shared_subscription, only: %i[ show edit update destroy share send_temp_access_email ]
 
   # GET /temp_shared_subscriptions or /temp_shared_subscriptions.json
   def index
@@ -54,6 +54,17 @@ class TempSharedSubscriptionsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Temp sharing link was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  def share
+  end
+
+  def send_temp_access_email
+    TempAccessMailer.share_subscription_email(@temp_shared_subscription, @subscription, params["no_model_fields"]["email"], current_user).deliver
+    respond_to do |format|
+      format.html { redirect_to "/subscriptions/#{@subscription.id}", notice: "Temp sharing link was successfully shared." }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>You've received access to <%= @user.first_name %> <%= @user.last_name %>'s <%= @sub.subscription_name%> account!</p>
+    <p>
+      To view the account information, click the link below
+      <br>
+      --------------------------
+    </p>
+    <a href=<%= temp_shared_subscription_url(@share_record) %>>Link to account details</a>
+  </body>
+</html>
