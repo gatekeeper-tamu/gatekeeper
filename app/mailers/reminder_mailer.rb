@@ -1,5 +1,4 @@
 class ReminderMailer < ApplicationMailer
-    default from: 'gatekeeper.tamu@gmail.com'
     def new_reminder_email
         @reminder = params[:reminder]
         @user = params[:user]

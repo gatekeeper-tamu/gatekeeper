@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   end
 	resources :reminders
   resources :statistics
-  resources :temp_shared_subscriptions, :path => '/shares', only: [:index, :edit, :show, :update, :destroy]
+  resources :temp_shared_subscriptions, :path => '/shares', only: [:index, :edit, :show, :update, :destroy ] do
+    get "share", on: :member
+    patch "send_temp_access_email", on: :member
+  end
 
   devise_for :users, controllers: {
 	  omniauth_callbacks: "users/omniauth_callbacks",

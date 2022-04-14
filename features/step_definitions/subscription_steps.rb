@@ -87,7 +87,9 @@ Then /^I should see the "(.*)" subscription$/ do |sub_name|
 end
 
 Then /^I should see a temporary share link$/ do
-	page.should have_content("/shares/")
+	page.should have_content("Extend")
+	page.should have_content("Email")
+	page.should have_content("Delete")
 	page.should have_content("Temporary Share Links")
 end
 

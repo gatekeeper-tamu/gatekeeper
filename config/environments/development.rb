@@ -6,7 +6,7 @@ Rails.application.configure do
   config.annotations.register_extensions('feature') { |tag| /#\s*(#{tag}):?\s*(.*)$/ }
 
 
-	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+	# config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -82,13 +82,10 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   
   config.action_mailer.delivery_method = :smtp
-  ###for development, use this
-  ###host = 'gatekeeper-tamu.herokuapp.com' #replace with your own url
-  ###config.action_mailer.default_url_options = { host: host }
   
   ###for testing purposes
-  host = 'localhost:3000'
-  config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
+  # host = 'localhost:5000'
+  # config.action_mailer.default_url_options = { :host => 'localhost:5000', protocol: 'http' }
   ##
 
   # SMTP settings for gmail
