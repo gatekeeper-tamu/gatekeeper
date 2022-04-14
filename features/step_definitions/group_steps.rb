@@ -100,14 +100,16 @@ end
 When /^I (Edit|Destroy|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
 	@group_id = @group.id
-	row = page.find("tr", text: group_name)
+	# row = page.find("tr", text: group_name)
+	row = page.find("#action-#{group_name}")
 	row.click_link action
 end
 
 When /^I should not be able to (Edit|Destroy|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
 	@group_id = @group.id
-	row = page.find("tr", text: group_name)
+	# row = page.find("tr", text: group_name)
+	row = page.find("#action-#{group_name}")
 	row.should_not have_content(action)
 end
 
