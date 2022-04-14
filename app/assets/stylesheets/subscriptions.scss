@@ -10,12 +10,17 @@
   margin-bottom: 10px; /* Added */
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
-  width: 30vw;
+  width: 500px !important;
 }
 
 .card-title {
   text-align: center;
-  font-weight: 700;
+  font-weight: bold !important;
+}
+
+.card-title-header {
+  text-align: center;
+  font-weight: normal !important;
 }
 
 .field > input {
@@ -24,7 +29,7 @@
 
 .field > label, .subscription-card-title {
   margin: 10px 0 2px 0;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .actions > input, form > input {

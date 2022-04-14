@@ -25,7 +25,7 @@
                 <div class="col-lg-8" >
                   <div class="card-body cb-group" >
                     <h5 class="card-title ct-group"><%= gr.group_name %></h5>
-                    <p class="card-text" style="text-decoration: underline;">members:</p>
+                    <p class="card-text" style="text-decoration: underline; margin-bottom: 0;">members</p>
                     <div class="row">
                       <div class="col-auto col-users">
                         <a href="<%= user_root_path(gr.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{gr.owner.username}" %></a>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="row" style="margin-top: 30px;">
                       <div class="col-auto">
-                        <p class="card-text"><%= link_to 'Show', gr, class:"card-btn" %></p>
+                        <p class="card-text"><%= link_to 'View', gr, class:"card-btn" %></p>
                       </div>
                       <% if (current_user.is_collaborator?(gr)) %>
                         <div class="col-auto">
@@ -48,7 +48,7 @@
                       <% end %>
                       <% if (current_user.is_owner?(gr)) %>
                         <div class="col-auto">
-                          <p><%= link_to 'Destroy', gr, class:"card-btn-delete", method: :delete, data: { confirm: 'Are you sure?' } %></p>
+                          <p><%= link_to 'Delete', gr, class:"card-btn-delete", method: :delete, data: { confirm: 'Are you sure?' } %></p>
                         </div>
                       <% end %>
                     </div>

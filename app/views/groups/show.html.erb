@@ -2,7 +2,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="card" style="width: 75%;">
+<div class="card" style="min-width: 75% !important;">
   <div class="card-body">
     <div class="row group-show-header">
       <div class="col col-sm-2" align="center">
@@ -19,7 +19,7 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col col-md-5">
+      <div class="col col-lg-5">
         <p class="card-text" style="text-decoration: underline;">owner</p>
         <a href="<%= user_root_path(@group.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{@group.owner.username}" %></a>
         <table>
@@ -36,7 +36,7 @@
           <% end %>
         </table>
     </div>
-    <div class="col col-md-7">
+    <div class="col col-lg-7">
       <table>
         <tr>
           <th>subscription</th>
@@ -52,7 +52,7 @@
             <td><%= shared_subscription.permission %>
             <td>
               <% if current_user == subscription.user || current_user.is_admin?(@group) %>
-                <%= link_to " Remove", [@group, group: { subscription_ids: [subscription.id], update_action: "remove"}], method: 'patch', class: "card-btn-delete" %>
+                <%= link_to "X", [@group, group: { subscription_ids: [subscription.id], update_action: "remove"}], method: 'patch', class: "card-btn-delete"%>
               <% end %>
             </td>
           </tr>

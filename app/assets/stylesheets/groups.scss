@@ -33,7 +33,26 @@
   color: white !important;
 }
 
-.card-btn-delete {
+.add_fields {
+  text-decoration: none;
+  padding: 7px 15px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid var(--mauve);
+  color: mauve !important;
+
+}
+
+.add_fields:hover {
+  text-decoration: none;
+  padding: 7px 15px;
+  background-color: var(--lightgrey);
+  border-radius: 5px;
+  color: mauve !important;
+
+}
+
+.card-btn-delete, .remove_fields {
   text-decoration: none;
   padding: 7px 15px;
   background-color: crimson;
@@ -41,7 +60,7 @@
   color: white !important;
 }
 
-.card-btn-delete:hover {
+.card-btn-delete:hover, .remove_fields:hover {
   text-decoration: none;
   padding: 7px 15px;
   background-color: firebrick;
@@ -60,6 +79,42 @@ td {
 
 }
 
+td > select, td > div > select {
+  display: block;
+    width: 100%;
+    min-width: 150px;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--mauve);
+    background-color: #fff;
+    background-image: url(https://cdn-icons.flaticon.com/png/512/2722/premium/2722987.png?token=exp=1649908137~hmac=20fc1ef950b27ec8acdd15f5905ce2f2);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.chosen-single {
+  width: 100%;
+  min-width: 150px;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: 1px solid #ced4da;
+}
+
 .col-users {
   margin: 10px 0;
 }
@@ -69,6 +124,17 @@ td {
 }
 
 .header-btn {
-  text-decoration: none;
-  size: 20;
+  font-size: 20px;
+}
+
+label {
+  display: none !important;
+}
+
+h5 {
+  margin: 10px 0;
+}
+
+.form-group {
+  margin: 0 !important;
 }
