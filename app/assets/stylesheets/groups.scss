@@ -4,6 +4,10 @@
   text-align: left !important;
 }
 
+.card-group {
+  width: 500px !important;
+}
+
 .card-user {
   text-decoration: none;
   padding: 5px 10px;
@@ -127,7 +131,7 @@ td > select, td > div > select {
   font-size: 20px;
 }
 
-label {
+.form-group > label {
   display: none !important;
 }
 

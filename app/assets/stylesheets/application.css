@@ -73,6 +73,10 @@ nav {
     width: 85vw !important;
   }
 
+  .card-group {
+    width: 85vw !important;
+  }
+
   td > select, td > div > select {
     min-width: 50px ;
   }
