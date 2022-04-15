@@ -20,7 +20,6 @@ class SearchController < ApplicationController
         http = Net::HTTP.new(id_url.host, id_url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
         idrequest = Net::HTTP::Get.new(id_url)
         idrequest["x-rapidapi-host"] = 'watchmode.p.rapidapi.com'
         idrequest["x-rapidapi-key"] = '3f2560c7e3msh18d24d47fcda8f8p17b513jsn0a997cc33ab8'
