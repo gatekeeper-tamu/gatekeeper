@@ -16,11 +16,11 @@ Background: users have statistics and subscriptions
 
   Scenario: Signed in user sees sitewide statistics chart
     Given I am on the sitewide statistics page
-    Then I should see the pie chart detailing subscription counts
+    Then I should see the chart detailing subscription counts
 
   Scenario: Signed in user sees sitewide statistics graph
     Given I am on the sitewide statistics page
-    Then I should see the bar graph showing subscription costs
+    Then I should see the chart showing subscription costs
 
   Scenario: Signed in user sees sitewide statistics total subscription count
     Given I am on the sitewide statistics page

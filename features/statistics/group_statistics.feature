@@ -26,11 +26,11 @@ Background: users have statistics and subscriptions
 
   Scenario: Signed in user sees group statistics chart
     Given I am on the group statistics page
-    Then I should see the pie chart detailing group subscription costs
+    Then I should see the chart detailing group subscription costs
 
   Scenario: Signed in user sees group statistics member chart
     Given I am on the group statistics page
-    Then I should see the pie chart detailing cost per member
+    Then I should see the chart detailing cost per member
 
   Scenario: Signed in user sees group statistics total monthly cost
     Given I am on the group statistics page

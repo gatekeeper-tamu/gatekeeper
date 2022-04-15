@@ -34,11 +34,11 @@ Then /^I should see the personal statistics page$/ do
 	page.should have_content("Personal statistics")
 end
 
-### personal ###
-Then /^I should see the pie chart detailing subscription costs$/ do
+Then /^I should see the chart (.*)$/ do |chart|
 	page.should have_content("Loading...")
 end
 
+### personal ###
 Then /^I should see the table showing subscription details$/ do
 	page.should have_content("http://netflix.com")
 end
@@ -52,27 +52,11 @@ Then /^I should see my total overall cost$/ do
 end
 
 ### group ###
-Then /^I should see the pie chart detailing group subscription costs$/ do
-	page.should have_content("Loading...")
-end
-
-Then /^I should see the pie chart detailing cost per member$/ do
-	page.should have_content("Loading...")
-end
-
 Then /^I should see my group's total monthly cost$/ do
 	page.should have_content("The total monthly cost for this group is $14.95")
 end
 
 ### sitewide ###
-Then /^I should see the pie chart detailing subscription counts$/ do
-	page.should have_content("Loading...")
-end
-
-Then /^I should see the bar graph showing subscription costs$/ do
-	page.should have_content("Loading...")
-end
-
 Then /^I should see the total subscription count$/ do
 	page.should have_content("We have a total of 3 accounts stored on gatekeeper.com")
 end

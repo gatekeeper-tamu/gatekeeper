@@ -13,7 +13,7 @@ Background: users have statistics and subscriptions
 
   Scenario: Signed in user sees personal statistics graph
     Given I am on the personal statistics page
-    Then I should see the pie chart detailing subscription costs
+    Then I should see the chart detailing subscription costs
 
   Scenario: Signed in user sees personal statistics table
     Given I am on the personal statistics page
