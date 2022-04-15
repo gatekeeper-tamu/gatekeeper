@@ -72,9 +72,7 @@ RSpec.describe User, type: :model do
 
   describe "all_groups" do
     user = FactoryBot.create(:user)
-
     group1 = FactoryBot.create(:group, owner: user)
-    all_groups = user.owned_groups + user.groups
     
     it "should return all groups a user has access to" do
       total = user.all_groups()
