@@ -10,9 +10,9 @@ Feature: View Reminder
 		| Netflix			    | test     		| supersecure	| netflix.com	| 9.95				|
 		| Google				| anothertest   | RidleyScott	| google.com	| 8.99				|
 		And the following reminders exist for "Netflix" subscription:
-		| recurring             | reminder_type		| time_delta	| end_date		| 
-		| Yes       		    | Billing     		| 3 days before	| 26-04-2022	| 
-		| Yes				    | Cancellation      | 1 day before	| 26-04-2022	| 
+		| recurring             | reminder_type		| notification_time	| end_date		| 
+		| Yes       		    | Billing     		| 3 days before		| 26-04-2022	| 
+		| Yes				    | Cancellation      | 1 day before		| 26-04-2022	| 
 		
     Scenario: User views a reminder successfully
 	    Given I am on the homepage
@@ -23,9 +23,18 @@ Feature: View Reminder
 	    Given I am on the homepage
 		When I click the "dropdownMenuButton" button
 		And I click the "Reminders" link
-  		Then I should see the reminders index page
+  		Then I should see the reminder "index" page
 	
     Scenario: Unauthenticated user tries to view a reminder
 		Given I am not logged in
 		When I view the "Netflix" subscription
   		Then I am on the sign in page
+
+    Scenario: User tries to view reminders for a deleted subscription
+	    Given I am on the homepage
+		When I view the "Netflix" subscription
+		And I click the "Delete" button
+		And I click the "dropdownMenuButton" button
+		And I click the "Reminders" link
+		Then I should not see reminders for the "Netflix" subscription
+
