@@ -189,11 +189,11 @@ To start, install the following packages:
 - [X] Add/Remove/Update Subscription Entries
 - [X] Share Subscriptions
 - [X] Create Groups
-- [ ] Setup Cancellation/Renewal Reminders
-- [ ] Configure Group/Personal Settings
-- [ ] See Statistics on Monthly Costs/Usage Data
-- [ ] Explore Subscription Services and Deals
-- [ ] Send Temporary Account Access to Non-Users
+- [X] Setup Cancellation/Renewal Reminders
+- [X] Configure Group/Personal Settings
+- [X] See Statistics on Monthly Costs/Usage Data
+- [X] Explore Subscription Services and Deals
+- [X] Send Temporary Account Access to Non-Users
 
 See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or the [pivotal tracker](https://www.pivotaltracker.com/n/projects/2547056) for a full list of proposed features (and known issues).
 
