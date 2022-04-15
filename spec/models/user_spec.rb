@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
 
   describe "total_cost" do
     user = FactoryBot.create(:user)
-    sub = FactoryBot.create(:subscription, user: user, cost_per_month: 9.99)
+    FactoryBot.create(:subscription, user: user, cost_per_month: 9.99)
 
     it "should return total cost of monthly subscriptions" do
       total = user.total_cost()
@@ -51,7 +51,7 @@ RSpec.describe User, type: :model do
 
   describe "total_cost_overall" do
     user = FactoryBot.create(:user)
-    sub = FactoryBot.create(:subscription, user: user, cost_per_month: 5.00, created_at: Time.current - 35.days)
+    FactoryBot.create(:subscription, user: user, cost_per_month: 5.00, created_at: Time.current - 35.days)
 
     it "should return total overall cost of subscriptions" do
       total = user.total_cost_overall()
@@ -61,8 +61,8 @@ RSpec.describe User, type: :model do
 
   describe "total_groups" do
     user = FactoryBot.create(:user)
-    group1 = FactoryBot.create(:group, owner: user)
-    group2 = FactoryBot.create(:group, owner: user)
+    FactoryBot.create(:group, owner: user)
+    FactoryBot.create(:group, owner: user)
 
     it "should return number of groups a user has access to" do
       total = user.total_groups()
