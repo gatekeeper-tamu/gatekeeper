@@ -8,7 +8,7 @@ Feature: Add and Remove Subscriptions from Group Feature
 		And I am logged in
 		And the following groups exist for user with email "manny@testerman.com":
 		| group_name	|
-		| Test Family	| 
+		| TestFamily	| 
 		And the following subscriptions exist for user with email "manny@testerman.com":
 		| subscription_name     | username		| password		| url			| cost_per_month	|
 		| Netflix			    | test     		| supersecure	| netflix.com	| 9.95				|
@@ -27,10 +27,10 @@ Feature: Add and Remove Subscriptions from Group Feature
 
     Scenario: User can add a subscription to a group
 		Given I am on the groups "index" page
-		When I Edit the "Test Family" group
+		When I Edit the "TestFamily" group
   		# And I add "Netflix" to the group subscriptions
 		And I click the "Update Group" button
-  		Then I should see the "Test Family" group's show page
+  		Then I should see the "TestFamily" group's show page
   		# And I should see "Netflix"
 
     Scenario: User can remove a subscription from a group

@@ -1,68 +1,70 @@
+<%= render :layout => 'subscriptions/shared/layout' do %>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Group name:</strong>
-  <%= @group.group_name %>
-</p>
-
-<p>
-  <strong>Owner:</strong>
-  <%= @group.owner.username %>
-</p>
-
-<p>
-  <strong>Members:</strong>
-  <table>
-    <tr>
-      <th colspan="2">Name</th>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Permission</th>
-    </tr>
-    <% @group.members.each do |member| %>
-      <tr>
-        <%user = member.user%>
-        <td><%= user.first_name%></td>
-        <td><%= user.last_name%></td>
-        <td><%= link_to "#{user.username}", user_root_path(user.username) %></td>
-        <td><%= user.email%></td>
-        <td><%= member.permission%></td>
-      </tr>
-    <% end %>
-  </table>
-</p>
-
-<p>
-  <strong>Subscriptions:</strong>
-  <table>
-    <tr>
-      <th>Owner</th>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Permission</th>
-      <th></th>
-    </tr>
-    <% @group.shared_subscriptions.each do |shared_subscription| %>
-      <tr>
-        <% subscription = Subscription.find(shared_subscription.subscription_id) %>
-        <td><%= link_to "#{subscription.user.username}", user_root_path(subscription.user.username)%></td>
-        <td><%= link_to "#{subscription.subscription_name}", subscription_path(subscription.id)%></td>
-        <td><%= subscription.username%></td>
-        <td><%= shared_subscription.permission %>
-        <td>
-          <% if current_user == subscription.user || current_user.is_admin?(@group) %>
-            <%= link_to "Remove", [@group, group: { subscription_ids: [subscription.id], update_action: "remove"}], method: 'patch' %>
+<div class="card" style="min-width: 75% !important;">
+  <div class="card-body">
+    <div class="row group-show-header">
+      <div class="col col-sm-2" align="center">
+        <%= fa_icon "angle-left" %> <%= link_to 'Back', groups_path, class:"header-btn" %>
+      </div>
+      <div class="col col-sm-8" align="center">
+        <h3 class="card-title"><%= @group.group_name %></h3>
+      </div>
+      <div class="col col-sm-2" align="center">
+        <% if current_user.is_admin?(@group) %>
+          <%= link_to 'Edit', edit_group_path(@group), class:"header-btn" %> <%= fa_icon "edit" %> 
+        <% end %>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col col-lg-5">
+        <p class="card-text" style="text-decoration: underline;">owner</p>
+        <a href="<%= user_root_path(@group.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{@group.owner.username}" %></a>
+        <table>
+          <tr>
+            <th>members</th>
+            <th>role</th>
+          </tr>
+          <% @group.members.each do |member| %>
+            <tr>
+              <%user = member.user%>
+              <td><a href="<%= user_root_path(user.username) %>" class="card-user"><%= fa_icon "user" %> <%= "#{user.username}" %></a></td>
+              <td><%= member.permission%></td>
+            </tr>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-  <% if current_user.is_collaborator?(@group) %>
-    <%= render '/groups/add_subscription.html.erb' , resource: @group, resource_name: Group %>
-  <% end %>
-</p>
+        </table>
+    </div>
+    <div class="col col-lg-7">
+      <table>
+        <tr>
+          <th>subscription</th>
+          <th>owner</th>
+          <th>permission</th>
+          <th></th>
+        </tr>
+        <% @group.shared_subscriptions.each do |shared_subscription| %>
+          <tr>
+            <% subscription = Subscription.find(shared_subscription.subscription_id) %>
+            <td><%= link_to "#{subscription.subscription_name}", subscription_path(subscription.id), class:"card-btn" %></td>
+            <td><%= link_to "#{subscription.user.username}", user_root_path(subscription.user.username), class:"card-user"%></td>
+            <td><%= shared_subscription.permission %>
+            <td>
+              <% if current_user == subscription.user || current_user.is_admin?(@group) %>
+                <%= link_to "X", [@group, group: { subscription_ids: [subscription.id], update_action: "remove"}], method: 'patch', class: "card-btn-delete"%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <% if current_user.is_collaborator?(@group) %>
+        <%= render '/groups/add_subscription.html.erb' , resource: @group, resource_name: Group %>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
 
-<% if current_user.is_admin?(@group) %>
-  <%= link_to 'Edit', edit_group_path(@group) %>
+
 <% end %>
-<%= link_to 'Back', groups_path %>

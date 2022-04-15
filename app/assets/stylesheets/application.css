@@ -60,3 +60,28 @@ nav {
 .select {
   display: inline-flex;
 }
+
+/* #notice {
+  background-color: var(--sage);
+  padding: 4px;
+  color: white;
+  border-radius: 5px;
+} */
+
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 85vw !important;
+  }
+
+  .card-group {
+    width: 85vw !important;
+  }
+
+  td > select, td > div > select {
+    min-width: 50px ;
+  }
+
+  td {
+    padding-right: 5px;
+  }
+}
