@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_05_165738) do
+ActiveRecord::Schema.define(version: 2022_04_08_184945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(version: 2022_04_05_165738) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "networks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "search_id"
+    t.string "network_name"
+    t.string "network_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "reminders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "recurring", null: false
     t.string "reminder_type", null: false
@@ -45,6 +53,13 @@ ActiveRecord::Schema.define(version: 2022_04_05_165738) do
     t.uuid "subscription_id", null: false
     t.string "frequency"
     t.index ["subscription_id"], name: "index_reminders_on_subscription_id"
+  end
+
+  create_table "searches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "search_id"
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "shared_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

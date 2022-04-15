@@ -1,8 +1,10 @@
 <body>
 <h1>Search Results</h1>
 <h2> <%= params[:search][:title] %> is available on: </h2>
-      <% @resultsName.each do |r|%> 
-            <a><%= r %></a><br> 
+      <% @resultsName.each do |i|%> 
+            <a><%= i %></a><br> 
             <%end%>
-
+      <% @resultsURL.each do |j|%> 
+            <a><%= j %></a><br> 
+            <%end%>
 </body>
