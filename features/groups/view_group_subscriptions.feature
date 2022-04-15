@@ -15,13 +15,13 @@ Feature: View Group Subscription
 		| Hulu				    | test     		| supersecure	| Hulu.com		| 9.95				|
 		And the following groups exist for user with email "sarah@testerwoman.com":
 		| group_name	|
-		| Test Family	| 
-		And the following subscriptions exist for the "Test Family" group:
+		| TestFamily	| 
+		And the following subscriptions exist for the "TestFamily" group:
 		| subscription_name	| permission |
 		| Hulu          	| viewer	 |
 		And the user with email "manny@testerman.com" belongs to the following groups:
 		| group_name	| permission |
-		| Test Family  	| viewer	 |
+		| TestFamily  	| viewer	 |
 
     Scenario: Signed in user sees group subscriptions on homepage
 	    Given I am on the homepage

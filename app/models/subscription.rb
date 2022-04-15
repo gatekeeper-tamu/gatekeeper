@@ -6,7 +6,8 @@ class Subscription < ApplicationRecord
   has_many :share_records, class_name: 'SharedSubscription', :dependent => :delete_all
   has_many :groups, through: :share_records
   accepts_nested_attributes_for :share_records, allow_destroy: true
-  has_many :reminders
+  has_many :temp_share_records, class_name: 'TempSharedSubscription', :dependent => :delete_all
+  has_many :reminders, dependent: :destroy
 
   # attr_encrypted_options.merge!(encryptor: SubscriptionEncryptor, encrypt_method: :encrypt, decrypt_method: :decrypt)
   attr_encrypted :username, key: Rails.env.test? || Rails.env.development? ? '2K31QRnurJBWvtWkTE3uXfKA7vivrvA5' : :kms_key
@@ -35,7 +36,7 @@ class Subscription < ApplicationRecord
   def access_level(user)
     if (can_edit?(user))
       return SharedSubscription.permissions.key(2)
-    elsif (can_edit?(user))
+    elsif (can_view?(user))
       return SharedSubscription.permissions.key(1)
     else
       return nil

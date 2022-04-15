@@ -8,7 +8,7 @@ Feature: View Group
 		And I am logged in
 		And the following groups exist for user with email "manny@testerman.com":
 		| group_name	|
-		| Test Family	| 
+		| TestFamily	| 
 		And the following groups exist for user with email "sarah@testerwoman.com":
 		| group_name	|
 		| Roommates		| 
@@ -20,8 +20,8 @@ Feature: View Group
     Scenario: User views a group successfully
 	    Given I am on my profile page
 		When I click the "Groups" button
-		And I Show the "Test Family" group
-  		Then I should see the "Test Family" group's show page
+		And I View the "TestFamily" group
+  		Then I should see the "TestFamily" group's show page
 	
     Scenario: User tries to view another user's group
 	    Given I am on the homepage
@@ -30,5 +30,5 @@ Feature: View Group
 	
     Scenario: Unauthenticated user tries to view a group
 		Given I am not logged in
-		When I access the "Test Family" group
+		When I access the "TestFamily" group
   		Then I am on the sign in page

@@ -1,7 +1,8 @@
+
 <%= simple_form_for group do |group_form| %>
   <% if group.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+      <h4><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h4>
 
       <ul>
         <% group.errors.each do |error| %>
@@ -12,26 +13,27 @@
   <% end %>
 
   <% if current_user.is_admin?(group) %>
+    <h5>Group Name</h5>
     <%= group_form.input :group_name %>
     <fieldset>
-        <legend>Members:</legend>
+        <h5>Members</h5>
         <%= group_form.fields_for :members do |members_form| %>
-            <%= render "member_fields", f: members_form, locals: {g: group}%>
+            <%= render "member_fields", f: members_form%>
         <% end %>
         <%= link_to_add_fields "Add Members", group_form, :members %>
     </fieldset>
   <% end %>
-
+  <br/>
   <% if current_user.is_collaborator?(group) %>
     <fieldset>
-        <legend>Subscriptions:</legend>
+        <h5>Subscriptions</h5>
         <%= group_form.fields_for :shared_subscriptions do |subscriptions_form| %>
-            <%= render "shared_subscription_fields", f: subscriptions_form, locals: {g: group} %>
+            <%= render "shared_subscription_fields", f: subscriptions_form%>
         <% end %>
-        <%= link_to_add_fields "Add Subscription", group_form, :shared_subscriptions %>
+        <%= link_to_add_fields "Add Subscription" , group_form, :shared_subscriptions %>
     </fieldset>
   <% end %>
-  
+  <br/>
   <div class="actions">
       <%= group_form.submit class:"btn btn-dark"%>
   </div>

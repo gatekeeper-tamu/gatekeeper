@@ -18,10 +18,6 @@ RSpec.describe Reminder, type: :model do
     FactoryBot.build(:reminder, end_date: nil).should_not be_valid
   end
 
-  it "is not valid without recurring" do
-    FactoryBot.build(:reminder, recurring: nil).should_not be_valid
-  end
-
   it "is not valid without reminder type" do
     FactoryBot.build(:reminder, reminder_type: nil).should_not be_valid
   end

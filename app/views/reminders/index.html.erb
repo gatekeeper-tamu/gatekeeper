@@ -15,7 +15,8 @@
               <h5 class="">Subscription: <%= reminder.subscription.subscription_name %></h5>
               <p class="card-text">End date: <%= reminder.end_date %></p>
               <p class="card-text">Reminder type: <%= reminder.reminder_type %></p>
-              <p class="card-text">Reminder occurrence: <%= reminder.time_delta %></p>
+               <p class="card-text">Frequency: <%= reminder.frequency %></p>
+              <p class="card-text">Notification time before: <%= reminder.notification_time %></p>
 
               <%= button_to 'Edit Reminder', edit_reminder_path(reminder), method: :get, class: "btn btn-dark btn-view-sub" %>
               <%= button_to 'Delete', reminder, method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -10,15 +10,15 @@ RSpec.describe RemindersController, type: :controller do
     end
 
     let(:valid_attributes) {
-        { :subscription_id => controller.current_user.subscriptions.first.id, :recurring => "True", :reminder_type => "Billing", :end_date => DateTime.now, :time_delta => "2 days before" }
+        { :subscription_id => controller.current_user.subscriptions.first.id, :recurring => "True", :reminder_type => "Billing", :frequency => "Monthly", :end_date => DateTime.now, :notification_time => "2 days before" }
     }
 
 	let(:valid_attributes_no_subscription) {
-        { :recurring => "True", :reminder_type => "Billing", :end_date => DateTime.now, :time_delta => "2 days before" }
+        { :recurring => "True", :reminder_type => "Billing", :frequency => "Monthly", :end_date => DateTime.now, :notification_time => "2 days before" }
     }
 
     let(:invalid_attributes) {
-		{ :subscription_id => controller.current_user.subscriptions.first.id, :recurring => "True", :reminder_type => "Billing", :time_delta => "2 days before" }
+		{ :subscription_id => controller.current_user.subscriptions.first.id, :recurring => "True", :reminder_type => "Billing", :notification_time => "2 days before" }
 	}
 
     let(:valid_session) { {} }

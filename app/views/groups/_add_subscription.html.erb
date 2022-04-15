@@ -1,14 +1,20 @@
 
-<a href="#" class="btn ml-auto dropdown-toggle" style="align-items: center" role="button" title="Create a new subscription" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+<a href="#" class="btn ml-auto dropdown-toggle" style="align-items: center; margin-bottom: 20px;" role="button" title="Create a new subscription" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 	<%= fa_icon "plus" %> New Subscription
 </a>
-<hr/>
+<br/>
 <div class="collapse" id="collapseExample">
 <%= simple_form_for @group, method: :patch do |group_form| %>
+<div class="row">
+<div class="col-auto">
 	<%= group_form.association :subscriptions, as: :select, input_html: {class: 'chosen-select'}, label_method: :subscription_name, collection: current_user.subscriptions.where.not(id: @group.subscriptions.pluck(:id))%>
+	</div>
+<div class="col-auto">
 	<%= group_form.input :update_action, as: :hidden, :input_html => { :value => "add" }%>
-	<div class="actions">
-		<%= group_form.submit :add_subscription, class: "btn btn-dark" %>
+	</div>
+	<div class="col-auto">
+		<%= group_form.submit :add_subscription, class: "btn btn-dark card-btn", value:"Add" %>
+	</div>
 	</div>
 <% end %>
 </div>

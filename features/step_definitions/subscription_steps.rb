@@ -15,6 +15,14 @@ Given /the following subscriptions exist for user with email "(.*)"/ do |user_em
 	end
 end
 
+Given /the following subscriptions have temporary access links/ do |temp_subscription_table|
+	temp_subscription_table.hashes.each do |t|
+		sub = Subscription.where(subscription_name: t["subscription_name"]).first
+		expect(sub.nil?).to be false
+		TempSharedSubscription.create(subscription: sub, end_date: t["end_date"])
+	end
+end
+
 Given /I am on the subscriptions "(.*)" page/ do |page|
 	path = ""
 	if (page == "index") 
@@ -34,6 +42,16 @@ When /^I view the "(.*)" subscription$/ do |sub_name|
 		@subscription = Subscription.where(subscription_name: sub_name).first
 	end
 	path = "/subscriptions/" + @subscription.id
+	visit path
+end
+
+When /^I view the temporary "(.*)" subscription$/ do |sub_name|
+	if (@subscription.nil?)
+		@subscription = Subscription.where(subscription_name: sub_name).first
+	end
+	temp_sub = TempSharedSubscription.where(subscription: @subscription).first
+	expect(temp_sub.nil?).to be false
+	path = "/shares/" + temp_sub.id
 	visit path
 end
 
@@ -68,6 +86,13 @@ Then /^I should see the "(.*)" subscription$/ do |sub_name|
 	page.should have_content(subscription.username)
 end
 
+Then /^I should see a temporary share link$/ do
+	page.should have_content("Extend")
+	page.should have_content("Email")
+	page.should have_content("Delete")
+	page.should have_content("Temporary Share Links")
+end
+
 Then /^the "(.*)" subscription should not exist$/ do |sub_name|
 	subscription = Subscription.where(:subscription_name => sub_name).first
 	expect(subscription).to be nil
@@ -77,6 +102,15 @@ Then /^I should see the subscription's show page$/ do
 	sub_id = URI.parse(current_url).path.split('/').last
 	subscription = Subscription.where(id: sub_id).first
 	expect(subscription.present?).to be true
+	page.should have_content(subscription.subscription_name)
+	page.should have_content(subscription.username)
+end
+
+Then /^I should see the subscription's temp access page$/ do
+	sub_id = URI.parse(current_url).path.split('/').last
+	temp = TempSharedSubscription.where(id: sub_id).first
+	expect(temp.present?).to be true
+	subscription = temp.subscription
 	page.should have_content(subscription.subscription_name)
 	page.should have_content(subscription.username)
 end

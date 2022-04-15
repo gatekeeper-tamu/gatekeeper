@@ -1,5 +1,19 @@
-<h1>New Group</h1>
+<%= render :layout => 'groups/card' do %>
+
+<div class="row">
+  <div class="col col-sm-2">
+    <%= fa_icon "angle-left 1x" %> <%= link_to 'Back', groups_path, class:"header-btn" %>
+  </div>
+  <div class="col col-sm-8">
+    <h1 class="card-title-header">New Group</h1>
+  </div>
+    <div class="col col-sm-2">
+  </div>
+</div>
+<hr />
 
 <%= render 'form', group: @group %>
 
-<%= link_to 'Back', groups_path %>
+
+
+<% end %>

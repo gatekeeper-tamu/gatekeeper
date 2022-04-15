@@ -15,7 +15,12 @@
 
 .card-title {
   text-align: center;
-  font-weight: 700;
+  font-weight: bold !important;
+}
+
+.card-title-header {
+  text-align: center;
+  font-weight: normal !important;
 }
 
 .field > input {
@@ -24,7 +29,7 @@
 
 .field > label, .subscription-card-title {
   margin: 10px 0 2px 0;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .actions > input, form > input {

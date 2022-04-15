@@ -46,11 +46,12 @@ ActiveRecord::Schema.define(version: 2022_04_08_184945) do
   create_table "reminders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "recurring", null: false
     t.string "reminder_type", null: false
-    t.integer "time_delta", null: false
+    t.integer "notification_time", null: false
     t.date "end_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "subscription_id", null: false
+    t.string "frequency"
     t.index ["subscription_id"], name: "index_reminders_on_subscription_id"
   end
 
@@ -87,6 +88,14 @@ ActiveRecord::Schema.define(version: 2022_04_08_184945) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
+  create_table "temp_shared_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "end_date", null: false
+    t.uuid "subscription_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subscription_id"], name: "index_temp_shared_subscriptions_on_subscription_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "username", default: "", null: false
     t.string "email", default: "", null: false
@@ -116,4 +125,5 @@ ActiveRecord::Schema.define(version: 2022_04_08_184945) do
   add_foreign_key "shared_subscriptions", "groups", on_delete: :cascade
   add_foreign_key "shared_subscriptions", "subscriptions", on_delete: :cascade
   add_foreign_key "subscriptions", "users"
+  add_foreign_key "temp_shared_subscriptions", "subscriptions", on_delete: :cascade
 end
