@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'webdrivers'
 require 'spec_helper'
 RSpec.describe SearchController, type: :request do
-    
+
     let(:valid_attributes) {
         { :network_name => "HBO MAX", :network_URL => "https://play.hbomax.com/episode/urn:hbo:episode:GXKOAMQ3qNcJzwwEAAAAU" }
     }
@@ -21,7 +21,7 @@ RSpec.describe SearchController, type: :request do
             expect(page).to have_content 'Euphoria is available on:'
         end
     end
-    
+
     describe "#showsearch" do
         it "returns a success search response" do
             visit '/search'
