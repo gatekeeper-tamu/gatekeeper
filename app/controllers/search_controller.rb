@@ -9,11 +9,11 @@ class SearchController < ApplicationController
     def index
     end
 
-     def init_results
+    def init_results
         @resultsName = []
         @resultsURL= []
-     end
-    
+    end
+
     def showsearch(titleName)
         id_url = URI("https://watchmode.p.rapidapi.com/search/?search_field=name&search_value=#{titleName}")
 
@@ -27,7 +27,6 @@ class SearchController < ApplicationController
 
         @idresponse = http.request(idrequest)
         @idresult = JSON.parse(@idresponse.read_body)
-        
         i=0
         while i < @idresult.size
             while @idresult['title_results'][i]['id'] != nil
@@ -71,7 +70,7 @@ class SearchController < ApplicationController
 
     def show
         titleName = params[:search][:title]
-        #API call is made only if the record does not exist 
+        #API call is made only if the record does not exist
         if !Search.exists?(title: titleName)
             showsearch(titleName)
        end
@@ -84,7 +83,7 @@ class SearchController < ApplicationController
         if !Network.exists?(search_id: searchid)
             networksearch(searchid)
         end
-        
+
         @all_networks = Network.where(search_id:searchid).select("network_name")
         @all_networks.each_with_index do |i|
             @all_networks = i.network_name
@@ -95,6 +94,6 @@ class SearchController < ApplicationController
             @all_urls = i.network_url
             @resultsURL.push(@all_urls)
         end
-        return "Show results successful"   
+        return "Show results successful"
     end
 end
