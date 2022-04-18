@@ -1,11 +1,13 @@
   <div class="main">
-	<h1 class="display-2 center">TV show / movie search</h1>
+	<h1 class="display-2 center">Movies and Shows search</h1>
   <%= form_for(:search, :url =>{:controller => 'search', :action => 'show' }) do |form|%>
           <div class="form-group">
             <%= form.text_field :title, placeholder: 'Search for shows and movies to watch now!', class: 'form-control'%>
             <%= form.submit "search" %>
           </div>
         <% end %>
+    <%# <%= if params[:search][:title] == nil %>
+      <%# <div class="main"><%= redirect_to :search, :url =>{:controller => 'search', :action => 'show' }%></div>
     <% if flash[:alert] %>
       <div class="alert alert-warning"><%= flash[:alert] %></div>
      <% end %>
