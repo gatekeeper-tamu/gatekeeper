@@ -56,7 +56,6 @@ class SearchController < ApplicationController
         if @services_result.size === 0
             puts 'empty'
         end
-        
         j=0
         while j < @services_result.size
             if @services_result[j]['type'] === "sub"
