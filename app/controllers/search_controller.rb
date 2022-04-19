@@ -14,18 +14,19 @@ class SearchController < ApplicationController
         @resultsURL= []
     end
 
-    def showsearch(titleName)
-        id_url = URI("https://watchmode.p.rapidapi.com/search/?search_field=name&search_value=#{titleName}")
-
+    def showsearch(title_name)
+        id_url = URI("https://watchmode.p.rapidapi.com/search/?search_field=name&search_value=#{title_name}")
         http = Net::HTTP.new(id_url.host, id_url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
         idrequest = Net::HTTP::Get.new(id_url)
         idrequest["x-rapidapi-host"] = 'watchmode.p.rapidapi.com'
         idrequest["x-rapidapi-key"] = '3f2560c7e3msh18d24d47fcda8f8p17b513jsn0a997cc33ab8'
 
         @idresponse = http.request(idrequest)
         @idresult = JSON.parse(@idresponse.read_body)
+
         i=0
         while i < @idresult.size
             while @idresult['title_results'][i]['id'] != nil
@@ -69,29 +70,36 @@ class SearchController < ApplicationController
 
     def show
         titleName = params[:search][:title]
+        title_name = titleName.titleize()
+
         #API call is made only if the record does not exist
-        if !Search.exists?(title: titleName)
-            showsearch(titleName)
+        if !Search.exists?(title: title_name)
+            showsearch(title_name)
        end
-        # streaming services results
-        searchid = Search.select("search_id").where(title: titleName)
+
+        search_id = []
+        searchid = Search.select("search_id").where(title: title_name)
         searchid.each_with_index do |i|
-            searchid = i.search_id
+            search_id.push(i.search_id)
         end
 
-        if !Network.exists?(search_id: searchid)
-            networksearch(searchid)
-        end
-
-        @all_networks = Network.where(search_id:searchid).select("network_name")
-        @all_networks.each_with_index do |i|
-            @all_networks = i.network_name
-            @resultsName.push(@all_networks)
-        end
-        @all_urls = Network.where(search_id:searchid).select("network_url")
-        @all_urls.each_with_index do |i|
-            @all_urls = i.network_url
-            @resultsURL.push(@all_urls)
+        # streaming services results
+        i=0
+        while i < search_id.size
+            if !Network.exists?(search_id: search_id[i])
+                networksearch(search_id[i])
+            end
+            @all_networks = Network.where(search_id:search_id[i]).select("network_name")
+            @all_networks.each_with_index do |i|
+                @all_networks = i.network_name
+                @resultsName.push(@all_networks)
+            end
+            @all_urls = Network.where(search_id:search_id[i]).select("network_url")
+            @all_urls.each_with_index do |i|
+                @all_urls = i.network_url
+                @resultsURL.push(@all_urls)
+            end
+            i = i+1
         end
         return "Show results successful"
     end
