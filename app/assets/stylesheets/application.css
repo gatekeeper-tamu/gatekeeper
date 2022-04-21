@@ -46,7 +46,6 @@ a {
 
  .main {
   text-align: center;
-  margin-top: 20vh;
 }
 
 nav {
@@ -67,6 +66,45 @@ nav {
   color: white;
   border-radius: 5px;
 } */
+
+.img-gate {
+  position: absolute;
+  top: calc(100vh - 660px);
+  /* display: none; */
+}
+
+.gate-right {
+  left: 50vw;
+  animation-name: right;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes right {
+  10% {left: 50vw;}
+  55% {left: 75vw;}
+  100% {left: calc(100vw - 400px);}
+}
+
+.gate-left {
+  left: calc(50vw - 400px);
+  animation-name: left;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes left {
+  10% {left:calc(50vw - 400px);}
+  55% {left:calc(25vw - 400px);}
+  100% {left:0vw;}
+}
+
+@media only screen and (max-width: 1175px) {
+  .img-gate{
+    display: none;
+  }
+}
+
 
 @media only screen and (max-width: 600px) {
   .card {
