@@ -121,6 +121,7 @@ nav {
 @media only screen and (max-width: 600px) {
   .card {
     width: 85vw !important;
+    min-width: 0 !important;
   }
 
   .card-group {

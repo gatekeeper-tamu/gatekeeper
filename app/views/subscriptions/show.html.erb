@@ -5,9 +5,21 @@
 </script>
 
 <%= render :layout => 'subscriptions/shared/show' do %>
+<div class="row group-show-header">
+      <div class="col col-sm-2" align="center">
+        <%= button_to 'Back', subscriptions_path, method: :get, class: "sub-header-btn"%>
+      </div>
+      <div class="col col-sm-8" align="center">
+        <h1 class="card-title-header"><%= @subscription.subscription_name %> Information</h1>
+      </div>
+      <div class="col col-sm-2" align="center">
+        <% if @subscription.can_edit?(current_user) %>
+          <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "sub-header-btn" %>
+        <% end %>
+      </div>
+    </div>
+      <hr>
 
-<h1 class="card-title-header">Subscription Information</h1>
-<hr>
 <p class="subscription-card-title">Name</p>
 <p><%= @subscription.subscription_name %></p>
 

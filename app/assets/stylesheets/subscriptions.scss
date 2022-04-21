@@ -11,6 +11,11 @@
   border-radius: 5px;
   box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.26);
   width: 35vw;
+<<<<<<< HEAD
+=======
+  min-width: 400px !important;
+  max-width: 85vh;
+>>>>>>> initial changes
 }
 
 .card-title {
@@ -53,3 +58,21 @@
   border-radius: 5px;
   border: var(--wine);
 }
+<<<<<<< HEAD
+=======
+
+.sub-header-btn {
+  font-size: 20px;
+  margin: 0;
+  background-color: transparent !important;
+  color: var(--wine) !important;
+  border: none;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.sub-header-btn:hover {
+  font-size: 20px;
+  background-color: transparent !important;
+}
+>>>>>>> initial changes
