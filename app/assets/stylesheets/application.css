@@ -69,12 +69,13 @@ nav {
 
 .img-gate {
   position: absolute;
-  top: calc(100vh - 660px);
   /* display: none; */
 }
 
 .gate-right {
   left: 50vw;
+  top: calc(100vh - 660px);
+
   animation-name: right;
   animation-duration: 6s;
   animation-fill-mode: forwards;
@@ -83,11 +84,13 @@ nav {
 @keyframes right {
   10% {left: 50vw;}
   55% {left: 75vw;}
-  100% {left: calc(100vw - 400px);}
+  100% {left: calc(100vw - 400px); opacity: 0.5;}
 }
 
 .gate-left {
   left: calc(50vw - 400px);
+  top: calc(100vh - 660px);
+
   animation-name: left;
   animation-duration: 6s;
   animation-fill-mode: forwards;
@@ -96,10 +99,22 @@ nav {
 @keyframes left {
   10% {left:calc(50vw - 400px);}
   55% {left:calc(25vw - 400px);}
-  100% {left:0vw;}
+  100% {left:0vw; opacity: 0.5;}
 }
 
-@media only screen and (max-width: 1175px) {
+.gate-right-large {
+  left: calc(100vw - 400px);
+  bottom: 0px;
+  opacity: 0.5;
+}
+
+.gate-left-large {
+  left:0vw;
+  bottom: 0px;
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 1175px), (max-height: 670px) {
   .img-gate{
     display: none;
   }
