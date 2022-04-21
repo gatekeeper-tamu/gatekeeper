@@ -33,7 +33,7 @@
 }
 
 .actions > input, form > input {
-  background-color: var(--wine) !important;
+  background-color: var(--wine);
   color: var(--white);
   width: 100%;
   margin-top: 10px;
@@ -41,11 +41,7 @@
 }
 
 .actions > input:hover, form > input:hover {
-  background-color: var(--magenta) !important;
-}
-
-#button-google {
-  background-color: var(--white) !important;
+  background-color: var(--magenta);
 }
 
 #user_remember_me {
