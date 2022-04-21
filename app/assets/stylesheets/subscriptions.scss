@@ -8,9 +8,9 @@
   margin-top: 5vh;
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
-  width: 30vw;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.26);
+  width: 35vw;
 }
 
 .card-title {
@@ -29,11 +29,11 @@
 
 .field > label, .subscription-card-title {
   margin: 10px 0 2px 0;
-  font-weight: bold !important;
+  font-weight: bold;
 }
 
 .actions > input, form > input {
-  background-color: var(--wine);
+  background-color: var(--wine) !important;
   color: var(--white);
   width: 100%;
   margin-top: 10px;
@@ -52,5 +52,4 @@
   background-color: var(--lightgrey);
   border-radius: 5px;
   border: var(--wine);
-
 }

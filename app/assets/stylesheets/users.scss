@@ -8,22 +8,22 @@
   margin-top: 5vh;
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
-  width: 30vw;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.26);
+  width: 35vw;
 }
 
-.card-title {
+.user-card-title {
   text-align: center;
-  font-weight: 700;
 }
 
-.field > input {
+.field > input, .field_with_errors > input {
   width: 100%;
 }
 
-.field > label {
+.field > label, .field_with_errors > label {
   margin: 10px 0 2px 0;
+  font-weight: bold;
 }
 
 .actions > input, form > input {
@@ -43,6 +43,7 @@
 }
 
 #button-google {
+  background-color: white !important;
   box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.26);
   background: no-repeat image-url("google.png");
   background-position: 8px 6px;
@@ -60,9 +61,54 @@
   width: fit-content !important;
 }
 
+.user-edit {
+  background-color: var(--wine) !important;
+  color: var(--white);
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 4px;
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.76);
+
+}
+
+.user-edit:hover {
+  background-color: var(--magenta);
+  color: var(--white);
+}
+
+.user-cancel {
+  background-color: crimson !important;
+  color: var(--white);
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.76);
+}
+
+.user-cancel:hover {
+  background-color: firebrick !important;
+  color: var(--white);
+}
+
+#user-success {
+  background-color: green !important;
+  color: var(--white);
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.76);
+}
+
+#user-success:hover {
+  background-color: darkgreen !important;
+  color: var(--white);
+}
+
+
 @media screen and (max-width: 768px) {
   .card {
-    width: 90vw;
+    width: 100%;
   }
 
 }
@@ -80,8 +126,8 @@ hr.style-or:after {
   content: " OR ";
   display: inline-block;
   position: relative;
-  top: -0.75em;
-  font-size: 1em;
+  top: -0.95em;
+  font-size: .75em;
   padding: 0 0.5em;
   background: white;
 }
