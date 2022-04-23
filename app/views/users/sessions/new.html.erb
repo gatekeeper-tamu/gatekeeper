@@ -1,6 +1,6 @@
 
 <%= render :layout => 'users/shared/cards' do %>
-  <h2 class="card-title">Sign In</h2>
+  <h2 class="user-card-title">Sign In</h2>
   <hr/>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -26,6 +26,8 @@
     </div>
   <% end %>
 
-  <%= render "users/shared/links" %>
+  <div style="text-align: center">
+    <%= render "users/shared/links" %>
+  </div>
 
 <% end %>
