@@ -58,5 +58,5 @@ end
 
 ### sitewide ###
 Then /^I should see the total subscription count$/ do
-	page.should have_content("We have a total of 3 accounts stored on gatekeeper.com")
+	page.should have_content("accounts stored on gatekeeper.com")
 end
