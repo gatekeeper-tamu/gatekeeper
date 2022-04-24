@@ -9,19 +9,20 @@
   </div>
 
   <hr class="section-break">
-  <% @subscriptions.in_groups_of(3, false).each do |group| %>
+  <% @subscriptions.in_groups_of(4, false).each do |group| %>
     <div class="row">
       <% group.each do |subscription| %>
-        <div class="col col-sm-4">
-          <div class="card" style="width: 18rem;">
-            <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
+        <div class="col col-md-3">
+          <div class="sub-card">
+            <div class="card-img sub-card-img center-elem" id="<%= subscription.subscription_name %>-color">
+              <%= fa_icon "lock 4x"%>
+            </div> 
 
-            </div>
             <div class="card-body">
-              <h5 class=""><%= subscription.subscription_name %></h5>
+              <%= link_to subscription, method: :get, class: "sub-card-link stretched-link" do %>
+                <h5 class=""><%= subscription.subscription_name %></h5>
+              <% end %>
               <p class="card-text">Username: <%= subscription.username %></p>
-          
-              <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
 
             </div>
           </div>
@@ -38,20 +39,19 @@
     </div>
 
     <hr class="section-break">
-    <% group.subscriptions.in_groups_of(3, false).each do |sub_group| %>
+    <% group.subscriptions.in_groups_of(4, false).each do |sub_group| %>
       <div class="row">
         <% sub_group.each do |subscription| %>
-          <div class="col col-sm-4">
-            <div class="card" style="width: 18rem;">
-              <div class="card-img" style="height: 18rem; background-color: var(--magenta);">
-
-              </div>
+          <div class="col col-md-3">
+            <div class="sub-card">
+              <div class="card-img sub-card-img center-elem" id="<%= subscription.subscription_name %>-color">
+                <%= fa_icon "lock 4x"%>
+              </div> 
               <div class="card-body">
-                <h5 class=""><%= subscription.subscription_name %></h5>
+                <%= link_to subscription, method: :get, class: "sub-card-link stretched-link" do %>
+                  <h5 class=""><%= subscription.subscription_name %></h5>
+                <% end %>
                 <p class="card-text">Username: <%= subscription.username %></p>
-            
-                <%= button_to 'View Subscription', subscription, method: :get, class: "btn btn-dark btn-view-sub" %>
-
               </div>
             </div>
           </div>

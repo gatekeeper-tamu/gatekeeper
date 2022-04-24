@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.card {
+.sub-card {
   background-color: var(--white);
   margin: 0 auto; /* Added */
   margin-top: 5vh;
@@ -10,9 +10,20 @@
   margin-bottom: 10px; /* Added */
   border-radius: 5px;
   box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.26);
-  width: 35vw;
-  min-width: 400px !important;
-  max-width: 85vh;
+  width: 90% !important; 
+  min-width: 0 !important;
+}
+
+.sub-card:hover {
+  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+  width: 90.5% !important; 
+}
+
+.center-elem {
+  padding: 2rem;
+  color: white;
+  margin: auto !important;
+  text-align: center;
 }
 
 .card-title {
