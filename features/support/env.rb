@@ -30,9 +30,10 @@ require 'cucumber/rails'
 #
 if ENV['RAILS_ENV'] == 'test'
   require 'simplecov'
-  SimpleCov.start 'rails'
-  add_filter '/bin/'
-  add_filter '/db/'
+  SimpleCov.start 'rails' do
+    add_filter '/bin/'
+    add_filter '/db/'
+  end
 end
 
 ActionController::Base.allow_rescue = false
