@@ -8,19 +8,16 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       begin
-		if (current_user.username == params[:username])
-			@user = current_user
-		else
-			@user = User.find_by_username(params[:username])
+        if (current_user.username == params[:username])
+          @user = current_user
+        else
+          @user = User.find(params[:username])
         end
-      rescue ActiveRecord::RecordNotFound => e
-        puts "Can't access this page!"
-        redirect_to "/404.html"
-      rescue => exception
-        puts "ERROR! -> #{exception}"
-      end
-      
-    end
+        rescue ActiveRecord::RecordNotFound => e
+          puts "Can't access this page!"
+          redirect_to "/404.html"
+        end
+    end 
 
     # Only allow a list of trusted parameters through.
     def user_params
