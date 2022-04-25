@@ -120,6 +120,8 @@ To start, install the following packages:
 
 * Setup a [AWS KMS master key](https://console.aws.amazon.com/kms/home#/kms/keys) using [AWS setup instructions for the kms_encryped gem](https://github.com/ankane/kms_encrypted#aws-kms)
 
+* redis -> [Link to redis installation instructions](https://redis.io/docs/getting-started/)
+
 ### Installation
 
 1. Clone the repo

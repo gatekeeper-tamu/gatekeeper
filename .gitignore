@@ -35,6 +35,9 @@
 yarn-debug.log*
 .yarn-integrity
 
+# Ignore all generated files in the 'coverage' directory
+coverage/*
+
 # secrets
 .env
 *.txt
