@@ -1,11 +1,12 @@
 <div class="nested-fields">
-<tbody>
-    <tr>
-    <%= f.hidden_field :_destroy %>
-    <td><%= f.association :group, as: :select, input_html: {class: 'chosen-select '}, label_method: :group_name, collection: Group.where_user_is_collaborator(current_user) | @subscription.groups %></td>
-    <td><%= f.select :permission, SharedSubscription.permissions.keys, input_html: {class: 'chosen-select'}%></td>
-    <td><%= link_to "Remove", '#', class: "remove_fields" %></td>
-    </tr>
-  </tbody>
-    
+  <table>
+    <tbody>
+      <tr>
+      <%= f.hidden_field :_destroy %>
+      <td><%= f.association :group, as: :select, input_html: {class: 'chosen-select '}, label_method: :group_name, collection: Group.where_user_is_collaborator(current_user) | @subscription.groups %></td>
+      <td><%= f.select :permission, SharedSubscription.permissions.keys, input_html: {class: 'chosen-select'}%></td>
+      <td><%= link_to "X", '#', class: "remove_fields" %></td>
+      </tr>
+    </tbody>
+  </table>  
 </div>

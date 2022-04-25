@@ -58,15 +58,17 @@
       <%= form.label :image %>
       <%= form.text_field :image %>
     </div>
-
+  
+    <br>
     <fieldset>
-        <legend>Groups:</legend>
+        <h5 style="margin-top: 20px;">Groups</h5>
         <%= form.fields_for :share_records do |group_form| %>
             <%= render "share_record_fields", f: group_form %>
         <% end %>
         <%= link_to_add_fields "Add Group", form, :share_records %>
     </fieldset>
 
+    <br>
     <div class="actions">
       <%= form.submit class:"btn btn-dark"%>
     </div>

@@ -6,14 +6,14 @@
   <div class="card-body">
     <div class="row group-show-header">
       <div class="col col-sm-2" align="center">
-        <%= fa_icon "angle-left" %> <%= link_to 'Back', groups_path, class:"header-btn" %>
+        <%= link_to 'Back', groups_path, class:"header-btn" %>
       </div>
       <div class="col col-sm-8" align="center">
         <h3 class="card-title"><%= @group.group_name %></h3>
       </div>
       <div class="col col-sm-2" align="center">
         <% if current_user.is_admin?(@group) %>
-          <%= link_to 'Edit', edit_group_path(@group), class:"header-btn" %> <%= fa_icon "edit" %> 
+          <%= link_to 'Edit', edit_group_path(@group), class:"header-btn" %>
         <% end %>
       </div>
     </div>

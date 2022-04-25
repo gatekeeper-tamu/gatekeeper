@@ -1,3 +1,8 @@
-<h1>Email Temporary Access to <%=@subscription.subscription_name%></h1>
+<%= render :layout => 'subscriptions/shared/show' do %>
 
-<%= render 'temp_access_email', temp_shared_subscription: @temp_shared_subscription %>
+<h1 class="card-title-header">Email Temporary Access to <%=@subscription.subscription_name%></h1>
+<hr>
+<br>
+<%= render 'temp_access_email',  temp_shared_subscription: @temp_shared_subscription %>
+
+<% end %>
