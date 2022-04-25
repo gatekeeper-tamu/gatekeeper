@@ -46,7 +46,7 @@
 
 <% end %>
 
-<%= render :layout => 'subscriptions/shared/show' do %>
+<%= render :layout => 'subscriptions/shared/show_no_vines' do %>
   <h2 class="card-title-header">Shared With</h2>
   <hr>
   <% if @subscription.share_records.size <= 0 && (@subscription.user == current_user && @subscription.temp_share_records.size <= 0) %>
@@ -79,32 +79,35 @@
   <% end %>
   <% if @subscription.user == current_user && @subscription.temp_share_records.size > 0 %>
     <h4 style="margin: 20px 0 0;">Temporary Share Links</h4>
-    <table>
-      <tr>
-        <th class="shared-header">Created</th>
-        <th class="shared-header">Expires</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
+    
+    
       <% @subscription.temp_share_records.each do |temp_share_record| %>
-        <tr>
-          <td><%= temp_share_record.created_at.month %>/<%= temp_share_record.created_at.day %>/<%= temp_share_record.created_at.year %></td>
-          <td><%= temp_share_record.end_date.month %>/<%= temp_share_record.end_date.day %>/<%= temp_share_record.end_date.year %></td>
-          <td><a href=<%= temp_shared_subscription_url(temp_share_record) %>>Link</a></td>
-          <td>
-              <%= link_to "Extend", edit_temp_shared_subscription_path(temp_share_record), method: :get %>
-          </td>
-          <td>
-              <%= link_to "Email", share_temp_shared_subscription_path(temp_share_record), method: :get %>
-          </td>
-          <td>
-              <%= link_to "X", temp_share_record, method: :delete, data: { confirm: 'Are you sure?' }, class: "card-btn-delete"  %>
-          </td>
+        <div class="card" style="width: 100%; margin-top: 15px;">
+          <div class="card-header text-right">
+          <h6 class="card-title" style="font-weight: bold;  margin-bottom: 0; float: left;">
+              Created: <%= temp_share_record.created_at.month %>/<%= temp_share_record.created_at.day %>/<%= temp_share_record.created_at.year %> &nbsp | &nbsp
+              Expires: <%= temp_share_record.end_date.month %>/<%= temp_share_record.end_date.day %>/<%= temp_share_record.end_date.year %>
+            </h6>
+            <%= link_to "X", temp_share_record, method: :delete, data: { confirm: 'Are you sure you want to delete this shared subscription (link will no longer be active)?' }, style: "font-weight: bold; text-decoration: none; color: firebrick !important; padding: none;" %>
 
-        </tr>
+          </div>
+          <div class="card-body">
+            <table style="width: 100%; margin-bottom: 0px;">
+              <tr>    
+                <td style="padding-bottom: 0" ><a href=<%= temp_shared_subscription_url(temp_share_record) %> class="card-user">Link</a></td>
+                <td style="padding-bottom: 0">
+                    <%= link_to "Extend", edit_temp_shared_subscription_path(temp_share_record), method: :get, class: "card-user" %>
+                </td>
+                <td style="padding-bottom: 0">
+                    <%= link_to "Email", share_temp_shared_subscription_path(temp_share_record), method: :get, class: "card-user" %>
+                </td>
+              </tr>
+            </table>  
+
+          </div>
+        </div>
+        
       <% end %>
-    </table>
   <% end %>
   <% if @subscription.can_edit?(current_user) %>
     <%= button_to 'Add to Group', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
@@ -112,7 +115,7 @@
 <%= button_to 'Generate Shareable Link', share_subscription_path, method: :get, class: "btn btn-dark" %>
 <% end %>
 
-<%= render :layout => 'subscriptions/shared/show' do %>
+<%= render :layout => 'subscriptions/shared/show_no_vines' do %>
 
 <h2 class="card-title-header">Active Reminders</h2>
 <hr>
