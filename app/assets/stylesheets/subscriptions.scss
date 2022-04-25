@@ -26,9 +26,8 @@
   text-align: center;
 }
 
-.card-title {
+.sub-card-title {
   text-align: center;
-  font-weight: bold !important;
 }
 
 .card-title-header {
@@ -80,4 +79,9 @@
 .sub-header-btn:hover {
   font-size: 20px;
   background-color: transparent !important;
+}
+
+.shared-header {
+  text-decoration: none;
+  font-weight: bold;
 }

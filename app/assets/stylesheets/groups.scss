@@ -58,16 +58,15 @@
 
 .card-btn-delete, .remove_fields {
   text-decoration: none;
-  padding: 7px 15px;
-  background-color: crimson;
+  padding: 6px 12px;
+  background-color: crimson !important;
   border-radius: 5px;
   color: white !important;
 }
 
 .card-btn-delete:hover, .remove_fields:hover {
   text-decoration: none;
-  padding: 7px 15px;
-  background-color: firebrick;
+  background-color: firebrick !important;
   border-radius: 5px;
   color: white !important;
 }

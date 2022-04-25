@@ -4,21 +4,25 @@
     }
 </script>
 
+<div class="container">
+<p id="notice"><%= notice %></p>
+</div>
+
 <%= render :layout => 'subscriptions/shared/show' do %>
 <div class="row group-show-header">
-      <div class="col col-sm-2" align="center">
-        <%= button_to 'Back', subscriptions_path, method: :get, class: "sub-header-btn"%>
-      </div>
-      <div class="col col-sm-8" align="center">
-        <h1 class="card-title-header"><%= @subscription.subscription_name %> Information</h1>
-      </div>
-      <div class="col col-sm-2" align="center">
-        <% if @subscription.can_edit?(current_user) %>
-          <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "sub-header-btn" %>
-        <% end %>
-      </div>
-    </div>
-      <hr>
+  <div class="col col-sm-2" align="center">
+    <%= button_to 'Back', subscriptions_path, method: :get, class: "sub-header-btn"%>
+  </div>
+  <div class="col col-sm-8" align="center">
+    <h1 class="sub-card-title"><%= @subscription.subscription_name %></h1>
+  </div>
+  <div class="col col-sm-2" align="center">
+    <% if @subscription.can_edit?(current_user) %>
+      <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "sub-header-btn" %>
+    <% end %>
+  </div>
+</div>
+<hr>
 
 <p class="subscription-card-title">Name</p>
 <p><%= @subscription.subscription_name %></p>
@@ -35,28 +39,38 @@
 <p class="subscription-card-title">Cost per month</p>
 <p><%= @subscription.cost_per_month %></p>
 
-<% if @subscription.share_records.size > 0 || (@subscription.user == current_user && @subscription.temp_share_records.size > 0) %>
-  <br>
-  <h2 class="card-title">Shared With:</h1>
+<%= button_to 'Visit Service', @subscription.url, method: :get, class: "btn btn-dark" %>
+<% if @subscription.user == current_user %>
+  <%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger card-btn-delete" %> 
+<% end %>
+
+<% end %>
+
+<%= render :layout => 'subscriptions/shared/show' do %>
+  <h2 class="card-title-header">Shared With</h2>
   <hr>
+  <% if @subscription.share_records.size <= 0 && (@subscription.user == current_user && @subscription.temp_share_records.size <= 0) %>
+      <p style="text-align: center; padding: 10px 30px; ">This subscription is not shared with anyone. Create a group to share this subscription with, add it to one of your current groups, or create a temporary shared link below.</p>
+  <% end %>
   <% if @subscription.share_records.size > 0 %>
-    <strong>Groups</strong>
+    <h4 style="margin: 20px 0 0;">Groups</h4>
+
     <table>
       <tr>
-        <th>Group Name</th>
-        <th>Owner</th>
-        <th>Permission</th>
+        <th class="shared-header">Group Name</th>
+        <th class="shared-header">Owner</th>
+        <th class="shared-header">Permission</th>
         <th></th>
       </tr>
       <% @subscription.share_records.each do |share_record| %>
         <tr>
           <% group = Group.find(share_record.group_id) %>
-          <td><%= link_to "#{group.group_name}", group_path(group) %></td>
-          <td><%= link_to "#{group.owner.username}", user_root_path(group.owner.username) %></td>
+          <td><%= link_to "#{group.group_name}", group_path(group), class: "" %></td>
+          <td><%= link_to "#{group.owner.username}", user_root_path(group.owner.username), class: "card-user" %></td>
           <td><%= share_record.permission %></td>
           <td>
             <% if current_user == @subscription.user || current_user.is_admin?(group) %>
-              <%= link_to "Remove", group_path(group, group: { subscription_ids: [@subscription.id], update_action: "remove"}), method: 'patch' %>
+              <%= link_to "X", group_path(group, group: { subscription_ids: [@subscription.id], update_action: "remove"}), method: 'patch', class: "card-btn-delete" %>
             <% end %>
           </td>
         </tr>
@@ -64,19 +78,19 @@
     </table>
   <% end %>
   <% if @subscription.user == current_user && @subscription.temp_share_records.size > 0 %>
-    <strong>Temporary Share Links</strong>
+    <h4 style="margin: 20px 0 0;">Temporary Share Links</h4>
     <table>
       <tr>
-        <th>Created On</th>
-        <th>Expires</th>
+        <th class="shared-header">Created</th>
+        <th class="shared-header">Expires</th>
         <th></th>
         <th></th>
         <th></th>
       </tr>
       <% @subscription.temp_share_records.each do |temp_share_record| %>
         <tr>
-          <td><%= temp_share_record.created_at %></td>
-          <td><%= temp_share_record.end_date %></td>
+          <td><%= temp_share_record.created_at.month %>/<%= temp_share_record.created_at.day %>/<%= temp_share_record.created_at.year %></td>
+          <td><%= temp_share_record.end_date.month %>/<%= temp_share_record.end_date.day %>/<%= temp_share_record.end_date.year %></td>
           <td><a href=<%= temp_shared_subscription_url(temp_share_record) %>>Link</a></td>
           <td>
               <%= link_to "Extend", edit_temp_shared_subscription_path(temp_share_record), method: :get %>
@@ -85,31 +99,27 @@
               <%= link_to "Email", share_temp_shared_subscription_path(temp_share_record), method: :get %>
           </td>
           <td>
-              <%= link_to "Delete", temp_share_record, method: :delete, data: { confirm: 'Are you sure?' }  %>
+              <%= link_to "X", temp_share_record, method: :delete, data: { confirm: 'Are you sure?' }, class: "card-btn-delete"  %>
           </td>
+
         </tr>
       <% end %>
     </table>
   <% end %>
-<% end %>
+  <% if @subscription.can_edit?(current_user) %>
+    <%= button_to 'Add to Group', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
+  <% end %>
 <%= button_to 'Generate Shareable Link', share_subscription_path, method: :get, class: "btn btn-dark" %>
-
-<%= button_to 'Visit Service', @subscription.url, method: :get, class: "btn btn-dark" %>
-<% if @subscription.can_edit?(current_user) %>
-  <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "btn btn-dark" %>
-<% end %>
-<% if @subscription.user == current_user %>
-  <%= button_to 'Delete', @subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %> 
-<% end %>
-<%= button_to 'Back', subscriptions_path, method: :get, class: "btn btn-dark"%>
-
-<p id="notice"><%= notice %></p>
 <% end %>
 
 <%= render :layout => 'subscriptions/shared/show' do %>
 
-<h1 class="card-title">Active Reminders</h1>
+<h2 class="card-title-header">Active Reminders</h2>
+<hr>
 
+  <% if @subscription.reminders.count <= 0 %>
+    <p style="text-align: center; padding: 10px 30px; ">You currently have no active reminders for this subscription. Create a reminder to be notified about upcomming billing, cancellation, and other notifications</p>
+  <% end %>
   <% @subscription.reminders.each do |reminder| %>
     <% if reminder.subscription.subscription_name == @subscription.subscription_name %>
       <div class="card-body">
@@ -129,5 +139,4 @@
 
 <%= button_to 'Create Reminder', new_reminder_path, params: {subscription_id: @subscription},  method: :get, class: "btn btn-dark" %>
 
-<p id="notice"><%= notice %></p>
 <% end %>

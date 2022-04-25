@@ -1,10 +1,18 @@
-<%= render :layout => 'users/shared/cards' do %>
+<%= render :layout => 'subscriptions/shared/show' do %>
 
-<h1 class="card-title">Edit Subscription</h1>
+<div class="row group-show-header">
+  <div class="col col-sm-2" align="center">
+    <%= button_to 'Back', @subscription, method: :get, class: "sub-header-btn"%>
+  </div>
+  <div class="col col-sm-8" align="center">
+    <h1 class="sub-card-title">Edit Subscription</h1>
+  </div>
+  <div class="col col-sm-2" align="center">
+    <%= button_to 'All', subscriptions_path, method: :get, class: "sub-header-btn"%>
+  </div>
+</div>
 <hr>
 
 <%= render 'form', subscription: @subscription, has_password: true %>
 
-<%= button_to 'Back', @subscription, method: :get, class: "btn btn-dark"  %>
-<%= button_to 'All Subscriptions', subscriptions_path, method: :get, class: "btn btn-dark"  %>
 <% end %>
