@@ -45,7 +45,14 @@ Given /^I do not exist as a user$/ do
 	create_visitor
 	delete_user(@visitor_info)
 end
+Given /^the user does not exist$/ do
+	create_visitor
+	delete_user(@visitor_info)
+end
 Given /^I exist as a user$/ do
+	create_visitor
+end
+Given /^the user exists$/ do
 	create_visitor
 end
 Given /^I am not logged in$/ do
@@ -95,7 +102,6 @@ When /^I sign up with up a mismatched password and password confirmation$/ do
 	test_info = @visitor_info.merge(:password_confirmation => "dis_do_be_wrong")
 	sign_up(test_info)
 end
-
 When /^I login with valid user credentials$/ do
 	sign_in(@visitor_info)
 end
@@ -109,6 +115,10 @@ When /^I login with a wrong password$/ do
 	test_info = @visitor_info.merge(:password => "wrongpassword")
 	sign_in(test_info)
 end 
+When /^I visit the user profile path$/ do
+	path = "/users/mannyt"
+	visit path
+end
 
 
 
@@ -118,9 +128,12 @@ Then /^I am on the sign in page$/ do
 end
 Then /^I should see the profile page$/ do
 	expect(page).to have_current_path("/subscriptions", wait: true)
-	# user = User.where(username: @visitor_info[:username])
 	path = "/users/#{@user.username}"
 	visit path
+	page.has_content?(@user.first_name)
+	page.has_content?(@user.last_name)
+end
+Then /^I should see the user profile page$/ do
 	page.has_content?(@user.first_name)
 	page.has_content?(@user.last_name)
 end
@@ -132,4 +145,7 @@ Then /^I should see a successful logout message$/ do
 end
 Then /^I return to the site$/ do
 	visit "/"
+end
+Then /^I should see the error 404 page$/ do
+	visit "/404.html"
 end
