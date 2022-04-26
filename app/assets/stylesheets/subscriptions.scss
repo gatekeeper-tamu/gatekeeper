@@ -95,10 +95,21 @@ fieldset > label, #frequency > label, .field > label, .subscription-card-title {
 }
 
 .x-btn {
-  font-weight: bold; 
+  font-family: "Monaco", "Lucida Console", "Courier New", monospace;
+  font-weight: normal; 
   text-decoration: none; 
   color: firebrick !important; 
   padding: none;
+  border: 1px solid firebrick;
+  border-radius: 5px;
+  padding: 2px 6px;
+  background-color: white;
+}
+
+.x-btn:hover {
+  background-color: firebrick;
+  color: white !important;
+  text-decoration: none;
 }
 
 .card-reminder {
