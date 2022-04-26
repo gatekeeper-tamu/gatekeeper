@@ -23,15 +23,15 @@ end
 
 ##### THEN #####
 Then /^I should see the sitewide statistics page$/ do
-	page.should have_content("Sitewide statistics")
+	page.should have_content("Sitewide Statistics")
 end
 
 Then /^I should see the group statistics page$/ do
-	page.should have_content("Group statistics")
+	page.should have_content("Group Statistics")
 end
 
 Then /^I should see the personal statistics page$/ do
-	page.should have_content("Personal statistics")
+	page.should have_content("Personal Statistics")
 end
 
 Then /^I should see the chart (.*)$/ do |chart|

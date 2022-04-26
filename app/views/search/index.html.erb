@@ -2,11 +2,11 @@
   <% if flash[:alert] %>
     <div class="alert alert-light"><%= flash[:alert] %></div>
     <% end %>
-	<h1 class="center">Search for a show or movie to find streaming platforms below!</h1>
+	<h1 class="center">Search for a show or movie below to find streaming platforms!</h1>
   <br>
   <%= form_for(:search, :url =>{:controller => 'search', :action => 'show' }) do |form|%>
     <div class="form-group"  style= "padding: 2% 10%;">
-      <%= form.text_field :title, placeholder: 'Search TV shows, movies...', :required => 'required', class: 'form-control' %>
+      <%= form.text_field :title, placeholder: 'Search TV shows, movies...', :required => 'required', class: 'form-control', style: "border-radius: 20px; box-shadow: 0 0 7px 0 rgba(100, 100, 100, 0.56); min-height: 40px;" %>
       <%= form.submit "search", class: "btn btn-dark", id: "btn-search" %>
     </div>
   <% end %>
