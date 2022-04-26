@@ -99,7 +99,6 @@ fieldset > label, #frequency > label, .field > label, .subscription-card-title {
   font-weight: normal; 
   text-decoration: none; 
   color: firebrick !important; 
-  padding: none;
   border: 1px solid firebrick;
   border-radius: 5px;
   padding: 2px 6px;
@@ -110,8 +109,4 @@ fieldset > label, #frequency > label, .field > label, .subscription-card-title {
   background-color: firebrick;
   color: white !important;
   text-decoration: none;
-}
-
-.card-reminder {
-   
 }
