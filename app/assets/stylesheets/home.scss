@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 
-#button-login {
+#button-login, #btn-search {
   background-color: var(--wine);
   width: 200px;
   height: 50px;
@@ -12,6 +12,6 @@
   margin: 40px 0px 20px 0px;
 }
 
-#button-login:hover {
+#button-login:hover, #btn-search:hover {
  background-color: var(--magenta) !important;
 }

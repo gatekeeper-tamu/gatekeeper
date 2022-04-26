@@ -1,4 +1,7 @@
 <div class="container main" style="margin-top: 20vh;">
+  <% if flash[:alert] %>
+    <div class="alert alert-light"><%= flash[:alert] %></div>
+    <% end %>
 	<h1 class="center">Search for a show or movie to find streaming platforms below!</h1>
   <br>
   <%= form_for(:search, :url =>{:controller => 'search', :action => 'show' }) do |form|%>
@@ -7,9 +10,6 @@
       <%= form.submit "search", class: "btn btn-dark", id: "btn-search" %>
     </div>
   <% end %>
-  <% if flash[:alert] %>
-    <div class="alert alert-warning"><%= flash[:alert] %></div>
-    <% end %>
   <% if !current_user %>
     <p style="font-size: 20px; padding: 1% 15%; font-weight: 300;">Join our platform today to save passwords for all of your subscription services, share those passwords between friends, and receive reminders on when to cancel them.</p>
     <%= link_to "Sign Up for Gatekeeper Now", new_user_registration_path, style: "font-size: 20px; font-weight: 300;"  %>
