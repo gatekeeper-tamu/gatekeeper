@@ -1,8 +1,10 @@
+<%= image_tag "vines-left-2.png", class:"img-vines vines-left-large" %>
+<%= image_tag "vines-right-2.png", class:"img-vines vines-right-large" %>
 <%= render :layout => 'subscriptions/shared/layout' do %>
 
 <p id="notice"><%= notice %></p>
 
-<div class="card" style="min-width: 75% !important;">
+<div class="card" style="min-width: 77%; padding">
   <div class="card-body">
     <div class="row group-show-header">
       <div class="col col-sm-2" align="center">
@@ -18,9 +20,9 @@
       </div>
     </div>
     <hr>
-    <div class="row">
-      <div class="col col-lg-5">
-        <p class="card-text" style="text-decoration: underline;">owner</p>
+    <div class="row" >
+      <div class="col col-lg-5" style="padding-left: 30px;">
+        <p class="card-text" style="padding-top: 20px;"><b>owner</b></p>
         <a href="<%= user_root_path(@group.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{@group.owner.username}" %></a>
         <table>
           <tr>
