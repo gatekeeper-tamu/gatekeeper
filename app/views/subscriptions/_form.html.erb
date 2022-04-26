@@ -12,7 +12,7 @@
   <%= simple_form_for subscription do |form| %>
     <% if subscription.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+        <h5><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h5>
 
         <ul>
           <% subscription.errors.each do |error| %>

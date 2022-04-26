@@ -39,7 +39,7 @@
   width: 100%;
 }
 
-.field > label, .subscription-card-title {
+fieldset > label, #frequency > label, .field > label, .subscription-card-title {
   margin: 10px 0 2px 0;
   font-weight: bold;
 }
@@ -84,4 +84,11 @@
 .shared-header {
   text-decoration: none;
   font-weight: bold;
+}
+
+.x-btn {
+  font-weight: bold; 
+  text-decoration: none; 
+  color: firebrick !important; 
+  padding: none;
 }

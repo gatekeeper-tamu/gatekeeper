@@ -82,7 +82,7 @@ td {
 
 }
 
-td > select, td > div > select {
+td > select, td > div > select, .field > select, fieldset > select, #frequency > select   {
   display: block;
     width: 100%;
     min-width: 150px;
@@ -93,7 +93,7 @@ td > select, td > div > select {
     line-height: 1.5;
     color: var(--mauve);
     background-color: #fff;
-    background-image: url(https://cdn-icons.flaticon.com/png/512/2722/premium/2722987.png?token=exp=1649908137~hmac=20fc1ef950b27ec8acdd15f5905ce2f2);
+    background-image: url(https://cdn-icons.flaticon.com/png/512/2951/premium/2951226.png?token=exp=1650928374~hmac=030c2ff05094930e356e944a22605398);
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 16px 12px;
