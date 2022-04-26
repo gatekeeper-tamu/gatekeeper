@@ -1,5 +1,6 @@
 <%= render :layout => 'subscriptions/shared/layout' do %>
   <p id="notice"><%= notice %></p>
+
   <div class="d-flex flex-row align-items-center">
     <h1 class="float-left display-4">Your Reminders</h1>
   </div>
@@ -8,25 +9,36 @@
   <% if @reminders.count <= 0 %>
     <p>You currently have no reminders. In order to add a reminder, please visit a subscription's information page in order to create one.</p>
   <% end %>
-  <% @reminders.each do |reminder| %>
+  <% @reminders.in_groups_of(2, false).each do |group| %>
     <div class="row">
-        <div class="col col-sm-4">
-          <div class="card" style="width: 18rem;">
+      <% group.each do |reminder| %>
+        <div class="col col-lg-6">
+          <div class="card card-reminder" style="width: 100%; margin: 15px 0 0; min-width: 100%;">
+            <div class="card-header text-right">
+              <p class="card-title" style="font-weight: bold; font-size: 18px;  margin-bottom: 0; float: left;">
+                <%= reminder.subscription.subscription_name %>
+              </p>
+              <%= link_to 'Edit', edit_reminder_path(reminder), method: :get, class: "" %> &nbsp | &nbsp 
+              <%= link_to 'X', reminder, method: :delete, data: { confirm: 'Are you sure you want to delete this reminder?' }, class: "x-btn" %>
 
-            <div class="card-body">
-              <h5 class="">Subscription: <%= reminder.subscription.subscription_name %></h5>
-              <p class="card-text">End date: <%= reminder.end_date %></p>
-              <p class="card-text">Reminder type: <%= reminder.reminder_type %></p>
-              <p class="card-text">Frequency: <%= reminder.frequency %></p>
-              <p class="card-text">Notification time before: <%= reminder.notification_time %></p>
-
-              <%= button_to 'Edit Reminder', edit_reminder_path(reminder), method: :get, class: "btn btn-dark btn-view-sub" %>
-              <%= button_to 'Delete', reminder, method: :delete, data: { confirm: 'Are you sure?' } %>
-
+            </div>
+            <div class="card-body"  >
+              <h6 class="card-title" style="font-weight: bold;  margin-bottom: 5px">
+                <%= reminder.reminder_type %> Reminder
+              </h6>
+                <p style="margin-bottom: 5px"><b>Occurs: </b> <%= reminder.notification_time %> day(s) before <%= reminder.end_date %> </p>
+                <p style="margin-bottom: 0"><b>Recurrs: </b> 
+                <% if reminder.recurring %>
+                  <%= reminder.frequency %>
+                <% else %>
+                  Never
+                <% end %>
+                </p>
             </div>
           </div>
         </div>
+      <% end %>
     </div>
-    <% end %>
   <% end %>
+<% end %>
 

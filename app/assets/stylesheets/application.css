@@ -145,6 +145,11 @@ nav {
     min-width: 0 !important;
   }
 
+  .sub-card {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
   .card-group {
     width: 85vw !important;
   }

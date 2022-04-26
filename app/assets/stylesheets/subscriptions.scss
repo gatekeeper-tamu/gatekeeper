@@ -19,6 +19,14 @@
   width: 90.5% !important; 
 }
 
+.sub-card-img {
+  background: grey;
+}
+
+.sub-col {
+  width: 23vw;
+}
+
 .center-elem {
   padding: 2rem;
   color: white;
@@ -91,4 +99,8 @@ fieldset > label, #frequency > label, .field > label, .subscription-card-title {
   text-decoration: none; 
   color: firebrick !important; 
   padding: none;
+}
+
+.card-reminder {
+   
 }

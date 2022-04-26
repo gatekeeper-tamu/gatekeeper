@@ -22,7 +22,7 @@
               <%= link_to subscription, method: :get, class: "sub-card-link stretched-link" do %>
                 <h5 class=""><%= subscription.subscription_name %></h5>
               <% end %>
-              <p class="card-text">Username: <%= subscription.username %></p>
+              <p class="card-text"><%= subscription.username %></p>
 
             </div>
           </div>
@@ -42,7 +42,7 @@
     <% group.subscriptions.in_groups_of(4, false).each do |sub_group| %>
       <div class="row">
         <% sub_group.each do |subscription| %>
-          <div class="col col-md-3">
+          <div class="col col-md-3 ">
             <div class="sub-card">
               <div class="card-img sub-card-img center-elem" id="<%= subscription.subscription_name %>-color">
                 <%= fa_icon "lock 4x"%>
@@ -51,7 +51,7 @@
                 <%= link_to subscription, method: :get, class: "sub-card-link stretched-link" do %>
                   <h5 class=""><%= subscription.subscription_name %></h5>
                 <% end %>
-                <p class="card-text">Username: <%= subscription.username %></p>
+                <p class="card-text"><%= subscription.username %></p>
               </div>
             </div>
           </div>
