@@ -1,3 +1,8 @@
-<h1>Editing Temp Shared Subscription</h1>
+<%= render :layout => 'subscriptions/shared/show' do %>
+
+<h1 class="card-title-header">Editing Shared Subscription End Date</h1>
+<hr>
 
 <%= render 'form', temp_shared_subscription: @temp_shared_subscription %>
+
+<% end %>

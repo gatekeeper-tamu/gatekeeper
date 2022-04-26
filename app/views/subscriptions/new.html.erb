@@ -1,9 +1,17 @@
 <%= render :layout => 'subscriptions/shared/show' do %>
 
-<h1 class="card-title">New Subscription</h1>
+<div class="row group-show-header">
+  <div class="col col-sm-2" align="center">
+    <%= button_to 'Back', subscriptions_path, method: :get, class: "sub-header-btn"%>
+  </div>
+  <div class="col col-sm-8" align="center">
+    <h1 class="sub-card-title">New Subscription <h1>
+  </div>
+  <div class="col col-sm-2" align="center">
+  </div>
+</div>
+<hr>
 
 <%= render 'form', subscription: @subscription, has_password: false %>
-
-<%= link_to 'Back', subscriptions_path %>
 
 <% end %>

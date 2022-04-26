@@ -2,6 +2,20 @@
 
 
 <p id="notice"><%= notice %></p>
+<div class="row group-show-header">
+  <div class="col col-sm-2" align="center">
+    <%= link_to 'Back', @reminder.subscription, method: :get, class: "header-btn" %> 
+  </div>
+  <div class="col col-sm-8" align="center">
+    <h1 class="card-title-header">New <%= @reminder.subscription.subscription_name %> Reminder</h1>
+  </div>
+  <div class="col col-sm-2" align="center">
+    <%= link_to 'Edit', edit_reminder_path(@reminder), method: :get, class: "header-btn" %>
+
+  </div>
+</div>
+<hr>
+
 <p>
   <strong>Subscription:</strong>
   <%= @reminder.subscription.subscription_name %>
@@ -32,7 +46,5 @@
   <%= @reminder.end_date %>
 </p>
 
-<%= button_to 'Edit Reminder', edit_reminder_path(@reminder), method: :get, class: "btn btn-dark btn-view-sub" %>
-<%= button_to 'Back to Subscription', @reminder.subscription, method: :get %> 
 
 <% end %>

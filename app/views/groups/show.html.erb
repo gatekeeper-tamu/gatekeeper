@@ -1,26 +1,28 @@
+<%= image_tag "vines-left-2.png", class:"img-vines vines-left-large" %>
+<%= image_tag "vines-right-2.png", class:"img-vines vines-right-large" %>
 <%= render :layout => 'subscriptions/shared/layout' do %>
 
 <p id="notice"><%= notice %></p>
 
-<div class="card" style="min-width: 75% !important;">
+<div class="card" style="min-width: 77%; padding">
   <div class="card-body">
     <div class="row group-show-header">
       <div class="col col-sm-2" align="center">
-        <%= fa_icon "angle-left" %> <%= link_to 'Back', groups_path, class:"header-btn" %>
+        <%= link_to 'Back', groups_path, class:"header-btn" %>
       </div>
       <div class="col col-sm-8" align="center">
         <h3 class="card-title"><%= @group.group_name %></h3>
       </div>
       <div class="col col-sm-2" align="center">
         <% if current_user.is_admin?(@group) %>
-          <%= link_to 'Edit', edit_group_path(@group), class:"header-btn" %> <%= fa_icon "edit" %> 
+          <%= link_to 'Edit', edit_group_path(@group), class:"header-btn" %>
         <% end %>
       </div>
     </div>
     <hr>
-    <div class="row">
-      <div class="col col-lg-5">
-        <p class="card-text" style="text-decoration: underline;">owner</p>
+    <div class="row" >
+      <div class="col col-lg-5" style="padding-left: 30px;">
+        <p class="card-text" style="padding-top: 20px;"><b>owner</b></p>
         <a href="<%= user_root_path(@group.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{@group.owner.username}" %></a>
         <table>
           <tr>

@@ -1,10 +1,18 @@
-<%= render :layout => 'users/shared/cards' do %>
+<%= render :layout => 'subscriptions/shared/show' do %>
 
-
-<h1>New <%= @reminder.subscription.subscription_name %> Reminder</h1>
+<div class="row group-show-header">
+  <div class="col col-sm-2" align="center">
+    <%= link_to 'Back', @reminder.subscription, method: :get, class: "header-btn" %> 
+  </div>
+  <div class="col col-sm-8" align="center">
+    <h1 class="card-title-header">New <%= @reminder.subscription.subscription_name %> Reminder</h1>
+  </div>
+  <div class="col col-sm-2" align="center">
+  </div>
+</div>
+<hr>
 
 <%= render 'form', reminder: @reminder %>
 
-<%= button_to 'Back', @reminder.subscription, method: :get %> 
 
 <% end %>

@@ -89,7 +89,7 @@ end
 Then /^I should see a temporary share link$/ do
 	page.should have_content("Extend")
 	page.should have_content("Email")
-	page.should have_content("Delete")
+	page.should have_content("X")
 	page.should have_content("Temporary Share Links")
 end
 
