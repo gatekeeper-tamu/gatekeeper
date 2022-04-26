@@ -67,7 +67,7 @@ nav {
   border-radius: 5px;
 } */
 
-.img-gate, .img-vines {
+.img-gate, .img-vines, .img-roses {
   position: fixed;
 }
 
@@ -125,9 +125,29 @@ nav {
   z-index: -1;
 }
 
+.roses-right-large {
+  left: calc(100vw - 535px);
+  bottom: 0;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.roses-left-large {
+  left: 0;
+  bottom: 0;
+  opacity: 0.6;
+  z-index: -1;
+}
+
 
 @media only screen and (max-width: 800px), (max-height: 670px) {
   .img-gate {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1000px), (max-height: 600px) {
+  .img-roses {
     display: none;
   }
 }
