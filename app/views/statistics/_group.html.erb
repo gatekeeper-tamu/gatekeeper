@@ -1,32 +1,47 @@
 <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
   
-  <div class="row">
-    <div class="col col-md-6">
-      <h3>Group statistics</h3>
+  <div class="row stat-row">
+    <div class="col col-lg-4", style="text-align: left; padding: 20px 0 0 60px;">
+      <%= image_tag "GroupLarge.png", style:"border-color: var(--wine);", class: "stat-img" %>
     </div>
-    <div class="col col-md-6 text-right">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <% current_user.all_groups.each_with_index do |group, index| %>
-          <% if index==0 %>
-            <button type="button" class="btn btn-light stat-btn-group active" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
-          <% else %>
-            <button type="button" class="btn btn-light stat-btn-group" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
-          <% end %>
-        <% end %>
+    <div class="col col-lg-8 stat-col-info-header" style="color: var(--wine);">
+      <div class="row">
+        <div class="col col-md-6">
+          <h2>Group Statistics</h2>
+        </div>
+        <div class="col col-md-6 text-right">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <% current_user.all_groups.each_with_index do |group, index| %>
+              <% if index==0 %>
+                <button type="button" class="btn btn-light stat-btn-group active" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
+              <% else %>
+                <button type="button" class="btn btn-light stat-btn-group" id="stat-btn-<%= group.group_name %>" onclick="showGraph('<%= group.group_name %>', <%= current_user.group_cost(group) %>)"><%= group.group_name %></button>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
+      <br>
+      <% if current_user.all_groups.count > 0 %>
+        <p>Use the buttons above to view cost statistics for all of the groups you either own or are a member of.</p>
+        <p>You are currently the owner of <b><%= current_user.owned_groups.count %> group(s)</b> and are a member of 
+        <b><%= current_user.groups.count %> group(s)</b>. Thanks for using the core feature of Gatekeeper... sharing! 
+        Too often does this feature go unused on our site which makes our developers sad since that was the purpose behind
+        starting this wonderful subscription manager.</p>
+      <% else %>
+        <p>You currently are not a member or owner of any groups. In order to get the full Gatekeeper experience, 
+        think about starting a group or joining a friend's group today! Sharing is the best aspect of being a member
+        on our site</p>
+      <% end %>
+
     </div>
   </div>
+  <br>
 
   <% if current_user.all_groups.count > 0 %>
-    <p>Use the buttons above to view cost statistics for all of the groups you either own or are a member of.</p>
-    <p>You are currently the owner of <b><%= current_user.owned_groups.count %> group(s)</b> and are a member of 
-    <b><%= current_user.groups.count %> group(s)</b>. Thanks for using the core feature of Gatekeeper... sharing! 
-    Too often does this feature go unused on our site which makes our developers sad since that was the purpose behind
-    starting this wonderful subscription manager.</p>
-    <hr>
 
     <div class="row stat-row">
-      <div class="col col-lg-4 stat-col-info">
+      <div class="col col-lg-4 stat-col-info group-color">
         <h4 id="stat-group-header">Montly Cost for Group <%= current_user.all_groups.first().group_name %></h4>
         <p>The total monthly cost for this group is <b id="stat-group-cost">$<%= current_user.group_cost(current_user.all_groups.first()) %></b>.
         Consider splitting this cost among all of your group members that use the accounts listed here in order to share the burden of paying for these services.
@@ -52,6 +67,7 @@
         <% end %>
       </div>
     </div>
+  <br>
 
     <div class="row stat-row">      
       <div class="col col-lg-8 stat-col-data">
@@ -73,18 +89,13 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col col-lg-4 stat-col-info">
+      <div class="col col-lg-4 stat-col-info group-color">
         <h4 id="stat-group-header-2">Personal Cost for Group <%= current_user.all_groups.first().group_name %></h4>
         <p>The cost each group member pays for your current group can be seen in the pie chart for this section. Take note of the varying sizes
         of the slices to determine if certain group members aren't pulling their weight. This website isn't meant to cause any strife between friends,
         we are just here to make you aware of your spending habits.</p>
       </div>
     </div>
-
-  <% else %>
-    <p>You currently are not a member or owner of any groups. In order to get the full Gatekeeper experience, 
-    think about starting a group or joining a friend's group today! Sharing is the best aspect of being a member
-    on our site</p>
   <% end %>
 
 </div>
