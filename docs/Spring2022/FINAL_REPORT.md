@@ -1,68 +1,37 @@
 <div id="top"></div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!-- PROJECT LOGO -->
-<br />
+<br>
 <div align="center">
   <a href="https://github.com/gatekeeper-tamu/gatekeeper">
     <img src="../../app/assets/images/darkLogo.png" alt="Logo" width="150" height="120">
   </a>
 
-  <h2 align="center">Gatekeeper</h2>
+  <h2 align="center">Gatekeeper: Final Report</h2>
 
   <p align="center">
     A Ruby on Rails Subscription Manager Application
     <br />
     <a href="https://gatekeeper-tamu.herokuapp.com"><strong>Explore the app »</strong></a>
-    <br />
-    <br />
-    <p>Rebecca McFadden (Scrum Master) (Product Owner)</p>
-    <p>Cora English</p>
-    <p>Grace Li (Initial Product Owner)</p>
-    <p>Nikhitha Vempati (Initial Scrum Master)</p>
+    <br>
+    <br>
+    <p align="center">Rebecca McFadden (Scrum Master) (Product Owner)</p>
+    <p align="center">Cora English</p>
+    <p align="center">Grace Li (Initial Product Owner)</p>
+    <p align="center">Nikhitha Vempati (Initial Scrum Master)</p>
   </p>
 </div>
 
-
-
-<!-- TABLE OF CONTENTS -->
-<h3>Table of Contents</h3>
-<ol>
-  <li>
-    <a href="#about-the-project">About The Project</a>
-    <ul>
-      <li><a href="#built-with">Built With</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="#getting-started">Getting Started</a>
-    <ul>
-      <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#installation">Installation</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="#spring-2022-development">Spring 2022 Development</a>
-    <ul>
-      <li><a href="#user-stories">User Stories</a></li>
-      <li><a href="#figma-mockups">Figma Mockups</a></li>
-      <li><a href="#iterations">Iterations</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="#tools-and-processes">Tools and Processes</a>
-    <ul>
-      <li><a href="#development-processes">Development Processes</a></li>
-      <li><a href="#github">GitHub</a></li>
-      <li><a href="#tools-and-gems">Tools and Gems</a></li>
-      <li><a href="#testing">Testing</a></li>
-      <li><a href="#deployment">Deployment</a></li>
-    </ul>
-  </li>
-  <li><a href="#Links">Links</a></li>
-  <li><a href="#acknowledgments">Acknowledgments</a></li>
-</ol>
-
-
+<div style="page-break-after: always;"></div>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -77,7 +46,7 @@ Gatekeeper is not limited to streaming services. Create a group today to share l
 Rebecca McFadden is the Product Owner and Scrum Master for this project. Initially, Nikhitha Vempati was the original Scrum Master, but did not fully understand or perform the duties of this role. Grace Li was the original Product Owner, but Rebecca ended up doing all of the setup work and therefore it made more sense for her to do the majority of code reviews and architecture decisions. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
+<div style="page-break-after: always;"></div>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -160,11 +129,10 @@ To start, install the following packages:
     yarn install
     ```
 7. Run the app:
-    - To run locally:
+    - To run locally (`localhost:5000`):
       ```sh
       heroku local
       ```
-      Navigate to `localhost:5000` to see the app.
     - To deploy to heroku:
         - Export all environment variables from `.env` file
           ```sh
@@ -173,14 +141,11 @@ To start, install the following packages:
         - Set git remote for heroku:
           ```sh
           heroku git:remote -a <your app name>
-          ```
-        - Push to heroku
-          ```sh
           git push heroku master
           ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
+<div style="page-break-after: always;"></div>
 
 <!-- ROADMAP -->
 ## Spring 2022 Development
@@ -272,7 +237,7 @@ See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or t
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
+<div style="page-break-after: always;"></div>
 
 <!-- TOOLS AND PROCESSES -->
 ## Tools and Processes
