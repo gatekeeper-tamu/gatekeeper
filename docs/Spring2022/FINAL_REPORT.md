@@ -246,6 +246,18 @@ See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or t
 
 ### Figma Mockups
 
+| Figma | Screenshot |
+| ----- | ---------- |
+| ![](mockups/landingpage.png) | ![](mockups/landingpage_actual.png) |
+| ![](mockups/subscriptions.png) | ![](mockups/subscriptions_actual.png) |
+| ![](mockups/addsubscription.png) | ![](mockups/addsubscription_actual.png) |
+| ![](mockups/viewsubscription.png) | ![](mockups/viewsubscription_actual.png) |
+| ![](mockups/groups.png) | ![](mockups/groups_actual.png) |
+| ![](mockups/viewgroup.png) | ![](mockups/viewgroup_actual.png) |
+| ![](mockups/addreminder.png) | ![](mockups/addreminder_actual.png) |
+| ![](mockups/search.png) | ![](mockups/search_actual.png) |
+| ![](mockups/stats.png) | ![](mockups/stats_actual.png) |
+
 ### Iterations
 
 | # | Points | Summary | Customer Demo Date |
