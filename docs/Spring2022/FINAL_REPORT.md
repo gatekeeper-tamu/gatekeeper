@@ -33,6 +33,40 @@
 
 <div style="page-break-after: always;"></div>
 
+<!-- TABLE OF CONTENTS -->
+<h3>Table of Contents</h3>
+<ol>
+  <li>
+    <a href="#about-the-project">About The Project</a>
+  </li>
+  <li>
+    <a href="#getting-started">Getting Started</a>
+    <ul>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#installation">Installation</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#spring-2022-development">Spring 2022 Development</a>
+    <ul>
+      <li><a href="#user-stories">User Stories</a></li>
+      <li><a href="#figma-mockups">Figma Mockups</a></li>
+      <li><a href="#iterations">Iterations</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#tools-and-processes">Tools and Processes</a>
+    <ul>
+      <li><a href="#tools-and-gems">Tools and Gems</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#testing">Testing</a></li>
+      <li><a href="#deployment">Deployment</a></li>
+    </ul>
+  </li>
+  <li><a href="#Links">Links</a></li>
+</ol>
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
