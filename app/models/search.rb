@@ -4,7 +4,7 @@ class Search < ApplicationRecord
         grouped = all.group_by{|searches| [searches.search_id,searches.title] }
         grouped.values.each do |duplicates|
           # the first one we want to keep
-          first = duplicates.shift
+          duplicates.shift
           # if there are any more left, they are duplicates
           # so delete all of them
           duplicates.each{|double| double.destroy} # duplicates can now be destroyed
