@@ -1,6 +1,8 @@
 <body>
-  <div class="main">
-	<h1 class="display-2 center">gatekeeper</h1>
+  <div class="main" style="position: relative;">
+  <%= image_tag "gate-left.png", class:"img-gate gate-left" %>
+  <%= image_tag "gate-right.png", class:"img-gate gate-right" %>
+	<h1 class="display-2 center" style="padding-top: 20vh">gatekeeper</h1>
 	<%= button_to 'LOGIN', user_session_path, id: "button-login", role: "button", class: "btn btn-dark" %>
 	<br>
 	<a href=/search style="margin-top: 40px;">Not a member? Search for shows to watch now!</a>

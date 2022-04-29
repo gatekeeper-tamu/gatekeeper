@@ -46,7 +46,6 @@ a {
 
  .main {
   text-align: center;
-  margin-top: 20vh;
 }
 
 nav {
@@ -68,9 +67,107 @@ nav {
   border-radius: 5px;
 } */
 
+.img-gate, .img-vines, .img-roses {
+  position: fixed;
+}
+
+.gate-right {
+  left: 50vw;
+  bottom: 0;
+  animation-name: right;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes right {
+  10% {left: 50vw;}
+  55% {left: 75vw;}
+  100% {left: calc(100vw - 400px); opacity: 0.5;}
+}
+
+.gate-left {
+  left: calc(50vw - 400px);
+  bottom: 0;
+  animation-name: left;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes left {
+  10% {left:calc(50vw - 400px);}
+  55% {left:calc(25vw - 400px);}
+  100% {left: 0; opacity: 0.5;}
+}
+
+.gate-right-large {
+  left: calc(100vw - 400px);
+  bottom: 0;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.gate-left-large {
+  left: 0;
+  bottom: 0;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.vines-right-large {
+  left: calc(100vw - 362px);
+  top: 0;
+  z-index: -1;
+}
+
+.vines-left-large {
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.roses-right-large {
+  left: calc(100vw - 535px);
+  bottom: 0;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.roses-left-large {
+  left: 0;
+  bottom: 0;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+
+@media only screen and (max-width: 800px), (max-height: 670px) {
+  .img-gate {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1000px), (max-height: 600px) {
+  .img-roses {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .img-vines {
+    display: none;
+  }
+}
+
+
 @media only screen and (max-width: 600px) {
   .card {
-    width: 85vw !important;
+    width: 85vw;
+    min-width: 0 !important;
+  }
+
+  .sub-card {
+    width: 100% !important;
+    min-width: 0 !important;
   }
 
   .card-group {

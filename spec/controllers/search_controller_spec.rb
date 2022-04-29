@@ -8,7 +8,7 @@ RSpec.describe SearchController, type: :request do
     describe "GET /search" do
         it "displays search page successfully " do
             visit '/search'
-            expect(page).to have_content 'Movies and Shows search'
+            expect(page).to have_content 'Search for a show or movie below to find streaming platforms!'
         end
     end
 
