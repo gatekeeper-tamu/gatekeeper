@@ -2,7 +2,7 @@
 <%= simple_form_for group do |group_form| %>
   <% if group.errors.any? %>
     <div id="error_explanation">
-      <h4><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h4>
+      <h5><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h5>
 
       <ul>
         <% group.errors.each do |error| %>

@@ -3,7 +3,7 @@
 <%= form_with(model: reminder) do |form| %>
   <% if reminder.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(reminder.errors.count, "error") %> prohibited this reminder from being saved:</h2>
+      <h5><%= pluralize(reminder.errors.count, "error") %> prohibited this reminder from being saved:</h5>
 
       <ul>
         <% reminder.errors.each do |error| %>
@@ -22,6 +22,7 @@
     <fieldset>
       <legend><%= form.label :recurring %></legend>
       <%= form.select :recurring, [['No', false], ['Yes', true]], :required => 'required' %>
+
 
       <% if @reminder.recurring == true %>
         <div id="frequency" class="field">
@@ -53,7 +54,7 @@
                                           ["4 days before", 4],
                                           ["5 days before", 5]]  %>
   </div>
-
+  <br>
   <div class="actions">
     <%= hidden_field_tag :subscription_id, @reminder.subscription_id %>
     <%= form.submit %>

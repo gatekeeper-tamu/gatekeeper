@@ -2,20 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.card {
+.sub-card {
   background-color: var(--white);
   margin: 0 auto; /* Added */
   margin-top: 5vh;
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
-  width: 30vw;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.26);
+  width: 90% !important; 
+  min-width: 0 !important;
 }
 
-.card-title {
+.sub-card:hover {
+  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+  width: 90.5% !important; 
+}
+
+.sub-card-img {
+  background: grey;
+}
+
+.sub-col {
+  width: 23vw;
+}
+
+.center-elem {
+  padding: 2rem;
+  color: white;
+  margin: auto !important;
   text-align: center;
-  font-weight: bold !important;
+}
+
+.sub-card-title {
+  text-align: center;
 }
 
 .card-title-header {
@@ -27,9 +47,9 @@
   width: 100%;
 }
 
-.field > label, .subscription-card-title {
+fieldset > label, #frequency > label, .field > label, .subscription-card-title {
   margin: 10px 0 2px 0;
-  font-weight: bold !important;
+  font-weight: bold;
 }
 
 .actions > input, form > input {
@@ -41,11 +61,7 @@
 }
 
 .actions > input:hover, form > input:hover {
-  background-color: var(--magenta) !important;
-}
-
-#button-google {
-  background-color: var(--white) !important;
+  background-color: var(--magenta);
 }
 
 #user_remember_me {
@@ -56,5 +72,41 @@
   background-color: var(--lightgrey);
   border-radius: 5px;
   border: var(--wine);
+}
 
+.sub-header-btn {
+  font-size: 20px;
+  margin: 0;
+  background-color: transparent !important;
+  color: var(--wine) !important;
+  border: none;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.sub-header-btn:hover {
+  font-size: 20px;
+  background-color: transparent !important;
+}
+
+.shared-header {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.x-btn {
+  font-family: "Monaco", "Lucida Console", "Courier New", monospace;
+  font-weight: normal; 
+  text-decoration: none; 
+  color: firebrick !important; 
+  border: 1px solid firebrick;
+  border-radius: 5px;
+  padding: 2px 6px;
+  background-color: white;
+}
+
+.x-btn:hover {
+  background-color: firebrick;
+  color: white !important;
+  text-decoration: none;
 }

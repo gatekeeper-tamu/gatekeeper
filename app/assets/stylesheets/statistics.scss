@@ -12,12 +12,30 @@
 
 .stat-col-info {
   padding: 40px;
-  background-color: var(--magenta);
-  color: var(--white);
   border-radius: 5px;
   font-weight: 200;
 }
 
+.stat-col-info-header {
+  padding: 40px 40px 0 0;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+.sitewide-color {
+  color: var(--white);
+  background-color: var(--magenta);
+}
+
+.group-color {
+  background-color: var(--wine);
+  color: var(--white);
+}
+
+.personal-color {
+  color: var(--white);
+  background-color: var(--mauve);
+}
 
 .stat-col-data {
   padding-left: 50px;
@@ -45,4 +63,11 @@ h4 {
 
 .hidden {
   display: none;
+}
+
+.stat-img {
+  width: 65%; 
+  padding: 40px; 
+  border: 4px solid; 
+  border-radius: 5px;
 }

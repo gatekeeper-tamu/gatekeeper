@@ -20,8 +20,8 @@ end
 ####THEN####
 
 Then /^I should see the search page$/ do
-	page.should have_content("TV show / movie search")
+	page.should have_content("Search for a show or movie below to find streaming platforms!")
 end
 Then /^I should see search's show page$/ do
-	page.should have_content("Search Results")
+	page.should have_content("is available on:")
 end

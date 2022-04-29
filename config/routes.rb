@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'subscriptions/' => 'subscriptions#index', :as => :subscription_root
   get 'reminders/' => 'reminders#index', :as => :reminder_root
   get '/search', to: 'search#index'
+  get '/search/show', to: 'search#index'  # throwing 404 error on refresh of search results page - now redirects to searech page
 	post 'search/show'
   
   get 'home/index'

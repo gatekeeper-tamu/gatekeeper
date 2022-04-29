@@ -1,8 +1,17 @@
 <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
   
-  <h3>Personal statistics</h3>
-  <p>View your personal statistics below.</p>
-  <hr>
+  <div class="row stat-row">
+    <div class="col col-lg-4", style="text-align: left; padding: 20px 0 0 60px;">
+      <%= image_tag "PersonMoney.png", style:"border-color: var(--mauve);", class: "stat-img" %>
+    </div>
+    <div class="col col-lg-8 stat-col-info-header">
+      <h2>Personal Statistics</h2>
+      <br>
+      <p>Your personal statistics on Gatekeeper can be found below. Knowing how much you personally pay for subscription services each month is a powerful thing, and we aim to bring that power to you. This personalized dashboard should help you keep your spending habits in check!<p>
+      <p>The graph below will show you your monthly breakdown of expenses while the table will display different statitics about each subscription.</p>
+    </div>
+  </div>
+  <br>
   
   <div class="row stat-row">
     <div class="col col-lg-8 stat-col-data">
@@ -11,16 +20,17 @@
       legend: "left"
       %>  
     </div>
-    <div class="col col-lg-4 stat-col-info">
+    <div class="col col-lg-4 stat-col-info personal-color">
       <h4>Cost of Your Monthly Subscriptions</h4>
       <p>Your total monthly cost of serivces on our website is <b>$<%= current_user.total_cost %></b>. 
       The breakdown of where you spend your money can be seen on the pie chart for this section. 
       Hover over the pie sections or view the table below to see where you spend your money or view the table below for a more indepth analysis.</p>
     </div>
   </div>
+  <br>
   
   <div class="row stat-row">
-    <div class="col col-lg-4 stat-col-info">
+    <div class="col col-lg-4 stat-col-info personal-color">
       <h4>Total Cost of Your Subscriptions</h4>
       <p>Your total all-time cost of serivces tracked on our website is <b>$<%= current_user.total_cost_overall %></b>.
       The table in this section shows the cost you pay per month, the total amount of money you've spent on a subscription service since adding it to Gatekeeper, 

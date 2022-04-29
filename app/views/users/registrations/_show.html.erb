@@ -1,15 +1,15 @@
 <%= render :layout => 'users/shared/cards' do %>
-  <h2 class="card-title">Account Information</h2>
+  <h2 class="user-card-title">Account Information</h2>
   <hr/>
-  <p>User: <%= resource.first_name + " " + resource.last_name%></p>
-  <p>Username: <%= resource.username%></p>
-  <p>Email: <%= resource.email%></p>
+  <p><b>User:</b> <%= resource.first_name + " " + resource.last_name%></p>
+  <p><b>Username:</b> <%= resource.username%></p>
+  <p><b>Email:</b> <%= resource.email%></p>
 
   <hr/>
   
   <% if (@user == current_user) %>
-    <%= button_to "Subscriptions", subscription_root_path, method: :get, class: "btn btn-dark" %>
-    <%= button_to "Groups", group_root_path, method: :get, class: "btn btn-dark" %>
+    <%= button_to "View Your Subscriptions", subscription_root_path, method: :get, class: "btn btn-dark" %>
+    <%= button_to "View Your Groups", group_root_path, method: :get, class: "btn btn-dark" %>
   <% end %>
 <% end %>
 

@@ -23,15 +23,15 @@ end
 
 ##### THEN #####
 Then /^I should see the sitewide statistics page$/ do
-	page.should have_content("Sitewide statistics")
+	page.should have_content("Sitewide Statistics")
 end
 
 Then /^I should see the group statistics page$/ do
-	page.should have_content("Group statistics")
+	page.should have_content("Group Statistics")
 end
 
 Then /^I should see the personal statistics page$/ do
-	page.should have_content("Personal statistics")
+	page.should have_content("Personal Statistics")
 end
 
 Then /^I should see the chart (.*)$/ do |chart|
@@ -58,5 +58,5 @@ end
 
 ### sitewide ###
 Then /^I should see the total subscription count$/ do
-	page.should have_content("We have a total of 3 accounts stored on gatekeeper.com")
+	page.should have_content("accounts stored on gatekeeper.com")
 end

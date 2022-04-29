@@ -66,7 +66,7 @@ When /^I delete a reminder for "(.*)"$/ do |subscription_name|
 	if (@reminder.nil?)
 		@reminder = Reminder.where(:subscription_id => path).first
 	end
-	first(:button, 'Delete Reminder', minimum: 1).click
+	first(:link, 'X', minimum: 1).click
 end
 
 ##### THEN #####
@@ -90,7 +90,8 @@ Then /^I should see reminders for the "(.*)" subscription$/ do |subscription|
 		@subscription = Subscription.where(:subscription_name => subscription).first
 	end
 	for reminder in @subscription.reminders
-		page.should have_content("Reminder type:")
+		page.should have_content("Occurs:")
+		page.should have_content("Recurs:")
 	end
 end
 
