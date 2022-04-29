@@ -7,13 +7,13 @@
 <div class="card" style="min-width: 77%;">
   <div class="card-body">
     <div class="row group-show-header">
-      <div class="col col-sm-2" align="center">
+      <div class="col-sm-2" align="center">
         <%= link_to 'Back', groups_path, class:"header-btn" %>
       </div>
-      <div class="col col-sm-8" align="center">
+      <div class="col-sm-8" align="center">
         <h3 class="card-title"><%= @group.group_name %></h3>
       </div>
-      <div class="col col-sm-2" align="center">
+      <div class="col-sm-2" align="center">
         <% if current_user.is_admin?(@group) %>
           <%= link_to 'Edit', edit_group_path(@group), class:"header-btn" %>
         <% end %>
@@ -21,7 +21,7 @@
     </div>
     <hr>
     <div class="row" >
-      <div class="col col-lg-5" style="padding-left: 30px;">
+      <div class="col-lg-5" style="padding-left: 30px;">
         <p class="card-text" style="padding-top: 20px;"><b>owner</b></p>
         <a href="<%= user_root_path(@group.owner.username) %>" class="card-user"><%= fa_icon "star" %> <%= "#{@group.owner.username}" %></a>
         <table>
@@ -38,7 +38,7 @@
           <% end %>
         </table>
         </div>
-    <div class="col col-lg-7">
+    <div class="col-lg-7">
       <div class="table-responsive">
         <table>
           <tr>

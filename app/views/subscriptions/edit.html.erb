@@ -1,13 +1,13 @@
 <%= render :layout => 'subscriptions/shared/show' do %>
 
 <div class="row group-show-header">
-  <div class="col col-sm-2" align="center">
+  <div class="col-sm-2" align="center">
     <%= button_to 'Back', @subscription, method: :get, class: "sub-header-btn"%>
   </div>
-  <div class="col col-sm-8" align="center">
+  <div class="col-sm-8" align="center">
     <h1 class="sub-card-title">Editing <%= @subscription.subscription_name %></h1>
   </div>
-  <div class="col col-sm-2" align="center">
+  <div class="col-sm-2" align="center">
     <%= button_to 'All', subscriptions_path, method: :get, class: "sub-header-btn"%>
   </div>
 </div>
