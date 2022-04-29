@@ -10,13 +10,13 @@
 
 <%= render :layout => 'subscriptions/shared/show' do %>
 <div class="row group-show-header">
-  <div class="col-sm-2" align="center">
+  <div class="col col-sm-2" align="center">
     <%= button_to 'Back', subscriptions_path, method: :get, class: "sub-header-btn"%>
   </div>
-  <div class="col-sm-8" align="center">
+  <div class="col col-sm-8" align="center">
     <h1 class="sub-card-title"><%= @subscription.subscription_name %></h1>
   </div>
-  <div class="col-sm-2" align="center">
+  <div class="col col-sm-2" align="center">
     <% if @subscription.can_edit?(current_user) %>
       <%= button_to 'Edit', edit_subscription_path(@subscription), method: :get, class: "sub-header-btn" %>
     <% end %>
@@ -53,9 +53,9 @@
       <p style="text-align: center; padding: 10px 30px; ">This subscription is not shared with anyone. Create a group to share this subscription with, add it to one of your current groups, or create a temporary shared link below.</p>
   <% end %>
   
+      <% if @subscription.share_records.size > 0 %>
     <h4 style="margin: 20px 0 0;">Groups</h4>
       <% @subscription.share_records.each do |share_record| %>
-      <% if @subscription.share_records.size > 0 %>
         <% group = Group.find(share_record.group_id) %>
         <div class="card" style="width: 100%; margin: 15px 0 0;">
           <div class="card-header text-right">
