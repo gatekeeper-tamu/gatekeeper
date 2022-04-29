@@ -2,7 +2,7 @@
 	<h1 class="display-2 center">Movies and Shows search</h1>
   <%= form_for(:search, :url =>{:controller => 'search', :action => 'show' }) do |form|%>
           <div class="form-group">
-            <%= form.text_field :title, placeholder: 'Search for shows and movies to watch now!', :required => 'required',class: 'form-control'%>
+            <%= form.text_field :title, placeholder: 'Search for shows and movies to watch now!', :required => 'required', :autocomplete =>	'on', class: 'form-control'%>
             <%= form.submit "search" %>
           </div>
         <% end %>

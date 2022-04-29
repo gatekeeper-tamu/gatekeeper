@@ -15,23 +15,23 @@
 
   <div class="field">
     <%= form.label :reminder_type %>
-    <%= form.select :reminder_type, ["Billing", "Cancellation"] %>
+    <%= form.select :reminder_type, ["Billing", "Cancellation"], :required => 'required' %>
   </div>
   
   <div class="field">
     <fieldset>
       <legend><%= form.label :recurring %></legend>
-      <%= form.select :recurring, [['No', false], ['Yes', true]] %>
+      <%= form.select :recurring, [['No', false], ['Yes', true]], :required => 'required' %>
 
       <% if @reminder.recurring == true %>
         <div id="frequency" class="field">
           <%= form.label :frequency %>
-          <%= form.select :frequency, ["Weekly", "Monthly", "Annually"] %>
+          <%= form.select :frequency, ["Weekly", "Monthly", "Annually"], :required => 'required' %>
         </div>
       <% else %>
         <div id="frequency" class="hidden">
           <%= form.label :frequency %>
-          <%= form.select :frequency, ["Weekly", "Monthly", "Annually"] %>
+          <%= form.select :frequency, ["Weekly", "Monthly", "Annually"], :required => 'required'  %>
         </div>
       <% end %>
 

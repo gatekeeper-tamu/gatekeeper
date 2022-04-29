@@ -14,7 +14,7 @@
 
   <% if current_user.is_admin?(group) %>
     <h5>Group Name</h5>
-    <%= group_form.input :group_name %>
+    <%= group_form.input :group_name,:required => 'required' %>
     <fieldset>
         <h5>Members</h5>
         <%= group_form.fields_for :members do |members_form| %>

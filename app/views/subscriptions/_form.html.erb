@@ -29,7 +29,7 @@
 
     <div class="field">
       <%= form.label :username %>
-      <%= form.text_field :username %>
+      <%= form.text_field :username, :required => 'required' %>
     </div>
 
     <div class="field">
@@ -37,7 +37,7 @@
       <% if has_password %>
         <%= form.password_field :password, value: subscription.password%>
       <% else %>
-        <%= form.password_field :password %>
+        <%= form.password_field :password, :required => 'required'%>
       <% end %>
       <a id="view-password-button" class="button default ok" onclick="toggleHidden()">
         View
