@@ -5,7 +5,7 @@
 </script>
 
 <div class="container">
-<p id="notice"><%= notice %></p>
+<% if  flash[:notice] %><p id="notice" class="alert"><%= notice %></p><% end %>
 </div>
 
 <%= render :layout => 'subscriptions/shared/show' do %>

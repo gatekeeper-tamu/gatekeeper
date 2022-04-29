@@ -1,5 +1,5 @@
 <%= render :layout => 'subscriptions/shared/layout' do %>
-  <p id="notice"><%= notice %></p>
+  <% if  flash[:notice] %><p id="notice" class="alert"><%= notice %></p><% end %>
 
   <div class="d-flex flex-row align-items-center">
     <h1 class="float-left display-4">Your Reminders</h1>

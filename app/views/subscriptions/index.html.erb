@@ -1,5 +1,7 @@
 <%= render :layout => 'subscriptions/shared/layout' do %>
-<p id="notice"><%= notice %></p>
+  <% if  flash[:notice] %>
+    <p id="notice" class="alert"><%= notice %></p>
+  <% end %>
 
   <div class="d-flex flex-row align-items-center">
     <h1 class="float-left display-4">Your Subscriptions</h1>
@@ -9,10 +11,9 @@
   </div>
 
   <hr class="section-break">
-  <% @subscriptions.in_groups_of(4, false).each do |group| %>
     <div class="row">
-      <% group.each do |subscription| %>
-        <div class="col col-md-3">
+      <% @subscriptions.each do |subscription| %>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div class="sub-card">
             <div class="card-img sub-card-img center-elem" id="<%= subscription.subscription_name %>-color">
               <%= fa_icon "lock 4x"%>
@@ -29,7 +30,6 @@
         </div>
       <% end %>
     </div>
-  <% end %>
   <br>
 
   <% @groups.each do |group| %>
@@ -39,10 +39,9 @@
     </div>
 
     <hr class="section-break">
-    <% group.subscriptions.in_groups_of(4, false).each do |sub_group| %>
       <div class="row">
-        <% sub_group.each do |subscription| %>
-          <div class="col col-md-3 ">
+        <% group.subscriptions.each do |subscription| %>
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-5">
             <div class="sub-card">
               <div class="card-img sub-card-img center-elem" id="<%= subscription.subscription_name %>-color">
                 <%= fa_icon "lock 4x"%>
@@ -57,7 +56,6 @@
           </div>
         <% end %>
       </div>
-    <% end %>
     <br>
 
   <% end %>

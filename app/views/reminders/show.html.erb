@@ -1,7 +1,7 @@
 <%= render :layout => 'subscriptions/shared/show' do %>
 
 
-<p id="notice"><%= notice %></p>
+<% if  flash[:notice] %><p id="notice" class="alert"><%= notice %></p><% end %>
 <div class="row group-show-header">
   <div class="col col-sm-2" align="center">
     <%= link_to 'Back', @reminder.subscription, method: :get, class: "header-btn" %> 
