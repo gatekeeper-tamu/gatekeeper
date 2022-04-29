@@ -29,11 +29,16 @@ class SearchController < ApplicationController
 
         i=0
         while i < @idresult.size
-            while @idresult['title_results'][i]['id'] != nil
-                @id = @idresult['title_results'][i]['id']
-                @titles = @idresult['title_results'][i]['name']
-                @search = Search.create(search_id: @id, title: @titles)
-                break
+            if @idresult['title_results'] == []
+                puts "empty"
+                redirect_to search_path and return
+            else
+                while @idresult['title_results'][i]['id'] != nil
+                    @id = @idresult['title_results'][i]['id']
+                    @titles = @idresult['title_results'][i]['name']
+                    @search = Search.create(search_id: @id, title: @titles)
+                    break
+                end
             end
             i = i + 1
         end
