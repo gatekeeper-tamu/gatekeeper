@@ -1,5 +1,5 @@
 <%= render :layout => 'subscriptions/shared/layout' do %>
-  <p id="notice"><%= notice %></p>
+  <% if  flash[:notice] %><p id="notice" class="alert"><%= notice %></p><% end %>
 
   <div class="d-flex flex-row align-items-center">
     <h1 class="float-left display-4">Your Reminders</h1>
@@ -12,10 +12,10 @@
   <% @reminders.in_groups_of(2, false).each do |group| %>
     <div class="row">
       <% group.each do |reminder| %>
-        <div class="col col-lg-6">
+        <div class="col-md-6">
           <div class="card card-reminder" style="width: 100%; margin: 15px 0 0; min-width: 100%;">
             <div class="card-header text-right">
-              <p class="card-title" style="font-weight: bold; font-size: 18px;  margin-bottom: 0; float: left;">
+              <p class="card-title" style="font-weight: bold; font-size: 20px;  margin-bottom: 0; float: left;">
                 <%= reminder.subscription.subscription_name %>
               </p>
               <%= link_to 'Edit', edit_reminder_path(reminder), method: :get, class: "" %> &nbsp | &nbsp 

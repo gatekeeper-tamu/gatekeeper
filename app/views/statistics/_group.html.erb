@@ -1,15 +1,15 @@
 <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
   
   <div class="row stat-row">
-    <div class="col col-lg-4", style="text-align: left; padding: 20px 0 0 60px;">
+    <div class="col-md-4 stat-col-img">
       <%= image_tag "GroupLarge.png", style:"border-color: var(--wine);", class: "stat-img" %>
     </div>
-    <div class="col col-lg-8 stat-col-info-header" style="color: var(--wine);">
+    <div class="col-md-8 stat-col-info-header" style="color: var(--wine);">
       <div class="row">
-        <div class="col col-md-6">
+        <div class="col-md-6">
           <h2>Group Statistics</h2>
         </div>
-        <div class="col col-md-6 text-right">
+        <div class="col-md-6 group-btns">
           <div class="btn-group" role="group" aria-label="Basic example">
             <% current_user.all_groups.each_with_index do |group, index| %>
               <% if index==0 %>
@@ -41,13 +41,13 @@
   <% if current_user.all_groups.count > 0 %>
 
     <div class="row stat-row">
-      <div class="col col-lg-4 stat-col-info group-color">
+      <div class="col-md-4 stat-col-info group-color">
         <h4 id="stat-group-header">Montly Cost for Group <%= current_user.all_groups.first().group_name %></h4>
         <p>The total monthly cost for this group is <b id="stat-group-cost">$<%= current_user.group_cost(current_user.all_groups.first()) %></b>.
         Consider splitting this cost among all of your group members that use the accounts listed here in order to share the burden of paying for these services.
         Obviously, you don't have to do this, but your the other members of your group might like you more if you do 😉</p>
       </div>
-      <div class="col col-lg-8 stat-col-data">
+      <div class="col-md-8 stat-col-data">
         <% current_user.all_groups.each_with_index do |gr, index| %>
           <% if index==0 %>
             <div id="stat-div-<%= gr.group_name %>" class="stat-div-charts visible">
@@ -70,7 +70,13 @@
   <br>
 
     <div class="row stat-row">      
-      <div class="col col-lg-8 stat-col-data">
+      <div class="col-md-4 stat-col-info group-color order-md-2">
+        <h4 id="stat-group-header-2">Personal Cost for Group <%= current_user.all_groups.first().group_name %></h4>
+        <p>The cost each group member pays for your current group can be seen in the pie chart for this section. Take note of the varying sizes
+        of the slices to determine if certain group members aren't pulling their weight. This website isn't meant to cause any strife between friends,
+        we are just here to make you aware of your spending habits.</p>
+      </div>
+      <div class="col-md-8 stat-col-data order-md-1">
         <% current_user.all_groups.each_with_index do |gr, index2| %>
           <% if index2==0 %>
             <div id="stat-div-<%= gr.group_name %>-2" class="stat-div-charts-2 visible">
@@ -88,12 +94,6 @@
             </div>
           <% end %>
         <% end %>
-      </div>
-      <div class="col col-lg-4 stat-col-info group-color">
-        <h4 id="stat-group-header-2">Personal Cost for Group <%= current_user.all_groups.first().group_name %></h4>
-        <p>The cost each group member pays for your current group can be seen in the pie chart for this section. Take note of the varying sizes
-        of the slices to determine if certain group members aren't pulling their weight. This website isn't meant to cause any strife between friends,
-        we are just here to make you aware of your spending habits.</p>
       </div>
     </div>
   <% end %>

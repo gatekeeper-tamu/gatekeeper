@@ -100,16 +100,14 @@ end
 When /^I (View|Edit|Delete|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
 	@group_id = @group.id
-	row = page.find(".card-body", text: group_name)
-	row = row.find("#actions-#{group_name}")
+	row = page.find("#actions-#{group_name}")
 	row.click_link action
 end
 
 When /^I should not be able to (View|Edit|Delete|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
 	@group_id = @group.id
-	row = page.find(".card-body", text: group_name)
-	row = row.find("#actions-#{group_name}")
+	row = page.find("#actions-#{group_name}")
 	row.should_not have_content(action)
 end
 

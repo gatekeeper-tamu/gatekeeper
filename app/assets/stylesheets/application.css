@@ -27,6 +27,7 @@
   --wine: #69193E;
   --mauve: #572F41;
   --sage: #6F8A79;
+  --sage-transp: #6f8a79d7;
 }
 
  body {
@@ -60,12 +61,14 @@ nav {
   display: inline-flex;
 }
 
-/* #notice {
-  background-color: var(--sage);
-  padding: 4px;
-  color: white;
+#notice {
+  margin-top: 20px;
+  background-color: var(--sage-transp);
   border-radius: 5px;
-} */
+  color: white;
+  border: 1px solid darkgray;
+  padding: 5px 10px;
+}
 
 .img-gate, .img-vines, .img-roses {
   position: fixed;

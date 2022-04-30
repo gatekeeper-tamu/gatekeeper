@@ -47,7 +47,7 @@ harry.subscriptions.create([
 hermione = User.where(username: "hogwartsahistory").first
 hermione.subscriptions.create([
     {subscription_name: "Flourish and Blotts", username: "hermione", password: "wingardiumleviOsa", url: "flourish.com", cost_per_month: 4.99},
-    {subscription_name: "Hogwarts Tuition Portal", username: "granger", password: "password", url: "hogwarts.com", cost_per_month: 1495.95}
+    {subscription_name: "Hogwarts Tuition Portal", username: "granger", password: "password", url: "hogwarts.com", cost_per_month: 105.95}
 ])
 
 gryff = harry.owned_groups.create(group_name: "Gryffindor")

@@ -1,10 +1,10 @@
 <div class="tab-pane fade show active" id="sitewide" role="tabpanel" aria-labelledby="sitewide-tab">
  
   <div class="row stat-row">
-    <div class="col col-lg-4", style="text-align: left; padding: 20px 0 0 60px;">
+    <div class="col-md-4 stat-col-img">
       <%= image_tag "GroupEarth.png", style:"border-color: var(--magenta);", class: "stat-img" %>
     </div>
-    <div class="col col-lg-8 stat-col-info-header" style="color: var(--magenta);">
+    <div class="col-md-8 stat-col-info-header" style="color: var(--magenta);">
       <h2>Sitewide Statistics</h2>
       <br>
       <p>Sitewide statistics have been compiled for you to see what others are using. We wanted to keep our application as transparent as possible, and allowing all of our users to see what their fellow girlbosses are using is one feature we think is important.+</p>
@@ -14,27 +14,27 @@
   <br>
 
   <div class="row stat-row">
-    <div class="col col-lg-8 stat-col-data">
-      <%= pie_chart Subscription.group(:subscription_name).count, 
-        donut: true, legend: "left", 
-        colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'] %> 
-    </div>
-    <div class="col col-lg-4 stat-col-info sitewide-color">
+    <div class="col-lg-4 stat-col-info sitewide-color order-lg-2">
       <h4>Sitewide Subscription Counts</h4>
       <p>We have a total of <b><%= Subscription.count() %> accounts</b> stored on gatekeeper.com across all of our users' accounts. 
       If you aren't already a user, sign up for an account today. If you are one of our loyal customers, use the <i>Group</i> and <i>Personal</i> 
       tabs at the top of the page to see how your stats stack up.</p>
     </div>
+    <div class="col-lg-8 stat-col-data order-lg-1">
+      <%= pie_chart Subscription.group(:subscription_name).count, 
+        donut: true, legend: "left", 
+        colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'] %> 
+    </div>
   </div>
   <br>
       
   <div class="row stat-row">
-    <div class="col col-lg-4 stat-col-info sitewide-color">
+    <div class="col-lg-4 stat-col-info sitewide-color">
       <h4>Total Subscription Costs</h4>
       <p>The amount spent per month by service by our entire Gatekeeper userbase can be seen in this section. Hover over the bar chart sections 
       to see the total dollar value spent each month by users just like you.</p>
     </div>
-    <div class="col col-lg-8 stat-col-data">
+    <div class="col-lg-8 stat-col-data">
       <%= column_chart Subscription.group(:subscription_name).sum(:cost_per_month), 
         colors: ['#572F41', '#D1DBBD', '#69193E', '#91AA9D', '#973756', '#3E606F', '#BBAEAE', '#6F8A79', '#BDDDC9', '#193441'] %>
     </div>
