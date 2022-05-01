@@ -32,7 +32,7 @@ class SearchController < ApplicationController
         while i < @idresult.size
             if @idresult['title_results'] == []
                 redirect_to '/search/empty' and return
-            
+
             else
                 if @idresult['title_results'][i] != nil
                     if title_name == @idresult['title_results'][i]['name']
@@ -72,10 +72,9 @@ class SearchController < ApplicationController
         if @services_result.size === 0
             puts 'empty'
         end
-        
+
         j=0
         while j < @services_result.size
-            
             if @services_result[j]['type'] === "sub"
                 @network_name = @services_result[j]['name']
                 @network_url = @services_result[j]['web_url']
