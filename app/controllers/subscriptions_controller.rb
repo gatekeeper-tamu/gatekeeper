@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions or /subscriptions.json
   def index
     @subscriptions = current_user.subscriptions
-    # @groups = current_user.owned_groups.sort_by(&:group_name)
+    #filters through groups by those owned or is a collaborator for
     @groups = (current_user.owned_groups | current_user.groups).sort_by(&:group_name)
   end
 
@@ -20,7 +20,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions/new
   def new
     @subscription = Subscription.new
-    @subscription.user = current_user
+    @subscription.user = current_user #sets owner of subscription to current user
   end
 
   # GET /subscriptions/1/edit
@@ -79,6 +79,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def share
+    #only the user can generate a share link for the subscription login credentials
     if (!@subscription.user == current_user)
       puts "Can't access this page! Invalid login. SHARE_SUBSCRIPTION"
       redirect_to "/404.html"

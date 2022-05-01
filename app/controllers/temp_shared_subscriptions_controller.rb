@@ -1,9 +1,11 @@
 class TempSharedSubscriptionsController < ApplicationController
+  #before page loads, authenticate user is logged in
   before_action :authenticate_user!, except: %i[ show ]
   before_action :set_temp_shared_subscription, only: %i[ show edit update destroy share send_temp_access_email ]
 
   # GET /temp_shared_subscriptions or /temp_shared_subscriptions.json
   def index
+    #show only SharedSubscription where the current user is the owner of the subscription
     @temp_shared_subscriptions = TempSharedSubscription.where(subscription: Subscription.where(user: current_user))
   end
 
