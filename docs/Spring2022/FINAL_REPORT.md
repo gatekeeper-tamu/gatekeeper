@@ -25,7 +25,7 @@
     <br>
     <br>
     <p align="center">Rebecca McFadden (Scrum Master) (Product Owner)</p>
-    <p align="center">Cora English</p>
+    <p align="center">Cora English (UI Owner)</p>
     <p align="center">Grace Li (Initial Product Owner)</p>
     <p align="center">Nikhitha Vempati (Initial Scrum Master)</p>
   </p>
@@ -38,6 +38,9 @@
 <ol>
   <li>
     <a href="#about-the-project">About The Project</a>
+    <ul>
+      <li><a href="#architecture">Architecture</a></li>
+    </ul>
   </li>
   <li>
     <a href="#getting-started">Getting Started</a>
@@ -68,7 +71,7 @@
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# About The Project
 
 Gatekeeper is a subscription management service that allows users to store login information for online services. The service is designed for individuals, roommates, families, and other groups that have a variety of online accounts with usernames and passwords. It has
 a number of useful features such as encrypted storage of username and password information and scheduleable cancellation and billing reminders. Gatekeeper also functions as a group subscription sharing service by allowing users to share login information with family and friends through groups and temporary-access pages.
@@ -77,17 +80,52 @@ Gatekeeper supports authentication via Google Oauth as well as traditional usern
 
 Gatekeeper is not limited to streaming services. Create a group today to share logins for any account!
 
-Rebecca McFadden is the Product Owner and Scrum Master for this project. Initially, Nikhitha Vempati was the original Scrum Master, but did not fully understand or perform the duties of this role. Grace Li was the original Product Owner, but Rebecca ended up doing all of the setup work and therefore it made more sense for her to do the majority of code reviews and architecture decisions. 
+Rebecca McFadden is the Product Owner and Scrum Master for this project. Initially, Nikhitha Vempati was the original Scrum Master, but did not fully understand or perform the duties of this role. Grace Li was the original Product Owner, but Rebecca ended up doing all of the setup work and therefore it made more sense for her to do the majority of code reviews and architecture decisions. Cora English was in charge of all UI designs and implementation.
+
+## Architecture
+
+<div align="center">
+    <img src="mockups/design.png">
+</div>
+<br>
+
+### Models:
+  - User: user information, can be created through Google or regular Auth
+  - Group
+    - `owner` = user reference (`belongs_to`)
+    - `members` = user references (`has_many`)
+  - Membership: join table (`has_many_through` for Groups <- Users)
+    - `belongs_to` user
+    - `belongs_to` group
+  - Subscription
+    - `user` = user reference (`belongs_to`)
+    - `groups` = group references (`has_many`)
+      - NOTE: this link is called `share_records` (ex: `group_a.share_records`)
+      - For more info on `has_many` and `has_many_through` see this -> [article](http://joshfrankel.me/blog/create-a-many-to-many-activerecord-association-in-ruby-on-rails/)
+  - Shared_Subscription: join table (`has_many_through` for Groups <- Subscriptions)
+    - `belongs_to` subscription
+    - `belongs_to` group
+  - Temp_Shared_Subscription: reference to a subscription with an expiration date
+    - `belongs_to` subscription
+  - Reminder: db model to store reminders for subscriptions
+    - `belongs_to` subscription
+  - Statistic, Search, Network
+    - only exist for routes and helpers
+
+<div align="center">
+    <img src="mockups/uml.png">
+</div>
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 <div style="page-break-after: always;"></div>
 
 <!-- GETTING STARTED -->
-## Getting Started
+# Getting Started
 
 To get a local copy up and running follow these steps.
 
-### Prerequisites
+## Prerequisites
 
 To start, install the following packages: 
 * npm
@@ -120,7 +158,7 @@ To start, install the following packages:
 
 * Setup a Gmail for the project
 
-### Installation
+## Installation
 
 1. Clone the repo
    ```sh
@@ -182,9 +220,9 @@ To start, install the following packages:
 <div style="page-break-after: always;"></div>
 
 <!-- ROADMAP -->
-## Spring 2022 Development
+# Spring 2022 Development
 
-### User Stories
+## User Stories
 
 NOTE: All stories include cucumber and rspec testing requirements
 
@@ -233,17 +271,18 @@ Key:
 | 28 / 92 | [Reminder Feature] - Recurring Reminders | 2 | GL | As a user, I want to be able to schedule recurring reminders for my subscriptions | |
 | 29 / 103 | [UI Feature] - Landing Page Restyle | 1 | CE | As a user, I want to be able to have a better experience on the landing page | Added to address intial UI issues |
 | 30 / 106 | [UI Feature] - Restyle Sign up / Log in Pages | 1 | CE | As a user, I want to be able to have a better experience on the login and sign up pages | Added to address intial UI issues |
-| 31 / XX | [Cleanup Feature] - Validate form data | 1 | NV | As a developer, I want to be able to make sure that user-entered data conforms to the expected values so that I can have a secure application |  Started |
-| 32 / XX | [UI Feature] - Clean up Search page | 1 | CE | Make Search page UI match Figma mockups | Added to address intial UI issues |
-| 33 / XX | [UI Feature] - Subscription Page Restyle | 2 | CE | As a user, I want to be able to have a better experience on the subscription pages | Added to address intial UI issues |
-| 34 / XX | [UI Feature] - Reminders Restyle | 1 | CE | As a user, I want to be able to view a cleaner reminders page so that it looks like it fits with subscriptions | Added to address intial UI issues |
-| 35 / XX | [UI Feature] - Temp Sharing Pages Restyle | 1 | CE | As a user, I want to be able to view a cleaner temp sharing page so that it looks like it fits with subscriptions | Added to address intial UI issues |
-| 36 / XX | [Users Feature] - Premium Plan | 1 | GL | As a product owner, I want to be able to have premium users with more features so that I can charge more for premium service | Iced - Not enough time to implement |
-| 37 / XX | [Statistics Feature] - Usage Statistics | 2 | CE | As a user, I want to be able to view usage statistics so that I know how much I'm using subscriptions over periods of time | Iced - Decided it was not useful |
+| 31 / 120 | [Cleanup Feature] - Validate form data | 1 | NV | As a developer, I want to be able to make sure that user-entered data conforms to the expected values so that I can have a secure application |  Started |
+| 32 / 114 | [UI Feature] - Clean up Search page | 1 | CE | Make Search page UI match Figma mockups | Added to address intial UI issues |
+| 33 / 113 | [UI Feature] - Subscription Page Restyle | 2 | CE | As a user, I want to be able to have a better experience on the subscription pages | Added to address intial UI issues |
+| 34 / 113 | [UI Feature] - Reminders Restyle | 1 | CE | As a user, I want to be able to view a cleaner reminders page so that it looks like it fits with subscriptions | Added to address intial UI issues |
+| 35 / 113 | [UI Feature] - Temp Sharing Pages Restyle | 1 | CE | As a user, I want to be able to view a cleaner temp sharing page so that it looks like it fits with subscriptions | Added to address intial UI issues |
+| 36 / 113 | [UI Feature] - User profile icons | 1 | NV, GL | As a user, I want to be able to view my profile picture/gravatar | Started |
+| 37 / XX | [Users Feature] - Premium Plan | 1 | GL | As a product owner, I want to be able to have premium users with more features so that I can charge more for premium service | Iced - Not enough time to implement |
+| 38 / XX | [Statistics Feature] - Usage Statistics | 2 | CE | As a user, I want to be able to view usage statistics so that I know how much I'm using subscriptions over periods of time | Iced - Decided it was not useful |
 
 See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or the [pivotal tracker](https://www.pivotaltracker.com/n/projects/2547056) for a full list of proposed features (and known issues).
 
-### Figma Mockups
+## Figma Mockups
 
 | Figma | Screenshot |
 | ----- | ---------- |
@@ -257,7 +296,7 @@ See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or t
 | ![](mockups/search.png) | ![](mockups/search_actual.png) |
 | ![](mockups/stats.png) | ![](mockups/stats_actual.png) |
 
-### Iterations
+## Iterations
 
 | # | Points | Summary | Customer Demo Date |
 | ----- | ----- | ----- | ------ |
@@ -274,9 +313,9 @@ See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or t
 <div style="page-break-after: always;"></div>
 
 <!-- TOOLS AND PROCESSES -->
-## Tools and Processes
+# Tools and Processes
 
-### Tools and Gems
+## Tools and Gems
 
 * [Code Climate](https://codeclimate.com/): Automated code review for pull requests and quality maintenance 
 * [GitHub Projects](https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects): GitHub supported Iteration Planning feature
@@ -292,9 +331,11 @@ See the [open issues](https://github.com/gatekeeper-tamu/gatekeeper/issues) or t
 * [Faker](https://github.com/faker-ruby/faker): Library for generating fake data for rspec tests
 * [Cucumber](https://github.com/cucumber/cucumber-rails): Gem with generators and support for cucumber feature testing 
 
-We used a Google Cloud project for Oauth and an AWS project for KMS (encryption) key management. There were little to no issues setting this up. Instructions on setting this up are linked in the [getting-started](#getting-started) section.
+For more information on gems and tools we used, visit our [dependencies report](https://github.com/gatekeeper-tamu/gatekeeper/network/dependencies) on GitHub.
 
-### GitHub
+We used a Google Cloud project for Oauth and an AWS project for KMS (encryption) key management. There were little to no issues setting this up. Instructions on setting this up are linked in the [getting-started](#getting-started) section. 
+
+## GitHub
 
 Our team had a few standards around GitHub and development processes that helped us maintain quality and efficiency. We used the [Pivotal Tracker GitHub plugin](https://www.pivotaltracker.com/help/articles/github_integration/) to link branches and PRs to stories on Pivotal. We used Zapier (linked above) to copy all of our GitHub project User Stories to Pivotal. 
 
@@ -320,13 +361,13 @@ Each Iteration had an associated [Release](https://github.com/gatekeeper-tamu/ga
 
 There were some development spikes mostly due to the fact that there were a few iterations where only one (or sometimes two) team members did any significant work. 
 
-### Testing
+## Testing
 
 All of our user stories were written in terms of the behaviors expected at the completion of the user story. We had both Cucumber and Rspec tests. Rspec tests were written before the code about 50% of the time. We then made sure the key functionality of each user story (issue) was tested in unit and functional tests before a PR was merged. In the case of a bug fix, we made sure that the scenario that caused the bug in the first place was tested to verify that future developement would not cause the same issue. 
 
 Since we only did Test Driven Development (TDD) around 50% of the time, we occasionally had tests that were more tailored to the happy path instead of a comprehensive examination of code functionality. However, since the acceptance criteria of each user story/bug included testing requirements, we ended up with a large suite of tests and decent metrics for the quality of our appliation. By making sure each new feature was tested properly, we were actually able to catch some bugs caused by new development before PRs were merged.
 
-### Deployment
+## Deployment
 
 We had two Heroku deployment environments: one for testing and one production environment. Before each PR was merged, we deployed the branch to the test Heroku environment to verify that the code functioned outside of a local development environment. 
 
@@ -336,7 +377,7 @@ Both environments were set up with GitHub access. This allowed us to see the sta
 
 
 <!-- LINKS -->
-## Links
+# Links
 
 - [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2547056)
 - [GitHub](https://github.com/gatekeeper-tamu/gatekeeper)
