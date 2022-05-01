@@ -24,7 +24,7 @@
 
     <div class="field">
       <%= form.label :subscription_name %>
-      <%= form.text_field :subscription_name %>
+      <%= form.text_field :subscription_name, :required => 'required'%>
     </div>
 
     <div class="field">
@@ -52,11 +52,6 @@
     <div class="field">
       <%= form.label :cost_per_month %>
       <%= form.text_field :cost_per_month %>
-    </div>
-
-    <div class="field">
-      <%= form.label :image %>
-      <%= form.text_field :image %>
     </div>
   
     <br>

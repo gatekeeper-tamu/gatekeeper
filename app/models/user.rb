@@ -30,7 +30,9 @@ class User < ApplicationRecord
 			:recoverable, :rememberable, :validatable,
 			:timeoutable, :omniauthable
 	validates :username, presence: true
-	validates :email, presence: true, length: { minimum: 10, maximum: 255 },format: { with: VALID_EMAIL_REGEX }
+	validates :first_name, presence: true
+	validates :last_name, presence: true
+	validates :email, presence: true, length: { minimum: 1, maximum: 255 },format: { with: VALID_EMAIL_REGEX }
 	validates :password, presence: true
 	validates_uniqueness_of :username
 

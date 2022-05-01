@@ -28,19 +28,30 @@ class SearchController < ApplicationController
         @idresult = JSON.parse(@idresponse.read_body)
 
         i=0
+        inResults = false
         while i < @idresult.size
             if @idresult['title_results'] == []
-                puts "empty"
-                redirect_to search_path and return
+                redirect_to '/search/empty' and return
+            
             else
-                while @idresult['title_results'][i]['id'] != nil
-                    @id = @idresult['title_results'][i]['id']
-                    @titles = @idresult['title_results'][i]['name']
-                    @search = Search.create(search_id: @id, title: @titles)
-                    break
+                if @idresult['title_results'][i] != nil
+                    if title_name == @idresult['title_results'][i]['name']
+                        inResults = true
+                    end
+                end
+                if @idresult != nil && @idresult['title_results'][i] != nil
+                    while @idresult['title_results'][i]['id'] != nil
+                        @id = @idresult['title_results'][i]['id']
+                        @titles = @idresult['title_results'][i]['name']
+                        @search = Search.create(search_id: @id, title: @titles)
+                        break
+                    end
                 end
             end
             i = i + 1
+        end
+        if inResults == false
+            redirect_to '/search/empty' and return
         end
         return "show search successful"
     end
@@ -61,12 +72,17 @@ class SearchController < ApplicationController
         if @services_result.size === 0
             puts 'empty'
         end
+        
         j=0
         while j < @services_result.size
+            
             if @services_result[j]['type'] === "sub"
                 @network_name = @services_result[j]['name']
                 @network_url = @services_result[j]['web_url']
                 @network = Network.create(search_id: searchid, network_name: @network_name, network_url: @network_url)
+                if @services_result[j] == nil
+                    redirect_to '/search/empty' and return
+                end
             end
             j = j + 1
         end

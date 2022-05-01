@@ -1,0 +1,19 @@
+<%= image_tag "roses-left.png", class:"img-roses roses-left-large" %>
+<%= image_tag "roses-right.png", class:"img-roses roses-right-large" %>
+<div class="container main" style="margin-top: 20vh;">
+  <% if flash[:alert] %>
+    <div class="alert alert-light"><%= flash[:alert] %></div>
+    <% end %>
+	<h1 class="center">The search you are looking for does not exist.</h1>
+    <a href=<%= search_path %> class="btn ml-auto" style="align-items: center" role="button" title="Search">
+        <%= fa_icon "search" %> Search Again
+    </a>
+  <br>
+
+  <% if !current_user %>
+    <p style="font-size: 20px; padding: 1% 15%; font-weight: 300;">Join our platform today to save passwords for all of your subscription services, share those passwords between friends, and receive reminders on when to cancel them.</p>
+    <%= link_to "Sign Up for Gatekeeper Now", new_user_registration_path, style: "font-size: 20px; font-weight: 300;"  %>
+
+  <% end %>
+  </div>
+</div>
