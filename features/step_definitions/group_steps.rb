@@ -54,7 +54,7 @@ Given /the Roomies group exists/ do
 	expect(!@user.nil?)
 	sarah ||= find_user("sarah@testerwoman.com")
 	roomies = @user.owned_groups.create(group_name: "Roomies", user_id: @user.id)
-	flatmates.users << sarah
+	roomies.users << sarah
 	netflix ||= @user.subscriptions.where(subscription_name: "Netflix").first
 	if (!netflix.nil?)
 		roomies.subscriptions << netflix
@@ -102,7 +102,6 @@ end
 
 When /^I (View|Edit|Delete|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
-	puts @group
 	@group_id = @group.id
 	row = page.find(".card-body", text: group_name)
 	row = row.find("#actions-#{group_name}")
