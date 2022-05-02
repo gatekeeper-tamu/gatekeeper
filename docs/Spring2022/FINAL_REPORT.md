@@ -382,6 +382,7 @@ Both environments were set up with GitHub access. This allowed us to see the sta
 - [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2547056)
 - [GitHub](https://github.com/gatekeeper-tamu/gatekeeper)
 - [Deployed App](https://gatekeeper-tamu.herokuapp.com/)
+- [Slide Presentation Video](https://drive.google.com/file/d/1tWaBk9AkyLokxtKJzyeq5NKA02i10Z9g/view?usp=sharing) -> Must be signed in with TAMU Google Drive account
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
