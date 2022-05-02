@@ -14,6 +14,7 @@ class SearchController < ApplicationController
         @resultsURL= []
     end
 
+    #Makes an API call to search for is based on user search input
     def showsearch(title_name)
         id_url = URI("https://watchmode.p.rapidapi.com/search/?search_field=name&search_value=#{title_name}")
         http = Net::HTTP.new(id_url.host, id_url.port)
@@ -21,9 +22,8 @@ class SearchController < ApplicationController
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
         idrequest = Net::HTTP::Get.new(id_url)
-        idrequest["x-rapidapi-host"] = 'watchmode.p.rapidapi.com'
-        idrequest["x-rapidapi-key"] = '3f2560c7e3msh18d24d47fcda8f8p17b513jsn0a997cc33ab8'
-
+        idrequest["x-rapidapi-host"] = ENV["RAPIDAPI_API_URL"]
+        idrequest["x-rapidapi-key"] = ENV["RAPIDAPI_API_KEY"]
         @idresponse = http.request(idrequest)
         @idresult = JSON.parse(@idresponse.read_body)
 
@@ -56,6 +56,7 @@ class SearchController < ApplicationController
         return "show search successful"
     end
 
+    #uses id to find networks available for a particular search input
     def networksearch(searchid)
         services_url = URI("https://watchmode.p.rapidapi.com/title/#{searchid}/sources/")
         http = Net::HTTP.new(services_url.host, services_url.port)
@@ -88,6 +89,8 @@ class SearchController < ApplicationController
         return "network search successful"
     end
 
+    # show function 
+    
     def show
         titleName = params[:search][:title]
         title_name = titleName.titleize()
