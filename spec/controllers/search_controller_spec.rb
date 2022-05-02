@@ -18,7 +18,15 @@ RSpec.describe SearchController, type: :request do
             fill_in 'search_title', with: 'Euphoria'
             click_button "search"
             print page.body
-            expect(page).to have_content 'Join our platform today'
+            expect(page).to have_content 'Euphoria is available on:'
+        end
+    end
+
+    describe "#showsearch" do
+        it "returns a success search response" do
+            visit '/search'
+            SearchController.new.send(:showsearch, "Euphoria").should == "show search successful"
+            print page.body
         end
     end
     

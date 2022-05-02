@@ -23,5 +23,5 @@ Then /^I should see the search page$/ do
 	page.should have_content("Search for a show or movie below to find streaming platforms!")
 end
 Then /^I should see search's show page$/ do
-	page.should have_content("Join our platform today")
+	page.should have_content("Riverdale is available on:")
 end
