@@ -1,6 +1,6 @@
 class Reminder < ActiveRecord::Base
     belongs_to :subscription
-    
+
     #end date and reminder type fields must exist
     validates :end_date, presence: true
     validates :reminder_type, presence: true

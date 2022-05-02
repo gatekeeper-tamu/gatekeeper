@@ -3,7 +3,7 @@ class Membership < ApplicationRecord
   belongs_to :user
   belongs_to :group
 
-  #the group association must be unique 
+  #the group association must be unique
   validates :group_id, :uniqueness => {:scope=>:user_id}
 
   enum permission: {

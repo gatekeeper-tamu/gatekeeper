@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-	
+
 	#components used by users from outside User model
 	class << self
 		attr_accessor :email
