@@ -53,7 +53,8 @@ end
 Given /the Roomies group exists/ do
 	expect(!@user.nil?)
 	sarah ||= find_user("sarah@testerwoman.com")
-	roomies = @user.owned_groups.create(group_name: "Roomies", user_ids: sarah.id)
+	roomies = @user.owned_groups.create(group_name: "Roomies", user_id: @user.id)
+	flatmates.users << sarah
 	netflix ||= @user.subscriptions.where(subscription_name: "Netflix").first
 	if (!netflix.nil?)
 		roomies.subscriptions << netflix
@@ -64,7 +65,8 @@ end
 Given /the Flatmates group exists/ do
 	expect(!@user.nil?)
 	sarah ||= find_user("sarah@testerwoman.com")
-	flatmates = sarah.owned_groups.create(group_name: "Flatmates", user_ids: @user.id)
+	flatmates = sarah.owned_groups.create(group_name: "Flatmates", user_id: sarah.id)
+	flatmates.users << @user
 	hulu ||= sarah.subscriptions.where(subscription_name: "Hulu").first
 	if (!hulu.nil?)
 		flatmates.subscriptions << hulu
@@ -75,7 +77,8 @@ end
 Given /the Flatmates2 group exists/ do
 	expect(!@user.nil?)
 	sarah ||= find_user("sarah@testerwoman.com")
-	flatmates = sarah.owned_groups.create(group_name: "Flatmates2", user_ids: @user.id)
+	flatmates = sarah.owned_groups.create(group_name: "Flatmates2", user_id: sarah.id)
+	flatmates.users << @user
 	hulu ||= sarah.subscriptions.where(subscription_name: "Hulu").first
 	flatmates.members.first.permission = Membership.permissions[:admin]
 	if (!hulu.nil?)
@@ -99,6 +102,7 @@ end
 
 When /^I (View|Edit|Delete|Show) the "(.*)" group$/ do |action, group_name|
 	@group = Group.where(:group_name => group_name).first
+	puts @group
 	@group_id = @group.id
 	row = page.find(".card-body", text: group_name)
 	row = row.find("#actions-#{group_name}")

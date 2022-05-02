@@ -31,24 +31,28 @@ class SearchController < ApplicationController
         inResults = false
         while i < @idresult.size
             if @idresult['title_results'] == []
+                redirect_to '/index' and return
+            elsif  @idresult['title_results'] == nil
                 redirect_to '/search/empty' and return
-
             else
-                if @idresult['title_results'][i] != nil
-                    if title_name == @idresult['title_results'][i]['name']
-                        inResults = true
+                if  @idresult['title_results'] != nil
+                    if @idresult['title_results'][i] != nil
+                        if title_name == @idresult['title_results'][i]['name']
+                            inResults = true
+                        end
                     end
-                end
-                if @idresult != nil && @idresult['title_results'][i] != nil
-                    while @idresult['title_results'][i]['id'] != nil
-                        @id = @idresult['title_results'][i]['id']
-                        @titles = @idresult['title_results'][i]['name']
-                        @search = Search.create(search_id: @id, title: @titles)
-                        break
+                    if @idresult != nil && @idresult['title_results'][i] != nil
+                        while @idresult['title_results'][i]['id'] != nil
+                            @id = @idresult['title_results'][i]['id']
+                            @titles = @idresult['title_results'][i]['name']
+                            @search = Search.create(search_id: @id, title: @titles)
+                            break
+                        end
                     end
                 end
             end
             i = i + 1
+    
         end
         if inResults == false
             redirect_to '/search/empty' and return
