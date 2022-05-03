@@ -17,8 +17,7 @@ class UsersController < ApplicationController
           puts "Can't access this page!"
           redirect_to "/404.html"
         end
-    end 
-
+    end
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:search, :username)

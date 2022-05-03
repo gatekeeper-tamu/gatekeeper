@@ -14,7 +14,7 @@ When /I fill in the search form / do
 end
 
 When /^I click the search button$/ do
-    find('.btn', :text => '"Search "').click
+    find('.btn', :text => '"Search"').click
 end
 
 ####THEN####
@@ -23,5 +23,5 @@ Then /^I should see the search page$/ do
 	page.should have_content("Search for a show or movie below to find streaming platforms!")
 end
 Then /^I should see search's show page$/ do
-	page.should have_content("is available on:")
+	page.should have_content("Riverdale is available on:")
 end

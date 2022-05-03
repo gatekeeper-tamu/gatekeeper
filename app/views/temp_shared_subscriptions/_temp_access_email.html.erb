@@ -3,7 +3,7 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <%= simple_fields_for :no_model_fields do |n| %>
-    <%= n.input :email, placeholder: "enter email address" %>
+    <%= n.input :email, placeholder: "enter email address", :required => 'required' %>
   <% end %>
   <br>
   <div class="form-actions">

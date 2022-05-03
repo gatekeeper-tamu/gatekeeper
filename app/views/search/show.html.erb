@@ -25,4 +25,10 @@
             <%end%>
         </tbody>
     </table>
+    <% if !current_user %>
+    <p style="font-size: 20px; padding: 1% 15%; font-weight: 300;">Join our platform today to save passwords for all of your subscription services, share those passwords between friends, and receive reminders on when to cancel them.</p>
+    <%= link_to "Sign Up for Gatekeeper Now", new_user_registration_path, style: "align-self: center; font-size: 20px; font-weight: 300;"  %>
+
+  <% end %>
+  </div>
 </div>

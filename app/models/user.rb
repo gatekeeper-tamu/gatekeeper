@@ -23,12 +23,17 @@ class User < ApplicationRecord
 			# user.skip_confirmation!
 		end
 	end
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :validatable,
 			:timeoutable, :omniauthable
 	validates :username, presence: true
+	validates :first_name, presence: true
+	validates :last_name, presence: true
+	validates :email, presence: true, length: { minimum: 1, maximum: 255 },format: { with: VALID_EMAIL_REGEX }
+	validates :password, presence: true
 	validates_uniqueness_of :username
 
 	has_many :subscriptions, dependent: :destroy

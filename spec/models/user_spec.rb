@@ -19,12 +19,12 @@ RSpec.describe User, type: :model do
     FactoryBot.build(:user, password: nil).should_not be_valid
   end
 
-  it "is valid without a first_name" do
-    FactoryBot.build(:user, first_name: nil).should be_valid
+  it "is not valid without a first_name" do
+    FactoryBot.build(:user, first_name: nil).should_not be_valid
   end
 
-  it "is valid without a last_name" do
-    FactoryBot.build(:user, last_name: nil).should be_valid
+  it "is not valid without a last_name" do
+    FactoryBot.build(:user, last_name: nil).should_not be_valid
   end
 
   it "does not allow duplicate usernames" do
