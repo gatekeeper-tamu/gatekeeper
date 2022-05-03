@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get '/search', to: 'search#index'
   get '/search/show', to: 'search#index'  # throwing 404 error on refresh of search results page - now redirects to searech page
 	post 'search/show'
+  get '/search/empty', to: 'search#empty'
   
   get 'home/index'
   root 'home#index'

@@ -143,7 +143,6 @@ class GroupsController < ApplicationController
     end
 
     def update_params
-      puts params
       params.compact!
       if (current_user.is_admin?(@group))
         params.require(:group).permit(:group_name, {user_ids: []}, :user_ids, :subscription_id, {subscription_ids: []}, :subscription_ids,

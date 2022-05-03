@@ -60,6 +60,9 @@ group :test do
   #code coverage
   # from https://github.com/colszowka/simplecov
   gem 'simplecov', require: false
+
+  #environment variables for rspec
+  gem 'dotenv-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -66,7 +66,6 @@ When /^I create a new subscription$/ do
 	fill_in "subscription_password", :with => "supersecurelongpassword"
 	fill_in "subscription_url", :with => "http://netflix.com"
 	fill_in "subscription_cost_per_month", :with => 12.99
-	fill_in "subscription_image", :with => "myimage.url/test.png"
 end
 
 
