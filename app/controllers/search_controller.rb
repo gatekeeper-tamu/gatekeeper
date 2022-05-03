@@ -52,7 +52,7 @@ class SearchController < ApplicationController
                 end
             end
             i = i + 1
-    
+
         end
         if inResults == false
             redirect_to '/search/empty' and return
@@ -93,8 +93,8 @@ class SearchController < ApplicationController
         return "network search successful"
     end
 
-    # show function 
-    
+    # show function
+
     def show
         titleName = params[:search][:title]
         title_name = titleName.titleize()
