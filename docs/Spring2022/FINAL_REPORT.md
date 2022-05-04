@@ -34,41 +34,26 @@
 <div style="page-break-after: always;"></div>
 
 <!-- TABLE OF CONTENTS -->
-<h3>Table of Contents</h3>
-<ol>
-  <li>
-    <a href="#about-the-project">About The Project</a>
-    <ul>
-      <li><a href="#architecture">Architecture</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="#getting-started">Getting Started</a>
-    <ul>
-      <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#installation">Installation</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="#spring-2022-development">Spring 2022 Development</a>
-    <ul>
-      <li><a href="#user-stories">User Stories</a></li>
-      <li><a href="#figma-mockups">Figma Mockups</a></li>
-      <li><a href="#iterations">Iterations</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="#tools-and-processes">Tools and Processes</a>
-    <ul>
-      <li><a href="#tools-and-gems">Tools and Gems</a></li>
-      <li><a href="#github">GitHub</a></li>
-      <li><a href="#testing">Testing</a></li>
-      <li><a href="#deployment">Deployment</a></li>
-    </ul>
-  </li>
-  <li><a href="#Links">Links</a></li>
-</ol>
+Table of Contents
+
+- [About The Project](#about-the-project)
+  - [Architecture](#architecture)
+    - [Models](#models)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Spring 2022 Development](#spring-2022-development)
+  - [User Stories](#user-stories)
+  - [Figma Mockups](#figma-mockups)
+  - [Iterations](#iterations)
+- [Tools and Processes](#tools-and-processes)
+  - [Tools and Gems](#tools-and-gems)
+  - [GitHub](#github)
+  - [Testing](#testing)
+  - [Deployment](#deployment)
+- [Links](#links)
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 
 <!-- ABOUT THE PROJECT -->
 # About The Project
@@ -89,7 +74,7 @@ Rebecca McFadden is the Product Owner and Scrum Master for this project. Initial
 </div>
 <br>
 
-### Models:
+### Models
   - User: user information, can be created through Google or regular Auth
   - Group
     - `owner` = user reference (`belongs_to`)
@@ -158,6 +143,22 @@ To start, install the following packages:
 
 * Setup a Gmail for the project
 
+* Setup access to the [watchmode API](https://rapidapi.com/meteoric-llc-meteoric-llc-default/api/watchmode/)
+  - Set up a RapidAPI account
+  - Retrieve the X-RapidAPI-Key from the Watch mode endpoint API playground
+  - To make the API call in your project:
+    ```ruby
+      Url = URI("https://watchmode.p.rapidapi.com/’{REQUIRED API CALL}’")
+      http = Net::HTTP.new(services_url.host, services_url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Get.new(services_url)
+      request["x-rapidapi-host"] = 'watchmode.p.rapidapi.com'
+      request["x-rapidapi-key"] = ‘YOURAPIKEY’
+      response = http.request(services_request)
+      result = JSON.parse(services_response.read_body)
+    ```
+
 ## Installation
 
 1. Clone the repo
@@ -180,6 +181,8 @@ To start, install the following packages:
       AWS_REGION="..."
       GMAIL_EMAIL="..."
       GMAIL_PASSWORD="..."
+      RAPIDAPI_API_URL='watchmode.p.rapidapi.com'
+      RAPIDAPI_API_KEY="..."
       ```
 4. Create or set heroku project
     ```sh
@@ -271,12 +274,12 @@ Key:
 | 28 / 92 | [Reminder Feature] - Recurring Reminders | 2 | GL | As a user, I want to be able to schedule recurring reminders for my subscriptions | |
 | 29 / 103 | [UI Feature] - Landing Page Restyle | 1 | CE | As a user, I want to be able to have a better experience on the landing page | Added to address intial UI issues |
 | 30 / 106 | [UI Feature] - Restyle Sign up / Log in Pages | 1 | CE | As a user, I want to be able to have a better experience on the login and sign up pages | Added to address intial UI issues |
-| 31 / 120 | [Cleanup Feature] - Validate form data | 1 | NV | As a developer, I want to be able to make sure that user-entered data conforms to the expected values so that I can have a secure application |  Started |
+| 31 / 120 | [Cleanup Feature] - Validate form data | 1 | NV | As a developer, I want to be able to make sure that user-entered data conforms to the expected values so that I can have a secure application | |
 | 32 / 114 | [UI Feature] - Clean up Search page | 1 | CE | Make Search page UI match Figma mockups | Added to address intial UI issues |
 | 33 / 113 | [UI Feature] - Subscription Page Restyle | 2 | CE | As a user, I want to be able to have a better experience on the subscription pages | Added to address intial UI issues |
 | 34 / 113 | [UI Feature] - Reminders Restyle | 1 | CE | As a user, I want to be able to view a cleaner reminders page so that it looks like it fits with subscriptions | Added to address intial UI issues |
 | 35 / 113 | [UI Feature] - Temp Sharing Pages Restyle | 1 | CE | As a user, I want to be able to view a cleaner temp sharing page so that it looks like it fits with subscriptions | Added to address intial UI issues |
-| 36 / 113 | [UI Feature] - User profile icons | 1 | NV, GL | As a user, I want to be able to view my profile picture/gravatar | Started |
+| 36 / XX | [UI Feature] - User profile icons | 1 | NV, GL | As a user, I want to be able to view my profile picture/gravatar | Started |
 | 37 / XX | [Users Feature] - Premium Plan | 1 | GL | As a product owner, I want to be able to have premium users with more features so that I can charge more for premium service | Iced - Not enough time to implement |
 | 38 / XX | [Statistics Feature] - Usage Statistics | 2 | CE | As a user, I want to be able to view usage statistics so that I know how much I'm using subscriptions over periods of time | Iced - Decided it was not useful |
 
