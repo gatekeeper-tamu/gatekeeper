@@ -13,6 +13,7 @@ class Subscription < ApplicationRecord
   attr_encrypted :username, key: Rails.env.test? || Rails.env.development? ? '2K31QRnurJBWvtWkTE3uXfKA7vivrvA5' : :kms_key
   attr_encrypted :password, key: Rails.env.test? || Rails.env.development? ? '2K31QRnurJBWvtWkTE3uXfKA7vivrvA5' : :kms_key
 
+  #hiding password in gorm
   def redacted_password
     "*" * password.length
   end
@@ -21,10 +22,12 @@ class Subscription < ApplicationRecord
 	validates :password, presence: true
   validates :url, :format => { :with => URI::DEFAULT_PARSER.make_regexp(%w(http https)), :message => " is not valid" }
 
+  #search for subscriptions acessible by user
   scope :accessible_by_user, ->(user) {
     where(id: SharedSubscription.where(group_id: Group.accessible_by_user(user)).pluck(:subscription_id)).or(where(user: user))
   }
 
+  #defining functions for subscription permissions throughout gatekeeper site
   def can_edit?(user)
     return user.can_edit?(self)
   end
@@ -45,7 +48,7 @@ class Subscription < ApplicationRecord
 
 
 protected
-
+  #securing website
   def smart_add_url_protocol
     unless url.nil? || url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
       self.url = "http://#{url}"

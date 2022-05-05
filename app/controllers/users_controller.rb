@@ -9,12 +9,15 @@ class UsersController < ApplicationController
     def set_user
       begin
         if (current_user.username == params[:username])
+          #if user is current user, display the profile page including options to edit profile
           @user = current_user
         else
           @user = User.find(params[:username])
+          #if user exists, the profile page is displayed
         end
         rescue ActiveRecord::RecordNotFound => e
           puts "Can't access this page!"
+          #if user does not exist, display error 404 page
           redirect_to "/404.html"
         end
     end

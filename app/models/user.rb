@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+
+	#components used by users from outside User model
 	class << self
 		attr_accessor :email
 		attr_accessor :username
@@ -44,7 +46,8 @@ class User < ApplicationRecord
 	accepts_nested_attributes_for :subscriptions
 	accepts_nested_attributes_for :owned_groups
 
-  def is_viewer?(group)
+	#defining functions for user permissions throughout gatekeeper site
+  	def is_viewer?(group)
 		access = group_access_level(group)
 		return (Membership.permissions[access] >= Membership.permissions[:viewer])
 	end
@@ -65,16 +68,13 @@ class User < ApplicationRecord
 
 	def group_access_level(group)
 		if (is_owner?(group))
-			# puts "User is owner"
 			return Membership.permissions.key(2)
 		end
-		# puts "User is not owner"
 		return group.user_access_level(self)
 	end
 
 	def can_view?(subscription)
 		access = subscription_access_level(subscription)
-		# puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:viewer]}"
 		return (SharedSubscription.permissions[access] >= SharedSubscription.permissions[:viewer])
 	end
 
@@ -83,7 +83,6 @@ class User < ApplicationRecord
 			return true
 		end
 		access = subscription_access_level(subscription)
-		# puts "#{access} -> #{SharedSubscription.permissions[access]} = #{SharedSubscription.permissions[:editor]}"
 		return (SharedSubscription.permissions[access] == SharedSubscription.permissions[:editor])
 	end
 
@@ -93,6 +92,7 @@ class User < ApplicationRecord
 		end
 		can_view = false
 		can_edit = false
+		#define subscription access level
 		for share_record in SharedSubscription.where(subscription_id: subscription.id, group_id: Group.accessible_by_user(self).pluck(:id))
 			begin
 				if (SharedSubscription.permissions[share_record.permission] == SharedSubscription.permissions[:viewer])

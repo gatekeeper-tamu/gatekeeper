@@ -16,17 +16,21 @@ class SearchController < ApplicationController
 
     #Makes an API call to search for is based on user search input
     def showsearch(title_name)
+
+        #preparing to make first API call for show title
         id_url = URI("https://watchmode.p.rapidapi.com/search/?search_field=name&search_value=#{title_name}")
         http = Net::HTTP.new(id_url.host, id_url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
         idrequest = Net::HTTP::Get.new(id_url)
+        #response from API call
         idrequest["x-rapidapi-host"] = ENV["RAPIDAPI_API_URL"]
         idrequest["x-rapidapi-key"] = ENV["RAPIDAPI_API_KEY"]
         @idresponse = http.request(idrequest)
         @idresult = JSON.parse(@idresponse.read_body)
 
+        #parsing valid response for id, title to create new entry in Searches table
         i=0
         inResults = false
         while i < @idresult.size
@@ -62,6 +66,7 @@ class SearchController < ApplicationController
 
     #uses id to find networks available for a particular search input
     def networksearch(searchid)
+        #preparing second API call
         services_url = URI("https://watchmode.p.rapidapi.com/title/#{searchid}/sources/")
         http = Net::HTTP.new(services_url.host, services_url.port)
         http.use_ssl = true
@@ -71,13 +76,15 @@ class SearchController < ApplicationController
         services_request["x-rapidapi-host"] = 'watchmode.p.rapidapi.com'
         services_request["x-rapidapi-key"] = '3f2560c7e3msh18d24d47fcda8f8p17b513jsn0a997cc33ab8'
 
+        #response from API call
         @services_response = http.request(services_request)
         @services_result = JSON.parse(@services_response.read_body)
 
-        if @services_result.size === 0
+        if @services_result.size === 0  #no result found
             puts 'empty'
         end
-
+      
+        #parsing second API call response to find available network providers
         j=0
         while j < @services_result.size
             if @services_result[j]['type'] === "sub"
@@ -104,6 +111,7 @@ class SearchController < ApplicationController
             showsearch(title_name)
        end
 
+       #search for record in database
         search_id = []
         searchid = Search.select("search_id").where(title: title_name)
         searchid.each_with_index do |i|

@@ -9,6 +9,8 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
+    #checks if user permissions is a viewer of the group
+    #otherwise, display error 404 page
     if !current_user.is_viewer?(@group)
       puts "Can't access this page! Invalid login."
       redirect_to "/404.html"
@@ -22,6 +24,8 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    #checks if user permissions is a collaborator of the group
+    #otherwise, display error 404 page
     if !current_user.is_collaborator?(@group)
       puts "Can't access this page! Invalid login."
       redirect_to "/404.html"
@@ -31,7 +35,7 @@ class GroupsController < ApplicationController
   # POST /groups or /groups.json
   def create
     @group = Group.new(create_params)
-    @group.owner = current_user
+    @group.owner = current_user #set owner to current user
 
     respond_to do |format|
       if @group.save
@@ -45,15 +49,12 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
+    #params from form add or remove subscription to user group
     return unless (current_user.is_collaborator?(@group))
     respond_to do |format|
       if (update_params[:update_action] == "add")
         puts "ADDING SUBSCRIPTION"
-        # if (update_params[:shared_subscriptions_attributes].nil?)
-          add_subscription(update_params[:subscription_ids].second, format)
-        # else
-          # add_shared_subscription(update_params[:shared_subscriptions_attributes]["0"][:subscription_id], update_params[:shared_subscriptions_attributes]["0"][:permission], format)
-        # end
+        add_subscription(update_params[:subscription_ids].second, format)
       elsif (update_params[:update_action] == "remove")
         puts "REMOVING SUBSCRIPTION"
         remove_subscription(update_params[:subscription_ids].first, format)
@@ -70,7 +71,7 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1 or /groups/1.json
   def destroy
-    if (!current_user.is_owner?(@group))
+    if (!current_user.is_owner?(@group))  #checks to see if current user is owner
       puts "Can't access this page! Invalid login."
       redirect_to "/404.html"
     end

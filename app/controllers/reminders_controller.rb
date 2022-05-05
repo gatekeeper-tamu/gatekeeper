@@ -27,6 +27,7 @@ class RemindersController < ApplicationController
 
     respond_to do |format|
       if @reminder.save
+        #queues mailer until new reminder email function logic in lib/tasks/send_reminder_email
         ReminderMailer.with(user: current_user, reminder: @reminder).new_reminder_email.deliver_later
 
         format.html { redirect_to reminder_url(@reminder), notice: "Reminder was successfully created." }
