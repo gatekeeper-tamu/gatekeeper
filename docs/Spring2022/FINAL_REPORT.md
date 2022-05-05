@@ -279,7 +279,7 @@ Key:
 | 33 / 113 | [UI Feature] - Subscription Page Restyle | 2 | CE | As a user, I want to be able to have a better experience on the subscription pages | Added to address intial UI issues |
 | 34 / 113 | [UI Feature] - Reminders Restyle | 1 | CE | As a user, I want to be able to view a cleaner reminders page so that it looks like it fits with subscriptions | Added to address intial UI issues |
 | 35 / 113 | [UI Feature] - Temp Sharing Pages Restyle | 1 | CE | As a user, I want to be able to view a cleaner temp sharing page so that it looks like it fits with subscriptions | Added to address intial UI issues |
-| 36 / XX | [UI Feature] - User profile icons | 1 | NV, GL | As a user, I want to be able to view my profile picture/gravatar | Started |
+| 36 / XX | [UI Feature] - User profile icons | 1 | NV, GL | As a user, I want to be able to view my profile picture/gravatar | Iced - Not enough time to implement |
 | 37 / XX | [Users Feature] - Premium Plan | 1 | GL | As a product owner, I want to be able to have premium users with more features so that I can charge more for premium service | Iced - Not enough time to implement |
 | 38 / XX | [Statistics Feature] - Usage Statistics | 2 | CE | As a user, I want to be able to view usage statistics so that I know how much I'm using subscriptions over periods of time | Iced - Decided it was not useful |
 
@@ -385,7 +385,7 @@ Both environments were set up with GitHub access. This allowed us to see the sta
 - [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2547056)
 - [GitHub](https://github.com/gatekeeper-tamu/gatekeeper)
 - [Deployed App](https://gatekeeper-tamu.herokuapp.com/)
-- [Slide Presentation Video](https://drive.google.com/file/d/1tWaBk9AkyLokxtKJzyeq5NKA02i10Z9g/view?usp=sharing) -> Must be signed in with TAMU Google Drive account
+- [Slide Presentation/Demo Video](https://drive.google.com/file/d/1_ON2iaOMFu2P3iXs9ltNgZgzo6GynR2w/view?usp=sharing) -> Must be signed in with TAMU Google Drive account
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
