@@ -69,6 +69,8 @@ a number of useful features such as:
 - Sharing of service entries between friends, family, and other groups
 - Scheduleable reminders to cancel, update, renew, and more.
 
+For more info on the project, see our [Final Report](docs/Spring2022/FINAL_REPORT.md)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
