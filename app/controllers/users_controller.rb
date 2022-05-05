@@ -12,7 +12,7 @@ class UsersController < ApplicationController
           #if user is current user, display the profile page including options to edit profile
           @user = current_user
         else
-          @user = User.find(params[:username])
+          @user = User.find_by(username: params[:username])
           #if user exists, the profile page is displayed
         end
         rescue ActiveRecord::RecordNotFound => e
